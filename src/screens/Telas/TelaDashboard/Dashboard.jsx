@@ -92,7 +92,7 @@ function Dashboard({ isCollapsed, toggleSidebar }) {
             </div>
 
             <div className={styles.caixa}>
-              <h3>Consultar Lucro por Data</h3>
+              <h3>Consultar Lucro por Mês</h3>
               <input type="date" className={styles.input} />
               <button className={styles.botao}>Buscar</button>
             </div>

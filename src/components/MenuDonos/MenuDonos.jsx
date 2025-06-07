@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   FaHome,
@@ -20,13 +20,22 @@ function MenuDonos({ children }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Carrega o estado do menu do localStorage
   const [isCollapsed, setIsCollapsed] = useState(() => {
     const stored = localStorage.getItem("menuCollapsed");
-    return stored === "true"; // retorna true ou false
+    return stored === "true";
   });
 
-  // Atualiza o localStorage sempre que o estado mudar
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth <= 768) {
+        setIsCollapsed(true);
+      }
+    }
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const toggleSidebar = () => {
     setIsCollapsed((prev) => {
       localStorage.setItem("menuCollapsed", !prev);
@@ -51,8 +60,8 @@ function MenuDonos({ children }) {
 
   return (
     <>
-      <header className={`${styles.headerTop} ${isCollapsed ? styles.headerCollapsed : ""}`}>
-        <button className={styles.menuButton} onClick={toggleSidebar}>
+      <header className={styles.headerTop}>
+        <button className={styles.menuButton} onClick={toggleSidebar} aria-label="Toggle menu">
           <FaBars />
         </button>
         <div className={styles.logoContainer}>
@@ -61,9 +70,9 @@ function MenuDonos({ children }) {
         </div>
       </header>
 
-      <div className={styles.menuContainer}>
-        <aside className={`${styles.sidebar} ${isCollapsed ? styles.collapsed : ""}`}>
-          <nav className={styles.menu}>
+      <div className={`${styles.container} ${isCollapsed ? styles.collapsed : ""}`}>
+        <aside className={styles.sidebar} onClick={() => window.innerWidth <= 768 && setIsCollapsed(true)}>
+          <nav>
             <ul className={styles.menuUl}>
               {menuItems.map((item, index) => (
                 <li
@@ -78,11 +87,9 @@ function MenuDonos({ children }) {
             </ul>
           </nav>
         </aside>
-      </div>
 
-      <main className={`${styles.pageContent} ${isCollapsed ? styles.pageContentCollapsed : ""}`}>
-        {children}
-      </main>
+        <main className={styles.pageContent}>{children}</main>
+      </div>
     </>
   );
 }
