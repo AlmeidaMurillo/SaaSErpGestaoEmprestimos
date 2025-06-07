@@ -8,6 +8,7 @@ export default function Login() {
   const [senha, setSenha] = useState("");
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [erro, setErro] = useState("");
+  const [inputFocused, setInputFocused] = useState(false);
   const navigate = useNavigate();
   const toggleSenha = () => setMostrarSenha(!mostrarSenha);
 
@@ -27,7 +28,7 @@ export default function Login() {
   };
 
   return (
-    <div className={styles.loginContainer}>
+    <div className={`${styles.loginContainer} ${inputFocused ? styles.keyboardOpen : ""}`}>
       <div className={styles.loginBox}>
         <h1 className={styles.title}>MultiAlmeida</h1>
         <h2 className={styles.soubtitle}>Gestão Empréstimos</h2>
@@ -43,6 +44,8 @@ export default function Login() {
               className={styles.input}
               value={usuario}
               onChange={(e) => setUsuario(e.target.value)}
+              onFocus={() => setInputFocused(true)}
+              onBlur={() => setInputFocused(false)}
               required
             />
           </div>
@@ -55,6 +58,8 @@ export default function Login() {
               className={styles.input}
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
+              onFocus={() => setInputFocused(true)}
+              onBlur={() => setInputFocused(false)}
               required
             />
             <span
@@ -75,7 +80,7 @@ export default function Login() {
 
       <footer className={styles.footer}>
         <p className={styles.rights}>
-          © {new Date().getFullYear() } <strong>MultiAlmeida</strong>. Todos os
+          © {new Date().getFullYear()} <strong>MultiAlmeida</strong>. Todos os
           direitos reservados.
         </p>
       </footer>

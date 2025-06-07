@@ -112,6 +112,11 @@
   transform: scale(1.03);
 }
 
+.keyboardOpen {
+  padding-top: 80px; 
+  transition: padding-top 0.3s ease;
+}
+
 .errorMsg {
   color: #ff6b6b;
   margin-top: 10px;
