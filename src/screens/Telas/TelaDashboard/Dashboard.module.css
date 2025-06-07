@@ -3,8 +3,8 @@
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 16px;
   padding: 24px;
-  height: auto;
   box-sizing: border-box;
+  min-height: 100vh;
 }
 
 .caixa {
@@ -17,9 +17,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 160px;
+  min-height: 200px; 
   cursor: pointer;
   border: 1px solid #e0e0e0;
+  box-sizing: border-box;
 }
 
 .caixa:hover {
@@ -92,7 +93,7 @@
 
   .caixa {
     padding: 16px;
-    min-height: 140px;
+    min-height: 200px;
   }
 
   .caixa h3 {

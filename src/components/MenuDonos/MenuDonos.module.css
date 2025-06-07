@@ -55,7 +55,7 @@
 
 .container {
   display: flex;
-  height: 100dvh;
+  height: 100vh;
   padding-top: 4.5rem;
   transition: margin-left 0.3s ease;
   overflow: hidden;

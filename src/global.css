@@ -11,14 +11,10 @@
 }
 
 html, body, #root {
-  height: 100dvh;
+  height: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f5f5f5;
   color: #000;
   overflow-x: hidden;
   font-size: 16px;
-
-  scroll-behavior: smooth;
-  overscroll-behavior-y: contain;
-  -webkit-overflow-scrolling: touch;
 }
