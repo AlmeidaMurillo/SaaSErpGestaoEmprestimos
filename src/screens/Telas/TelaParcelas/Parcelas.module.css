@@ -1,0 +1,110 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden; 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 85.5vh;
+  width: 100%;
+  margin: auto;
+  overflow: auto;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.caixaParcela {
+  background-color: #fff;
+  border-left: 6px solid #222;
+  border-radius: 14px;
+  margin-bottom: 15px;
+  padding: 22px 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  color: #222;
+  transition: box-shadow 0.3s ease;
+}
+
+.caixaParcela:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.caixaParcela p {
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.caixaParcela p strong {
+  color: #1a1a1a;
+}
+
+.topoParcela {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.infoParcela {
+  flex: 1;
+  min-width: 150px;
+}
+
+.botaoStatus {
+  background-color: #222;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  height: fit-content;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.botaoStatus:hover {
+  background-color: #888;
+}
+
+.statusPago {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.statusPendente {
+  color: #c62828;
+  font-weight: 600;
+}
+
+.notFound {
+  color: #999;
+  font-style: italic;
+  text-align: center;
+  margin-top: 40px;
+  font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .caixaParcela {
+    font-size: 14px;
+    padding: 16px 18px;
+  }
+
+  .botaoStatus {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}
