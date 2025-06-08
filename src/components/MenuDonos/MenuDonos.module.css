@@ -54,14 +54,14 @@
 
 .container {
   display: flex;
-  height: 100vh;
-  padding-top: 4.5rem;
+  height: calc(100vh - 4.5rem); /* Altura total da tela menos o header fixo */
+  margin-top: 4.5rem; /* Deixa espaço para o header fixo */
   transition: margin-left 0.3s ease;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .sidebar {
-  height: calc(100vh - 4.5rem);
+  height: 100vh;
   width: 260px;
   background-color: #1c1c1c;
   color: #fff;
@@ -149,25 +149,28 @@
   border-radius: 4px;
 }
 
+
 .pageContent {
   flex-grow: 1;
-  padding: 1.5rem 2rem;
+  height: 100%;  
   overflow-y: auto;
-  height: calc(100vh - 4.5rem); 
-  background-color: #f5f5f5;
+  padding: 1rem; 
 }
 
 @media (max-width: 768px) {
   .container {
     margin-left: 0 !important;
+    height: calc(100vh - 4.5rem);
   }
 
   .sidebar {
-    position: fixed; 
+    position: fixed;
     top: 4.5rem;
     left: -260px;
     width: 260px !important;
+    height: calc(100vh - 4.5rem);
     z-index: 1000;
+    overflow-y: auto;
   }
 
   .container:not(.collapsed) .sidebar {
@@ -176,6 +179,8 @@
 
   .pageContent {
     padding: 1rem;
+    height: calc(100vh - 4.5rem);
+    overflow-y: auto;
   }
 }
 
