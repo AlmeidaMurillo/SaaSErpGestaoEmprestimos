@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, memo, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   FaHome,
@@ -16,14 +16,55 @@ import {
 
 import styles from "./MenuDonos.module.css";
 
+const MenuItem = memo(function MenuItem({
+  icon,
+  label,
+  isActive,
+  isCollapsed,
+  onClick,
+}) {
+  return (
+    <li
+      tabIndex={0}
+      role="menuitem"
+      onClick={onClick}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick();
+        }
+      }}
+      className={`${styles.menuLi} ${isActive ? styles.active : ""}`}
+    >
+      <span className={styles.icon}>{icon}</span>
+      {!isCollapsed && <span className={styles.label}>{label}</span>}
+    </li>
+  );
+});
+
 function MenuDonos({ children }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const sidebarRef = useRef(null);
 
   const [isCollapsed, setIsCollapsed] = useState(() => {
     const stored = localStorage.getItem("menuCollapsed");
     return stored === "true";
   });
+
+  useEffect(() => {
+    const sidebar = sidebarRef.current;
+    if (!sidebar) return;
+
+    const handleZoomCheck = () => {
+      const zoom = window.devicePixelRatio;
+      sidebar.style.overflowY = zoom >= 1.25 ? "auto" : "hidden";
+    };
+
+    handleZoomCheck();
+    window.addEventListener("resize", handleZoomCheck);
+    return () => window.removeEventListener("resize", handleZoomCheck);
+  }, []);
 
   useEffect(() => {
     function handleResize() {
@@ -36,14 +77,27 @@ function MenuDonos({ children }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const toggleSidebar = () => {
+  const toggleSidebar = useCallback(() => {
     setIsCollapsed((prev) => {
       localStorage.setItem("menuCollapsed", !prev);
       return !prev;
     });
-  };
+  }, []);
 
-  const isActive = (...paths) => paths.includes(location.pathname);
+  const isActive = useCallback(
+    (path) => location.pathname === path,
+    [location.pathname]
+  );
+
+  const handleMenuItemClick = useCallback(
+    (path) => {
+      navigate(path);
+      if (window.innerWidth <= 768) {
+        setIsCollapsed(true);
+      }
+    },
+    [navigate]
+  );
 
   const menuItems = [
     { icon: <FaHome />, label: "Dashboard", path: "/dashboard" },
@@ -61,7 +115,13 @@ function MenuDonos({ children }) {
   return (
     <>
       <header className={styles.headerTop}>
-        <button className={styles.menuButton} onClick={toggleSidebar} aria-label="Toggle menu">
+        <button
+          className={styles.menuButton}
+          onClick={toggleSidebar}
+          aria-label="Toggle menu"
+          aria-expanded={!isCollapsed}
+          aria-controls="sidebar-navigation"
+        >
           <FaBars />
         </button>
         <div className={styles.logoContainer}>
@@ -70,19 +130,27 @@ function MenuDonos({ children }) {
         </div>
       </header>
 
-      <div className={`${styles.container} ${isCollapsed ? styles.collapsed : ""}`}>
-        <aside className={styles.sidebar} onClick={() => window.innerWidth <= 768 && setIsCollapsed(true)}>
+      <div
+        className={`${styles.container} ${isCollapsed ? styles.collapsed : ""}`}
+      >
+        <aside
+          className={styles.sidebar}
+          ref={sidebarRef}
+          id="sidebar-navigation"
+          role="navigation"
+          aria-label="Menu principal"
+        >
           <nav>
-            <ul className={styles.menuUl}>
-              {menuItems.map((item, index) => (
-                <li
-                  key={index}
-                  onClick={() => navigate(item.path)}
-                  className={`${styles.menuLi} ${isActive(item.path) ? styles.active : ""}`}
-                >
-                  <span className={styles.icon}>{item.icon}</span>
-                  {!isCollapsed && <span className={styles.label}>{item.label}</span>}
-                </li>
+            <ul className={styles.menuUl} role="menu">
+              {menuItems.map(({ icon, label, path }) => (
+                <MenuItem
+                  key={path}
+                  icon={icon}
+                  label={label}
+                  isCollapsed={isCollapsed}
+                  isActive={isActive(path)}
+                  onClick={() => handleMenuItemClick(path)}
+                />
               ))}
             </ul>
           </nav>

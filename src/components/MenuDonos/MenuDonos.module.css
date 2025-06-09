@@ -61,7 +61,7 @@
 }
 
 .sidebar {
-  height: 100vh;
+  max-height: 100vh;
   width: 260px;
   background-color: #1c1c1c;
   color: #fff;
@@ -146,7 +146,7 @@
 
 .sidebar::-webkit-scrollbar-thumb {
   background-color: #444;
-  border-radius: 4px;
+  border-radius: 4px; 
 }
 
 
@@ -184,6 +184,12 @@
     padding: 1rem;
     overflow-y: visible;
     min-height: auto;
+  }
+}
+
+@media (max-height: 750px) {
+  .sidebar {
+    overflow-y: auto;
   }
 }
 
