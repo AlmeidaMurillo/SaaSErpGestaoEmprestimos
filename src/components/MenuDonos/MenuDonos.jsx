@@ -12,6 +12,8 @@ import {
   FaHeadset,
   FaUserCircle,
   FaBars,
+  FaSun,
+  FaMoon,
 } from "react-icons/fa";
 
 import styles from "./MenuDonos.module.css";
@@ -51,6 +53,20 @@ function MenuDonos({ children }) {
     const stored = localStorage.getItem("menuCollapsed");
     return stored === "true";
   });
+
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "dark";
+  });
+
+  useEffect(() => {
+    document.body.classList.remove("darkTheme", "lightTheme");
+    document.body.classList.add(theme === "dark" ? "darkTheme" : "lightTheme");
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
 
   useEffect(() => {
     const sidebar = sidebarRef.current;
@@ -104,9 +120,21 @@ function MenuDonos({ children }) {
     { icon: <FaUser />, label: "Clientes", path: "/clientes" },
     { icon: <FaMoneyBillWave />, label: "Empréstimos", path: "/emprestimos" },
     { icon: <FaChartBar />, label: "Pagamentos Para Hoje", path: "/pagarhoje" },
-    { icon: <FaFileInvoiceDollar />, label: "Pagamentos Para O Mês", path: "/pagarmes" },
-    { icon: <FaClock />, label: "Pagamentos Atrasados", path: "/pagamentosatrasados" },
-    { icon: <FaCheckCircle />, label: "Empréstimos Pagos", path: "/emprestimospagos" },
+    {
+      icon: <FaFileInvoiceDollar />,
+      label: "Pagamentos Para O Mês",
+      path: "/pagarmes",
+    },
+    {
+      icon: <FaClock />,
+      label: "Pagamentos Atrasados",
+      path: "/pagamentosatrasados",
+    },
+    {
+      icon: <FaCheckCircle />,
+      label: "Empréstimos Pagos",
+      path: "/emprestimospagos",
+    },
     { icon: <FaCog />, label: "Configurações", path: "/configuracoes" },
     { icon: <FaHeadset />, label: "Suporte", path: "/suporte" },
     { icon: <FaUserCircle />, label: "Perfil", path: "/perfil" },
@@ -128,6 +156,13 @@ function MenuDonos({ children }) {
           <div className={styles.logo}>MultiAlmeida</div>
           <h2 className={styles.subtitle}>Gestão De Empréstimos</h2>
         </div>
+        <button
+          className={styles.themeButton}
+          onClick={toggleTheme}
+          aria-label="Alternar tema"
+        >
+          {theme === "dark" ? <FaSun /> : <FaMoon />}
+        </button>
       </header>
 
       <div
