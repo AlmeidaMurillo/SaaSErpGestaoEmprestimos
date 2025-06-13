@@ -108,6 +108,7 @@ function Clientes({ isCollapsed, toggleSidebar }) {
     </div>
   );
 
+
   const renderMenu = () => {
     if (tipoUsuario === "admin") {
       return (
