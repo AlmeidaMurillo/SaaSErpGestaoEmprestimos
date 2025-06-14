@@ -82,15 +82,6 @@
 }
 
 @media (max-width: 1024px) {
-  .wrapper {
-    padding: 16px;
-  }
-
-  .container {
-    padding: 12px;
-    border-radius: 15px;
-  }
-
   .clienteCard {
     padding: 16px 20px;
   }
@@ -104,66 +95,32 @@
   }
 }
 
-@media (max-width: 768px) {
-  .wrapper {
-    padding: 12px;
-  }
-
-  .container {
-    padding: 10px;
-    border-radius: 12px;
-  }
-
+@media (max-width: 310px) {
   .clientesBox {
-    padding: 15px;
+    min-width: 200px;
+    padding: 8px;
   }
 
   .clienteCard {
-    padding: 14px 18px;
+    padding: 10px 12px;
+    min-width: 200px;
+    min-height: 80px;
   }
 
   .clienteCard h3 {
-    font-size: 17px;
-  }
-
-  .clienteCard p {
-    font-size: 13px;
-  }
-
-  .searchInput {
-    padding: 10px 14px;
     font-size: 14px;
   }
-}
-
-@media (max-width: 480px) {
-  .wrapper {
-    padding: 8px;
-  }
-
-  .container {
-    padding: 8px;
-    border-radius: 10px;
-  }
-
-  .clientesBox {
-    padding: 10px;
-  }
-
-  .clienteCard {
-    padding: 12px 16px;
-  }
-
-  .clienteCard h3 {
-    font-size: 16px;
-  }
 
   .clienteCard p {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .searchInput {
-    padding: 8px 12px;
-    font-size: 13px;
+    width: 100%;          
+    min-width: 200px;
+    padding: 6px 10px;
+    box-sizing: border-box;
+    font-size: 12px;
+    margin-bottom: 10px;  
   }
 }

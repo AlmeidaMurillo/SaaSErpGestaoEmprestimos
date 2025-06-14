@@ -74,40 +74,68 @@ function Clientes({ isCollapsed, toggleSidebar }) {
   );
 
   const renderClientes = () => (
-    <div className={`${styles.wrapper}`}>
-      <div className={`${styles.container} ${isCollapsed ? styles.collapsed : ""}`}>
-        <input
-          type="text"
-          placeholder="Pesquisar cliente pelo nome..."
-          className={styles.searchInput}
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <div className={styles.clientesBox}>
-          {filteredClientes.map((cliente) => (
-            <div key={cliente.id} className={styles.clienteCard}>
-              <h3>{cliente.nome}</h3>
-              <p><strong>Código do Cliente:</strong> {cliente.id}</p>
-              <p><strong>Telefone de Contato:</strong> {cliente.telefone}</p>
-              <p><strong>Indicado Por:</strong> {cliente.indicadoPor}</p>
-              <p><strong>Endereço Residencial:</strong> {cliente.endereco}</p>
-              <p><strong>Qtd. de Empréstimos:</strong> {cliente.totalEmprestimos}</p>
-              <p><strong>Empréstimos Pendentes:</strong> {cliente.pendentes}</p>
-              <p><strong>Valor Total Emprestado:</strong> R$ {cliente.totalEmprestado.toLocaleString()}</p>
-              <p><strong>Lucro Gerado:</strong> R$ {cliente.lucroTotal.toLocaleString()}</p>
-              <p><strong>Maior Empréstimo Concedido:</strong> R$ {cliente.maiorValorEmprestado.toLocaleString()}</p>
-              <p><strong>Último Empréstimo:</strong> {cliente.ultimoEmprestimo ? `R$ ${cliente.ultimoEmprestimo.valor.toLocaleString()} em ${cliente.ultimoEmprestimo.data}` : "R$ N/A em N/A"}</p>
-              <p><strong>Qtd. de Empréstimos Pagos:</strong> {cliente.emprestimosPagos}</p>
-            </div>
-          ))}
-          {filteredClientes.length === 0 && (
-            <p className={styles.notFound}>Nenhum cliente encontrado.</p>
-          )}
-        </div>
+    <div className={`${isCollapsed ? styles.collapsed : ""}`}>
+      <input
+        type="text"
+        placeholder="Pesquisar cliente pelo nome..."
+        className={styles.searchInput}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      <div className={styles.clientesBox}>
+        {filteredClientes.map((cliente) => (
+          <div key={cliente.id} className={styles.clienteCard}>
+            <h3>{cliente.nome}</h3>
+            <p>
+              <strong>Código do Cliente:</strong> {cliente.id}
+            </p>
+            <p>
+              <strong>Telefone de Contato:</strong> {cliente.telefone}
+            </p>
+            <p>
+              <strong>Indicado Por:</strong> {cliente.indicadoPor}
+            </p>
+            <p>
+              <strong>Endereço Residencial:</strong> {cliente.endereco}
+            </p>
+            <p>
+              <strong>Qtd. de Empréstimos:</strong> {cliente.totalEmprestimos}
+            </p>
+            <p>
+              <strong>Empréstimos Pendentes:</strong> {cliente.pendentes}
+            </p>
+            <p>
+              <strong>Valor Total Emprestado:</strong> R${" "}
+              {cliente.totalEmprestado.toLocaleString()}
+            </p>
+            <p>
+              <strong>Lucro Gerado:</strong> R${" "}
+              {cliente.lucroTotal.toLocaleString()}
+            </p>
+            <p>
+              <strong>Maior Empréstimo Concedido:</strong> R${" "}
+              {cliente.maiorValorEmprestado.toLocaleString()}
+            </p>
+            <p>
+              <strong>Último Empréstimo:</strong>{" "}
+              {cliente.ultimoEmprestimo
+                ? `R$ ${cliente.ultimoEmprestimo.valor.toLocaleString()} em ${
+                    cliente.ultimoEmprestimo.data
+                  }`
+                : "R$ N/A em N/A"}
+            </p>
+            <p>
+              <strong>Qtd. de Empréstimos Pagos:</strong>{" "}
+              {cliente.emprestimosPagos}
+            </p>
+          </div>
+        ))}
+        {filteredClientes.length === 0 && (
+          <p className={styles.notFound}>Nenhum cliente encontrado.</p>
+        )}
       </div>
     </div>
   );
-
 
   const renderMenu = () => {
     if (tipoUsuario === "admin") {

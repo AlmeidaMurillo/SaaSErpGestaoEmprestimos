@@ -2,7 +2,6 @@ import React, { useState, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Spinner from '../components/Spinner/Spinner';
-
 const Login = lazy(() => import('./Telas/TelaLogin/Login'));
 const Dashboard = lazy(() => import('./Telas/TelaDashboard/Dashboard'));
 const Clientes = lazy(() => import('./Telas/TelaClientes/Clientes'));

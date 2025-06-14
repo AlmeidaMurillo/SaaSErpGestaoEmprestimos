@@ -47,3 +47,30 @@ html, body, #root {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
+
+
+
+@media (hover: hover) and (pointer: fine) {
+  ::-webkit-scrollbar {
+    width: 3px; 
+    height: 2px; 
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--text-color); 
+    border-radius: 10px;
+    transition: background 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--hover-bg);
+  }
+
+  ::-webkit-scrollbar-button {
+    display: none;
+  }
+}

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import MenuDonos from "../../../components/MenuDonos/MenuDonos";
 import MenuUsers from "../../../components/MenuUsers/MenuUsers";
 import styles from "./Emprestimos.module.css";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Emprestimos({ isCollapsed, toggleSidebar }) {
   const navigate = useNavigate();
   const [tipoUsuario, setTipoUsuario] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [emprestimos, setEmprestimos] = useState([
     {
       idCliente: 1,
@@ -95,8 +96,6 @@ function Emprestimos({ isCollapsed, toggleSidebar }) {
     },
   ]);
 
-  const [searchTerm, setSearchTerm] = useState("");
-
   useEffect(() => {
     const tipo = localStorage.getItem("tipoUsuario");
     if (!tipo) {
@@ -111,7 +110,7 @@ function Emprestimos({ isCollapsed, toggleSidebar }) {
   );
 
   const renderEmprestimos = () => (
-    <div className={styles.container}>
+    <div className={`${isCollapsed ? styles.collapsed : ""}`}>
       <input
         type="text"
         placeholder="Pesquisar empréstimo pelo nome do cliente..."
@@ -120,57 +119,23 @@ function Emprestimos({ isCollapsed, toggleSidebar }) {
         onChange={(e) => setSearchTerm(e.target.value)}
       />
       <div className={styles.emprestimosBox}>
-        {filteredEmprestimos.map((e, index) => (
-          <div key={index} className={styles.emprestimoCard} onClick={() => navigate("/parcelas")}>
+        {filteredEmprestimos.map((e) => (
+          <div key={e.idEmprestimo} className={styles.emprestimoCard} onClick={() => navigate("/parcelas")}>
             <h3>{e.cliente}</h3>
-            <p>
-              <strong>Código do Cliente:</strong> {e.idCliente}
-            </p>
-            <p>
-              <strong>Código do Empréstimo:</strong> {e.idEmprestimo}
-            </p>
-            <p>
-              <strong>Valor Emprestado:</strong> R${" "}
-              {e.valorEmprestado.toLocaleString()}
-            </p>
-            <p>
-              <strong>Valor á Pagar:</strong> R${" "}
-              {e.valorPagar.toLocaleString()}
-            </p>
-            <p>
-              <strong>Juros:</strong> R${" "}
-              {e.juros.toLocaleString()}
-            </p>
-            <p>
-              <strong>Número de Parcelas:</strong> {e.parcelas}
-            </p>
-            <p>
-              <strong>Parcelas Quitadas:</strong> {e.parcelasPagas}
-            </p>
-            <p>
-              <strong>Parcelas em Aberto:</strong> {e.parcelasPendentes}
-            </p>
-            <p>
-              <strong>Valor das Parcela:</strong> R${" "}
-              {e.valorParcela.toFixed(2)}
-            </p>
-            <p>
-              <strong>Total Pago:</strong> R${" "}
-              {e.valorPago.toLocaleString()}
-            </p>
-            <p>
-              <strong>Total Devedor:</strong> R${" "}
-              {e.valorPendente.toLocaleString()}
-            </p>
-            <p>
-              <strong>Data do Emprestimo:</strong> {e.dataEmprestimo}
-            </p>
-            <p>
-              <strong>Data do Próximo Vencimento:</strong> {e.proximoPagamento}
-            </p>
-            <p>
-              <strong>Situação do Empréstimo:</strong> {e.status}
-            </p>
+            <p><strong>Código do Cliente:</strong> {e.idCliente}</p>
+            <p><strong>Código do Empréstimo:</strong> {e.idEmprestimo}</p>
+            <p><strong>Valor Emprestado:</strong> R$ {e.valorEmprestado.toLocaleString()}</p>
+            <p><strong>Valor à Pagar:</strong> R$ {e.valorPagar.toLocaleString()}</p>
+            <p><strong>Juros:</strong> R$ {e.juros.toLocaleString()}</p>
+            <p><strong>Número de Parcelas:</strong> {e.parcelas}</p>
+            <p><strong>Parcelas Quitadas:</strong> {e.parcelasPagas}</p>
+            <p><strong>Parcelas em Aberto:</strong> {e.parcelasPendentes}</p>
+            <p><strong>Valor das Parcelas:</strong> R$ {e.valorParcela.toFixed(2)}</p>
+            <p><strong>Total Pago:</strong> R$ {e.valorPago.toLocaleString()}</p>
+            <p><strong>Total Devedor:</strong> R$ {e.valorPendente.toLocaleString()}</p>
+            <p><strong>Data do Empréstimo:</strong> {e.dataEmprestimo}</p>
+            <p><strong>Data do Próximo Vencimento:</strong> {e.proximoPagamento}</p>
+            <p><strong>Situação do Empréstimo:</strong> {e.status}</p>
           </div>
         ))}
         {filteredEmprestimos.length === 0 && (

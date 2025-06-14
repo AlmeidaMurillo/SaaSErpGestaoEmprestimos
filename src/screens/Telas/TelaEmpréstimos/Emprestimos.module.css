@@ -1,16 +1,55 @@
-.container {
-  position: absolute;
-  top: 13vh;
-  width: calc(100vw - 120px);
-  height: calc(100vh - 13vh);
-  overflow: hidden;
-
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+.emprestimosBox {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 280px;
   display: flex;
   flex-direction: column;
+  gap: 15px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--bg-color);
+  border-radius: 12px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+  flex-wrap: nowrap;
+}
+
+.emprestimoCard {
+  background-color: var(--sidebar-bg);
+  border: 1px solid var(--text-color);
+  border-left: 6px solid var(--text-color);
+  border-radius: 12px;
+  padding: 18px 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  max-width: 100%;
+  min-width: 280px;
+  min-height: 100px;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.emprestimoCard:hover {
+  background-color: var(--hover-bg);
+  transform: translateY(-0.5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.emprestimoCard h3 {
+  margin-bottom: 8px;
+  font-size: 20px;
+  color: var(--text-color);
+}
+
+.emprestimoCard p {
+  margin: 4px 0;
+  font-size: 15px;
+  color: var(--text-color);
+}
+
+.emprestimoCard p strong {
+  color: var(--text-color);
 }
 
 .searchInput {
@@ -20,64 +59,68 @@
   border: none;
   border-radius: 10px;
   font-size: 16px;
-  background-color: #f0f2f5;
+  background-color: var(--hover-bg);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  color: var(--text-color);
 }
 
 .searchInput:focus {
   outline: none;
-  box-shadow: 0 0 0 2px #222;
-  background-color: #ffffff;
-}
-
-.emprestimosBox {
-  flex: 1;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding-right: 10px;
-  border-radius: 12px;
-  background: #f8f9fa;
-  padding: 20px;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
-}
-
-.emprestimoCard {
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-left: 6px solid #222;
-  border-radius: 12px;
-  padding: 18px 24px;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.emprestimoCard:hover {
-  background-color: #c7c7c7;
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-}
-
-.emprestimoCard h3 {
-  margin-bottom: 8px;
-  color: #1a1a1a;
-  font-size: 20px;
-}
-
-.emprestimoCard p {
-  margin: 4px 0;
-  color: #555;
-  font-size: 15px;
-}
-
-.emprestimoCard p strong {
-  color: #1a1a1a;
+  background-color: var(--sidebar-bg);
+  box-shadow: 0 0 0 2px var(--text-color);
 }
 
 .notFound {
-  color: #999;
-  font-style: italic;
+  margin-top: 20px;
+  font-size: 16px;
+  color: #888;
   text-align: center;
+}
+
+.collapsed {
+  max-width: calc(1200px - 120px);
+}
+
+@media (max-width: 1024px) {
+  .emprestimoCard {
+    padding: 16px 20px;
+  }
+
+  .emprestimoCard h3 {
+    font-size: 18px;
+  }
+
+  .emprestimoCard p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 310px) {
+  .emprestimosBox {
+    min-width: 200px;
+    padding: 8px;
+  }
+
+  .emprestimoCard {
+    padding: 10px 12px;
+    min-width: 200px;
+    min-height: 80px;
+  }
+
+  .emprestimoCard h3 {
+    font-size: 14px;
+  }
+
+  .emprestimoCard p {
+    font-size: 11px;
+  }
+
+  .searchInput {
+    width: 100%;
+    min-width: 200px;
+    padding: 6px 10px;
+    box-sizing: border-box;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
 }

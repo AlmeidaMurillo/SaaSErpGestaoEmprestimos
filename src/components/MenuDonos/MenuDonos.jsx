@@ -12,8 +12,10 @@ import {
   FaHeadset,
   FaUserCircle,
   FaBars,
-  FaSun,
   FaMoon,
+  FaSun,
+  FaDollarSign,
+  FaBell,
 } from "react-icons/fa";
 
 import styles from "./MenuDonos.module.css";
@@ -86,6 +88,9 @@ function MenuDonos({ children }) {
     function handleResize() {
       if (window.innerWidth <= 768) {
         setIsCollapsed(true);
+      } else {
+        const stored = localStorage.getItem("menuCollapsed");
+        setIsCollapsed(stored === "true");
       }
     }
     window.addEventListener("resize", handleResize);
@@ -152,22 +157,34 @@ function MenuDonos({ children }) {
         >
           <FaBars />
         </button>
+
         <div className={styles.logoContainer}>
           <div className={styles.logo}>MultiAlmeida</div>
           <h2 className={styles.subtitle}>Gestão De Empréstimos</h2>
         </div>
-        <button
-          className={styles.themeButton}
-          onClick={toggleTheme}
-          aria-label="Alternar tema"
-        >
-          {theme === "dark" ? <FaSun /> : <FaMoon />}
-        </button>
+
+        <div className={styles.iconsContainer}>
+          <button className={styles.iconButton} onClick={toggleTheme}>
+            {theme === "dark" ? <FaSun /> : <FaMoon />}
+          </button>
+
+          <div className={styles.iconWrapper}>
+            <FaDollarSign />
+            <span className={`${styles.badge} ${styles.red}`}>0</span>
+          </div>
+
+          <div className={styles.iconWrapper}>
+            <FaBell />
+            <span className={`${styles.badge} ${styles.black}`}>0</span>
+          </div>
+
+          <div className={styles.profileCircle}>
+            <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="Perfil" />
+          </div>
+        </div>
       </header>
 
-      <div
-        className={`${styles.container} ${isCollapsed ? styles.collapsed : ""}`}
-      >
+      <div className={`${styles.container} ${isCollapsed ? styles.collapsed : ""}`}>
         <aside
           className={styles.sidebar}
           ref={sidebarRef}
