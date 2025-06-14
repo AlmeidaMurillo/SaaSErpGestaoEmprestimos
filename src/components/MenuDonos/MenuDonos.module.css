@@ -248,7 +248,7 @@
   }
   .pageContent {
     padding: 1rem;
-    overflow-y: visible;
+    overflow-y: auto;
     min-height: auto;
   }
 }
