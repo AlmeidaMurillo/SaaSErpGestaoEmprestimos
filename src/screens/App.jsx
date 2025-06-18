@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "../components/Scroll/ScrollToTop";
 import Spinner from "../components/Spinner/Spinner";
 // NAO ESQUECER DE DEIXAAR MEU SISTEMA TOTALMENTE RESPONSIVO DESDE COMPONENTES ATÉ TELAS
+// ARRUMAR OS ICONES DOS MENU COM A RESPONSIVIDADE PARA CELULARES, E MEXER NO SCROLL DE ROLAGEM PARA FUNCIONAR DO MESMO JEITO PARA TODOS OS DISPOSITIVOS
 const Login = lazy(() => import("./Telas/TelaLogin/Login"));
 const Dashboard = lazy(() => import("./Telas/TelaDashboard/Dashboard"));
 const Clientes = lazy(() => import("./Telas/TelaClientes/Clientes"));
