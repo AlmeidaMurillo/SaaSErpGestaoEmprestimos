@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Login.module.css";
 import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,7 @@ export default function Login() {
   const [erro, setErro] = useState("");
   const [inputFocused, setInputFocused] = useState(false);
   const navigate = useNavigate();
+
   const toggleSenha = () => setMostrarSenha(!mostrarSenha);
 
   const handleLogin = (e) => {
@@ -26,6 +27,16 @@ export default function Login() {
       setTimeout(() => setErro(""), 3000);
     }
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      const isKeyboardOpen = window.innerHeight < 500;
+      setInputFocused(isKeyboardOpen);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div className={`${styles.loginContainer} ${inputFocused ? styles.keyboardOpen : ""}`}>
