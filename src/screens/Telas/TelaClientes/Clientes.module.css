@@ -98,44 +98,6 @@
   background-color: var(--active-bg);
 }
 
-
-.floatingButton {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background-color: #5865f2;
-  color: white;
-  font-size: 2rem;
-  border: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.floatingButton:hover {
-  background-color: #4752c4;
-  transform: scale(1.05);
-}
-
-@media (min-width: 768px) {
-  .floatingButton {
-    display: none;
-  }
-}
-
-@media (max-width: 767px) {
-  .addButton {
-    display: none;
-  }
-}
-
 @media (max-width: 1024px) {
   .clienteCard {
     padding: 16px 20px;
