@@ -98,6 +98,7 @@
   background-color: var(--active-bg);
 }
 
+
 .floatingButton {
   position: fixed;
   bottom: 20px;
@@ -111,7 +112,7 @@
   border: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   cursor: pointer;
-  z-index: 1000;
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
