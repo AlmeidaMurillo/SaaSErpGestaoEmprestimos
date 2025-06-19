@@ -75,6 +75,7 @@ function Clientes({ isCollapsed, toggleSidebar }) {
 
   const renderClientes = () => (
     <div className={`${isCollapsed ? styles.collapsed : ""}`}>
+      <button className={styles.addButton}>+ Novo Cliente</button>
       <input
         type="text"
         placeholder="Pesquisar cliente pelo nome..."
@@ -155,6 +156,12 @@ function Clientes({ isCollapsed, toggleSidebar }) {
     }
   };
 
+  <button
+    className={styles.floatingButton}
+    onClick={() => alert("Adicionar novo cliente")}
+  >
+    +
+  </button>;
   return <>{renderMenu()}</>;
 }
 
