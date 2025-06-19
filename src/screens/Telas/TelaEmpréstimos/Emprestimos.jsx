@@ -111,6 +111,9 @@ function Emprestimos({ isCollapsed, toggleSidebar }) {
 
   const renderEmprestimos = () => (
     <div className={`${isCollapsed ? styles.collapsed : ""}`}>
+      <button className={styles.addButton}>
+        + Novo Empréstimo
+      </button>
       <input
         type="text"
         placeholder="Pesquisar empréstimo pelo nome do cliente..."

@@ -81,6 +81,23 @@
   max-width: calc(1200px - 120px);
 }
 
+.addButton {
+  padding: 10px 20px;
+  border: none;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background-color: var(--hover-bg);
+  color: var(--text-color);
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.addButton:hover {
+  background-color: var(--active-bg);
+}
+
 @media (max-width: 1024px) {
   .emprestimoCard {
     padding: 16px 20px;
