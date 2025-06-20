@@ -31,9 +31,9 @@
   outline: none;
 }
 
-.hover-fake {
+.hoverFake {
   color: var(--hover-bg) !important;
-  background-color: var(--hover-bg-light, transparent); 
+  background-color: var(--hover-bg-light, transparent);
 }
 
 .logoContainer {
