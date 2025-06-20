@@ -50,7 +50,6 @@ function MenuDonos({ children }) {
   const navigate = useNavigate();
   const location = useLocation();
   const sidebarRef = useRef(null);
-  const containerRef = useRef(null);
 
   const [isCollapsed, setIsCollapsed] = useState(() => {
     const stored = localStorage.getItem("menuCollapsed");
@@ -121,21 +120,6 @@ function MenuDonos({ children }) {
     [navigate]
   );
 
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (
-        !isCollapsed &&
-        containerRef.current &&
-        !sidebarRef.current.contains(event.target) &&
-        !containerRef.current.querySelector(`.${styles.menuButton}`).contains(event.target)
-      ) {
-        setIsCollapsed(true);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isCollapsed]);
-
   const menuItems = [
     { icon: <FaHome />, label: "Dashboard", path: "/dashboard" },
     { icon: <FaUser />, label: "Clientes", path: "/clientes" },
@@ -163,7 +147,7 @@ function MenuDonos({ children }) {
 
   return (
     <>
-      <header className={styles.headerTop} ref={containerRef}>
+      <header className={styles.headerTop}>
         <button
           className={styles.menuButton}
           onClick={toggleSidebar}
@@ -200,10 +184,7 @@ function MenuDonos({ children }) {
         </div>
       </header>
 
-      <div
-        className={`${styles.container} ${isCollapsed ? styles.collapsed : ""}`}
-        ref={containerRef}
-      >
+      <div className={`${styles.container} ${isCollapsed ? styles.collapsed : ""}`}>
         <aside
           className={styles.sidebar}
           ref={sidebarRef}
