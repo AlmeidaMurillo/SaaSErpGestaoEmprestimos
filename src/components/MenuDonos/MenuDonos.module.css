@@ -31,6 +31,11 @@
   outline: none;
 }
 
+.hover-fake {
+  color: var(--hover-bg) !important;
+  background-color: var(--hover-bg-light, transparent); 
+}
+
 .logoContainer {
   display: flex;
   flex-direction: column;
