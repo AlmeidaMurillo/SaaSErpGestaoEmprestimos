@@ -31,11 +31,6 @@
   outline: none;
 }
 
-.hoverFake {
-  color: var(--hover-bg) !important;
-  background-color: var(--hover-bg-light, transparent);
-}
-
 .logoContainer {
   display: flex;
   flex-direction: column;
@@ -74,7 +69,7 @@
   color: var(--text-color);
   box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
   overflow-y: auto;
-  transition: width 0.3s ease;
+  transition: width 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -104,6 +99,13 @@
   user-select: none;
   transition: all 0.3s ease;
   white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.sidebar:not(.collapsed) .menuLi {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .menuLi:hover {
@@ -240,15 +242,19 @@
   .sidebar {
     position: fixed;
     top: 4.5rem;
-    left: -260px;
+    left: 0;
     width: 260px !important;
     z-index: 1000;
     height: calc(100dvh - 4.5rem);
     overflow-y: auto;
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
   }
 
   .container:not(.collapsed) .sidebar {
-    left: 0;
+    transform: translateX(0);
+    opacity: 1;
   }
 
   .pageContent {
@@ -265,75 +271,40 @@
   }
 }
 
-
 @media (max-width: 400px) {
   .menuButton {
-    background: none;
-    border: none;
-    color: var(--text-color);
     font-size: 1.2rem;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    display: flex;
-    align-items: center;
   }
 
   .logoContainer {
-    display: flex;
-    flex-direction: column;
-    user-select: none;
     margin-left: 0px;
   }
 
   .logo {
-    font-size: 1.0rem;
-    font-weight: 700;
-    color: var(--text-color);
-    line-height: 1;
+    font-size: 1rem;
   }
 
   .subtitle {
-    font-size: 0.50rem;
-    color: var(--text-color);
-    font-weight: 600;
-    margin-top: 2px;
+    font-size: 0.5rem;
   }
-
 }
 
 @media (max-width: 310px) {
   .menuButton {
-    background: none;
-    border: none;
-    color: var(--text-color);
     font-size: 1.2rem;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    display: flex;
-    align-items: center;
   }
 
   .logoContainer {
-    display: flex;
-    flex-direction: column;
-    user-select: none;
     margin-left: 0px;
   }
 
   .logo {
-    font-size: 1.0rem;
-    font-weight: 700;
-    color: var(--text-color);
-    line-height: 1;
+    font-size: 1rem;
   }
 
   .subtitle {
-    font-size: 0.50rem;
-    color: var(--text-color);
-    font-weight: 600;
-    margin-top: 2px;
+    font-size: 0.5rem;
   }
-
 }
 
 @media (min-width: 2560px) {

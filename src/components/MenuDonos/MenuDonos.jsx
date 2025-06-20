@@ -20,8 +20,6 @@ import {
 
 import styles from "./MenuDonos.module.css";
 
-const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
 const MenuItem = memo(function MenuItem({
   icon,
   label,
@@ -29,30 +27,17 @@ const MenuItem = memo(function MenuItem({
   isCollapsed,
   onClick,
 }) {
-  const liRef = useRef(null);
-
-  const handleClick = () => {
-    onClick();
-    if (isTouchDevice() && liRef.current) {
-      liRef.current.classList.add(styles.hoverFake);
-      setTimeout(() => {
-        liRef.current.classList.remove(styles.hoverFake);
-      }, 2000);
-    }
-  };
-
   return (
     <li
       tabIndex={0}
       role="menuitem"
-      onClick={handleClick}
+      onClick={onClick}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          handleClick();
+          onClick();
         }
       }}
-      ref={liRef}
       className={`${styles.menuLi} ${isActive ? styles.active : ""}`}
     >
       <span className={styles.icon}>{icon}</span>
@@ -65,7 +50,6 @@ function MenuDonos({ children }) {
   const navigate = useNavigate();
   const location = useLocation();
   const sidebarRef = useRef(null);
-  const menuButtonRef = useRef(null);
 
   const [isCollapsed, setIsCollapsed] = useState(() => {
     const stored = localStorage.getItem("menuCollapsed");
@@ -136,24 +120,26 @@ function MenuDonos({ children }) {
     [navigate]
   );
 
-  const handleMenuButtonClick = () => {
-    toggleSidebar();
-    if (isTouchDevice() && menuButtonRef.current) {
-      menuButtonRef.current.classList.add(styles.hoverFake);
-      setTimeout(() => {
-        menuButtonRef.current.classList.remove(styles.hoverFake);
-      }, 2000);
-    }
-  };
-
   const menuItems = [
     { icon: <FaHome />, label: "Dashboard", path: "/dashboard" },
     { icon: <FaUser />, label: "Clientes", path: "/clientes" },
     { icon: <FaMoneyBillWave />, label: "Empréstimos", path: "/emprestimos" },
     { icon: <FaChartBar />, label: "Pagamentos Para Hoje", path: "/pagarhoje" },
-    { icon: <FaFileInvoiceDollar />, label: "Pagamentos Para O Mês", path: "/pagarmes" },
-    { icon: <FaClock />, label: "Pagamentos Atrasados", path: "/pagamentosatrasados" },
-    { icon: <FaCheckCircle />, label: "Empréstimos Pagos", path: "/emprestimospagos" },
+    {
+      icon: <FaFileInvoiceDollar />,
+      label: "Pagamentos Para O Mês",
+      path: "/pagarmes",
+    },
+    {
+      icon: <FaClock />,
+      label: "Pagamentos Atrasados",
+      path: "/pagamentosatrasados",
+    },
+    {
+      icon: <FaCheckCircle />,
+      label: "Empréstimos Pagos",
+      path: "/emprestimospagos",
+    },
     { icon: <FaCog />, label: "Configurações", path: "/configuracoes" },
     { icon: <FaHeadset />, label: "Suporte", path: "/suporte" },
     { icon: <FaUserCircle />, label: "Perfil", path: "/perfil" },
@@ -163,9 +149,8 @@ function MenuDonos({ children }) {
     <>
       <header className={styles.headerTop}>
         <button
-          ref={menuButtonRef}
           className={styles.menuButton}
-          onClick={handleMenuButtonClick}
+          onClick={toggleSidebar}
           aria-label="Toggle menu"
           aria-expanded={!isCollapsed}
           aria-controls="sidebar-navigation"
