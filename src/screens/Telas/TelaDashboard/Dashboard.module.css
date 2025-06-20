@@ -22,10 +22,26 @@
   border: 1px solid #e0e0e0;
 }
 
-.caixa:hover {
+@media (hover: hover) and (pointer: fine) {
+  .caixa:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 20px rgba(0, 123, 255, 0.15);
+    background: linear-gradient(145deg, #f9f9f9, #ececec);
+  }
+
+  .botao:hover {
+    background: #444;
+  }
+}
+
+.caixa:active {
   transform: translateY(-4px);
   box-shadow: 0 12px 20px rgba(0, 123, 255, 0.15);
   background: linear-gradient(145deg, #f9f9f9, #ececec);
+}
+
+.botao:active {
+  background: #444;
 }
 
 .caixa h3 {
@@ -70,10 +86,6 @@
   transition: background 0.2s ease;
   width: 100%;
   margin-top: auto;
-}
-
-.botao:hover {
-  background: #444;
 }
 
 .title {
