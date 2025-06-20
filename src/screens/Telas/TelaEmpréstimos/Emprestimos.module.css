@@ -30,10 +30,26 @@
   cursor: pointer;
 }
 
-.emprestimoCard:hover {
+@media (hover: hover) and (pointer: fine) {
+  .emprestimoCard:hover {
+    background-color: var(--hover-bg);
+    transform: translateY(-0.5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .addButton:hover {
+    background-color: var(--active-bg);
+  }
+}
+
+.emprestimoCard:active {
   background-color: var(--hover-bg);
   transform: translateY(-0.5px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.addButton:active {
+  background-color: var(--active-bg);
 }
 
 .emprestimoCard h3 {
@@ -92,10 +108,6 @@
   font-size: 1rem;
   cursor: pointer;
   transition: background 0.3s ease;
-}
-
-.addButton:hover {
-  background-color: var(--active-bg);
 }
 
 @media (max-width: 1024px) {
