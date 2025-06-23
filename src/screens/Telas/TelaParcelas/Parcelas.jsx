@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import MenuDonos from "../../../components/MenuDonos/MenuDonos";
 import MenuUsers from "../../../components/MenuUsers/MenuUsers";
 import styles from "./Parcelas.module.css";
+import { useNavigate } from "react-router-dom";
 
-function ParcelasEmprestimo({ isCollapsed, toggleSidebar }) {
+function Parcelas({ isCollapsed, toggleSidebar }) {
+  const navigate = useNavigate();
   const [tipoUsuario, setTipoUsuario] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [parcelas, setParcelas] = useState([
     {
       numeroParcela: 1,
@@ -24,11 +27,11 @@ function ParcelasEmprestimo({ isCollapsed, toggleSidebar }) {
     },
     {
       numeroParcela: 3,
-      idEmprestimo: 2,
-      cliente: "CARLOS EDUARDO",
-      dataVencimento: "10/03/2025",
-      valor: 1500.0,
-      status: "Pago",
+      idEmprestimo: 1,
+      cliente: "BRUNETE",
+      dataVencimento: "22/04/2025",
+      valor: 2000.0,
+      status: "Pendente",
     },
   ]);
 
@@ -42,57 +45,40 @@ function ParcelasEmprestimo({ isCollapsed, toggleSidebar }) {
   }, []);
 
   const alternarStatus = (index) => {
-    const novasParcelas = [...parcelas];
-    novasParcelas[index].status =
-      novasParcelas[index].status === "Pago" ? "Pendente" : "Pago";
-    setParcelas(novasParcelas);
+    const novas = [...parcelas];
+    novas[index].status = novas[index].status === "Pago" ? "Pendente" : "Pago";
+    setParcelas(novas);
   };
 
+  const filtered = parcelas.filter((p) =>
+    p.cliente.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const renderParcelas = () => (
-    <div className={styles.container}>
-      {parcelas.map((p, index) => (
-        <div key={index} className={styles.caixaParcela}>
-          <div className={styles.topoParcela}>
-            <div className={styles.infoParcela}>
-              <p>
-                <strong>Número da Parcela:</strong> {p.numeroParcela}
-              </p>
-              <p>
-                <strong>ID do Empréstimo:</strong> {p.idEmprestimo}
-              </p>
-              <p>
-                <strong>Cliente:</strong> {p.cliente}
-              </p>
-              <p>
-                <strong>Data de Vencimento:</strong> {p.dataVencimento}
-              </p>
-              <p>
-                <strong>Valor:</strong> R$ {p.valor.toFixed(2)}
-              </p>
-              <p>
-                <strong>Status:</strong>{" "}
-                <span
-                  className={
-                    p.status.toLowerCase() === "pago"
-                      ? styles.statusPago
-                      : styles.statusPendente
-                  }
-                >
-                  {p.status}
-                </span>
-              </p>
-            </div>
-            <button
-              className={styles.botaoStatus}
-              onClick={() => alternarStatus(index)}
-            >
-              {p.status === "Pago"
-                ? "Marcar como Pendente"
-                : "Marcar como Pago"}
+    <div className={`${isCollapsed ? styles.collapsed : ""}`}>
+      <div className={styles.parcelasBox}>
+        {filtered.map((p, i) => (
+          <div key={i} className={styles.parcelaCard}>
+            <h3>{p.cliente}</h3>
+            <p><strong>ID do Empréstimo:</strong> {p.idEmprestimo}</p>
+            <p><strong>Número da Parcela:</strong> {p.numeroParcela}</p>
+            <p><strong>Data de Vencimento:</strong> {p.dataVencimento}</p>
+            <p><strong>Valor da Parcela:</strong> R$ {p.valor.toFixed(2)}</p>
+            <p>
+              <strong>Status:</strong>{" "}
+              <span className={p.status === "Pago" ? styles.statusPago : styles.statusPendente}>
+                {p.status}
+              </span>
+            </p>
+            <button className={styles.botaoStatus} onClick={() => alternarStatus(i)}>
+              {p.status === "Pago" ? "Marcar como Pendente" : "Marcar como Pago"}
             </button>
           </div>
-        </div>
-      ))}
+        ))}
+        {filtered.length === 0 && (
+          <p className={styles.notFound}>Nenhuma parcela encontrada.</p>
+        )}
+      </div>
     </div>
   );
 
@@ -117,4 +103,4 @@ function ParcelasEmprestimo({ isCollapsed, toggleSidebar }) {
   return <>{renderMenu()}</>;
 }
 
-export default ParcelasEmprestimo;
+export default Parcelas;
