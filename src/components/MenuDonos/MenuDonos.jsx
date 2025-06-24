@@ -17,7 +17,6 @@ import {
   FaDollarSign,
   FaBell,
 } from "react-icons/fa";
-
 import styles from "./MenuDonos.module.css";
 
 const MenuItem = memo(function MenuItem({
@@ -106,7 +105,15 @@ function MenuDonos({ children }) {
   }, []);
 
   const isActive = useCallback(
-    (path) => location.pathname === path,
+    (path) => {
+      if (path === "/emprestimos") {
+        return (
+          location.pathname === "/emprestimos" ||
+          location.pathname === "/parcelas"
+        );
+      }
+      return location.pathname === path;
+    },
     [location.pathname]
   );
 
@@ -179,12 +186,17 @@ function MenuDonos({ children }) {
           </div>
 
           <div className={styles.profileCircle}>
-            <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="Perfil" />
+            <img
+              src="https://randomuser.me/api/portraits/men/10.jpg"
+              alt="Perfil"
+            />
           </div>
         </div>
       </header>
 
-      <div className={`${styles.container} ${isCollapsed ? styles.collapsed : ""}`}>
+      <div
+        className={`${styles.container} ${isCollapsed ? styles.collapsed : ""}`}
+      >
         <aside
           className={styles.sidebar}
           ref={sidebarRef}
