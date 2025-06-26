@@ -1,0 +1,106 @@
+.suporteContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+  color: var(--text-color);
+  overflow: hidden;
+  background-color: var(--bg-color);
+}
+
+.titulo {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.formulario {
+  background-color: var(--sidebar-bg);
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex-shrink: 0;
+  color: var(--text-color);
+}
+
+.formulario label {
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.formulario input,
+.formulario textarea {
+  background-color: var(--hover-bg);
+  color: var(--text-color);
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  border: none;
+}
+
+
+.botaoEnviar {
+  background-color: #007bff;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  align-self: flex-end;
+  transition: background 0.3s ease;
+}
+
+.botaoEnviar:hover {
+  background-color: #0056b3;
+}
+
+.historico {
+  background-color: var(--sidebar-bg);
+  padding: 20px;
+  border-radius: 12px;
+  flex-grow: 1;
+  overflow-y: auto;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: #555 var(--sidebar-bg);
+  color: var(--text-color);
+}
+
+.historico::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 12px;
+}
+
+.historico::-webkit-scrollbar-track {
+  background: var(--sidebar-bg);
+  border-radius: 12px;
+}
+
+.historico::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 12px;
+  border: 2px solid var(--sidebar-bg);
+}
+
+.historico h3 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: var(--text-color);
+}
+
+.historico ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.historico li {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #444;
+  padding-bottom: 10px;
+  color: var(--text-color);
+}

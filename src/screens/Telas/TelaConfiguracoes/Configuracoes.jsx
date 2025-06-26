@@ -5,9 +5,33 @@ import styles from "./Configuracoes.module.css";
 
 function Configuracoes({ isCollapsed, toggleSidebar }) {
   const [tipoUsuario, setTipoUsuario] = useState("");
-  const [busca, setBusca] = useState("");
-  const [cargoFiltro, setCargoFiltro] = useState("Todos");
-  const [funcionarios, setFuncionarios] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [funcionarios, setFuncionarios] = useState([
+    {
+      id: 1,
+      nome: "João Silva",
+      email: "joao.silva@email.com",
+      telefone: "11999999999",
+      cargo: "Gerente",
+      endereco: "Rua A, 123 - Centro",
+    },
+    {
+      id: 2,
+      nome: "Ana Oliveira",
+      email: "ana.oliveira@email.com",
+      telefone: "11988888888",
+      cargo: "Assistente",
+      endereco: "Av. B, 456 - Bairro Novo",
+    },
+    {
+      id: 3,
+      nome: "Pedro Santos",
+      email: "pedro.santos@email.com",
+      telefone: "11977777777",
+      cargo: "Analista",
+      endereco: "Rua C, 789 - Jardim das Flores",
+    },
+  ]);
 
   useEffect(() => {
     const tipo = localStorage.getItem("tipoUsuario");
@@ -16,84 +40,69 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
     } else {
       setTipoUsuario(tipo);
     }
-
-    setFuncionarios([
-      { id: 1, nome: "João da Silva", cargo: "Gerente", email: "joao@empresa.com", telefone: "(11) 99999-9999" },
-      { id: 2, nome: "Maria Oliveira", cargo: "Atendente", email: "maria@empresa.com", telefone: "(11) 98888-8888" },
-      { id: 3, nome: "Carlos Santos", cargo: "Financeiro", email: "carlos@empresa.com", telefone: "(11) 97777-7777" },
-    ]);
   }, []);
 
-  const renderMenu = () => {
-    const filtrados = funcionarios.filter(f =>
-      (cargoFiltro === "Todos" || f.cargo === cargoFiltro) &&
-      (f.nome.toLowerCase().includes(busca.toLowerCase()) || String(f.id).includes(busca))
-    );
+  const filteredFuncionarios = funcionarios.filter((func) =>
+    func.nome.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-    const conteudo = (
-      <div className={styles.container}>
-        <h1 className={styles.title}>Funcionários</h1>
-
-        <div className={styles.filtros}>
-          <input
-            type="text"
-            placeholder="Pesquisar por nome ou ID..."
-            value={busca}
-            onChange={(e) => setBusca(e.target.value)}
-            className={styles.inputBusca}
-          />
-
-          <select
-            value={cargoFiltro}
-            onChange={(e) => setCargoFiltro(e.target.value)}
-            className={styles.selectFiltro}
-          >
-            <option>Todos</option>
-            <option>Gerente</option>
-            <option>Atendente</option>
-            <option>Financeiro</option>
-            <option>TI</option>
-          </select>
-
-          <button className={styles.botaoNovo}>+ Novo</button>
-        </div>
-
-        <div className={styles.tableWrapper}>
-          <table className={styles.tabela}>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Cargo</th>
-                <th>Email</th>
-                <th>Telefone</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtrados.map((f) => (
-                <tr key={f.id}>
-                  <td>{f.id}</td>
-                  <td>{f.nome}</td>
-                  <td>{f.cargo}</td>
-                  <td>{f.email}</td>
-                  <td>{f.telefone}</td>
-                  <td>
-                    <button className={styles.editar}>Editar</button>
-                    <button className={styles.excluir}>Excluir</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+  const renderFuncionarios = () => (
+    <div className={`${isCollapsed ? styles.collapsed : ""}`}>
+      <div className={styles.headerBox}>
+        <button className={styles.addButton}>+ Novo Funcionário</button>
+        <span className={styles.countInfo}>
+          Total: {filteredFuncionarios.length} funcionário
+          {filteredFuncionarios.length !== 1 ? "s" : ""}
+        </span>
       </div>
-    );
+      <input
+        type="text"
+        placeholder="Pesquisar Funcionário pelo nome..."
+        className={styles.searchInput}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      <div className={styles.funcionariosBox}>
+        {filteredFuncionarios.map((funcionario) => (
+          <div key={funcionario.id} className={styles.funcionarioCard}>
+            <h3>{funcionario.nome}</h3>
+            <p>
+              <strong>Código do Funcionário:</strong> {funcionario.id}
+            </p>
+            <p>
+              <strong>E-mail:</strong> {funcionario.email}
+            </p>
+            <p>
+              <strong>Cargo:</strong> {funcionario.cargo}
+            </p>
+            <p>
+              <strong>Telefone de Contato:</strong> {funcionario.telefone}
+            </p>
+            <p>
+              <strong>Endereço Residencial:</strong> {funcionario.endereco}
+            </p>
+          </div>
+        ))}
+        {filteredFuncionarios.length === 0 && (
+          <p className={styles.notFound}>Nenhum funcionário encontrado.</p>
+        )}
+      </div>
+    </div>
+  );
 
+  const renderMenu = () => {
     if (tipoUsuario === "admin") {
-      return <MenuDonos isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>{conteudo}</MenuDonos>;
+      return (
+        <MenuDonos isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>
+          {renderFuncionarios()}
+        </MenuDonos>
+      );
     } else if (tipoUsuario === "user") {
-      return <MenuUsers isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>{conteudo}</MenuUsers>;
+      return (
+        <MenuUsers isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>
+          {renderFuncionarios()}
+        </MenuUsers>
+      );
     } else {
       return <p>Carregando...</p>;
     }

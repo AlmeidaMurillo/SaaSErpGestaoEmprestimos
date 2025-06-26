@@ -10,53 +10,14 @@ function Clientes({ isCollapsed, toggleSidebar }) {
     {
       id: 1,
       nome: "João Silva",
-      telefone: "11999999999",
-      indicadoPor: "Maria Souza",
-      endereco: "Rua A, 123 - Centro",
-      totalEmprestimos: 5,
-      pendentes: 2,
-      totalEmprestado: 10000,
-      lucroTotal: 1500,
-      maiorValorEmprestado: 3000,
-      ultimoEmprestimo: {
-        valor: 2000,
-        data: "10/04/2024",
-      },
-      emprestimosPagos: 3,
     },
     {
       id: 2,
       nome: "Ana Oliveira",
-      telefone: "11988888888",
-      indicadoPor: "Carlos Lima",
-      endereco: "Av. B, 456 - Bairro Novo",
-      totalEmprestimos: 3,
-      pendentes: 1,
-      totalEmprestado: 6000,
-      lucroTotal: 900,
-      maiorValorEmprestado: 2500,
-      ultimoEmprestimo: {
-        valor: 2500,
-        data: "05/03/2024",
-      },
-      emprestimosPagos: 2,
     },
     {
       id: 3,
       nome: "Pedro Santos",
-      telefone: "11977777777",
-      indicadoPor: "Joana Lima",
-      endereco: "Rua C, 789 - Jardim das Flores",
-      totalEmprestimos: 4,
-      pendentes: 1,
-      totalEmprestado: 8000,
-      lucroTotal: 1200,
-      maiorValorEmprestado: 2800,
-      ultimoEmprestimo: {
-        valor: 1800,
-        data: "15/02/2024",
-      },
-      emprestimosPagos: 3,
     },
   ]);
 
@@ -75,62 +36,32 @@ function Clientes({ isCollapsed, toggleSidebar }) {
 
   const renderClientes = () => (
     <div className={`${isCollapsed ? styles.collapsed : ""}`}>
-      <button className={styles.addButton}>
-        + Novo Cliente
-      </button>
-      <input
-        type="text"
-        placeholder="Pesquisar cliente pelo nome..."
-        className={styles.searchInput}
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+      <div className={styles.topo}>
+        <input
+          type="text"
+          placeholder="Pesquisar cliente pelo nome..."
+          className={styles.searchInput}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <button className={styles.addButton}>+ Novo Cliente</button>
+      </div>
       <div className={styles.clientesBox}>
         {filteredClientes.map((cliente) => (
           <div key={cliente.id} className={styles.clienteCard}>
-            <h3>{cliente.nome}</h3>
-            <p>
-              <strong>Código do Cliente:</strong> {cliente.id}
-            </p>
-            <p>
-              <strong>Telefone de Contato:</strong> {cliente.telefone}
-            </p>
-            <p>
-              <strong>Indicado Por:</strong> {cliente.indicadoPor}
-            </p>
-            <p>
-              <strong>Endereço Residencial:</strong> {cliente.endereco}
-            </p>
-            <p>
-              <strong>Qtd. de Empréstimos:</strong> {cliente.totalEmprestimos}
-            </p>
-            <p>
-              <strong>Empréstimos Pendentes:</strong> {cliente.pendentes}
-            </p>
-            <p>
-              <strong>Valor Total Emprestado:</strong> R${" "}
-              {cliente.totalEmprestado.toLocaleString()}
-            </p>
-            <p>
-              <strong>Lucro Gerado:</strong> R${" "}
-              {cliente.lucroTotal.toLocaleString()}
-            </p>
-            <p>
-              <strong>Maior Empréstimo Concedido:</strong> R${" "}
-              {cliente.maiorValorEmprestado.toLocaleString()}
-            </p>
-            <p>
-              <strong>Último Empréstimo:</strong>{" "}
-              {cliente.ultimoEmprestimo
-                ? `R$ ${cliente.ultimoEmprestimo.valor.toLocaleString()} em ${
-                    cliente.ultimoEmprestimo.data
-                  }`
-                : "R$ N/A em N/A"}
-            </p>
-            <p>
-              <strong>Qtd. de Empréstimos Pagos:</strong>{" "}
-              {cliente.emprestimosPagos}
-            </p>
+            <div className={styles.infoCliente}>
+              <span className={styles.idCliente}>{cliente.id}</span>
+              <span className={styles.traco}>-</span>
+              <span className={styles.nomeCliente}>{cliente.nome}</span>
+            </div>
+            <div className={styles.acoes}>
+              <button className={styles.botaoEditar}>
+                <i className="fas fa-pen"></i>
+              </button>
+              <button className={styles.botaoExcluir}>
+                <i className="fas fa-trash"></i>
+              </button>
+            </div>
           </div>
         ))}
         {filteredClientes.length === 0 && (
