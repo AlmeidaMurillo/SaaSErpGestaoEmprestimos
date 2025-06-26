@@ -7,18 +7,9 @@ function Clientes({ isCollapsed, toggleSidebar }) {
   const [tipoUsuario, setTipoUsuario] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [clientes, setClientes] = useState([
-    {
-      id: 1,
-      nome: "João Silva",
-    },
-    {
-      id: 2,
-      nome: "Ana Oliveira",
-    },
-    {
-      id: 3,
-      nome: "Pedro Santos",
-    },
+    { id: 1, nome: "João Silva" },
+    { id: 2, nome: "Ana Oliveira" },
+    { id: 3, nome: "Pedro Santos" },
   ]);
 
   useEffect(() => {
@@ -31,63 +22,69 @@ function Clientes({ isCollapsed, toggleSidebar }) {
   }, []);
 
   const filteredClientes = clientes.filter((cliente) =>
-    cliente.nome.toLowerCase().includes(searchTerm.toLowerCase())
+    cliente.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    cliente.id.toString().includes(searchTerm)
   );
 
   const renderClientes = () => (
-    <div className={`${isCollapsed ? styles.collapsed : ""}`}>
-      <div className={styles.topo}>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Clientes</h1>
+
+      <div className={styles.filtros}>
         <input
           type="text"
-          placeholder="Pesquisar cliente pelo nome..."
-          className={styles.searchInput}
+          placeholder="Pesquisar por nome ou ID..."
+          className={styles.inputBusca}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <button className={styles.addButton}>+ Novo Cliente</button>
+        <button className={styles.botaoNovo}>+ Novo</button>
       </div>
-      <div className={styles.clientesBox}>
-        {filteredClientes.map((cliente) => (
-          <div key={cliente.id} className={styles.clienteCard}>
-            <div className={styles.infoCliente}>
-              <span className={styles.idCliente}>{cliente.id}</span>
-              <span className={styles.traco}>-</span>
-              <span className={styles.nomeCliente}>{cliente.nome}</span>
-            </div>
-            <div className={styles.acoes}>
-              <button className={styles.botaoEditar}>
-                <i className="fas fa-pen"></i>
-              </button>
-              <button className={styles.botaoExcluir}>
-                <i className="fas fa-trash"></i>
-              </button>
-            </div>
-          </div>
-        ))}
-        {filteredClientes.length === 0 && (
-          <p className={styles.notFound}>Nenhum cliente encontrado.</p>
-        )}
-      </div>
+
+      <table className={styles.tabela}>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredClientes.length > 0 ? (
+            filteredClientes.map((cliente) => (
+              <tr key={cliente.id}>
+                <td>{cliente.id}</td>
+                <td>{cliente.nome}</td>
+                <td>
+                  <button className={styles.botaoEditar}>Editar</button>
+                  <button className={styles.botaoExcluir}>Excluir</button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="3" className={styles.notFound}>
+                Nenhum cliente encontrado.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 
-  const renderMenu = () => {
-    if (tipoUsuario === "admin") {
-      return (
-        <MenuDonos isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>
-          {renderClientes()}
-        </MenuDonos>
-      );
-    } else if (tipoUsuario === "user") {
-      return (
-        <MenuUsers isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>
-          {renderClientes()}
-        </MenuUsers>
-      );
-    } else {
-      return <p>Carregando...</p>;
-    }
-  };
+  const renderMenu = () =>
+    tipoUsuario === "admin" ? (
+      <MenuDonos isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>
+        {renderClientes()}
+      </MenuDonos>
+    ) : tipoUsuario === "user" ? (
+      <MenuUsers isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>
+        {renderClientes()}
+      </MenuUsers>
+    ) : (
+      <p>Carregando...</p>
+    );
 
   return <>{renderMenu()}</>;
 }

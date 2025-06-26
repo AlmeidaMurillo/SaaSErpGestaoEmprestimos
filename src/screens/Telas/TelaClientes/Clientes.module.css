@@ -1,280 +1,124 @@
-.topo {
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: var(--text-color);
+}
+
+.filtros {
   display: flex;
-  gap: 10px;
-  align-items: center;
+  gap: 15px;
   margin-bottom: 20px;
   flex-wrap: wrap;
 }
 
-.addButton {
-  padding: 10px 20px;
-  border: none;
+.inputBusca {
+  padding: 10px 14px;
+  border: 1px solid transparent;
   border-radius: 8px;
   background-color: var(--hover-bg);
   color: var(--text-color);
-  font-weight: bold;
   font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.addButton:active {
-  background-color: var(--active-bg);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .addButton:hover {
-    background-color: var(--active-bg);
-  }
-}
-
-.searchInput {
   flex: 1;
-  min-width: 220px;
-  padding: 12px 16px;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  background-color: var(--hover-bg);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-  color: var(--text-color);
+  min-width: 200px;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
-.searchInput:focus {
+.inputBusca:focus {
   outline: none;
-  background-color: var(--sidebar-bg);
-  box-shadow: 0 0 0 2px var(--text-color);
-}
-
-.clientesBox {
-  flex: 1 1 auto;
-  min-height: 0;
-  min-width: 280px;
-  max-width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  background: var(--bg-color);
-  border-radius: 12px;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
-  flex-wrap: nowrap;
-  box-sizing: border-box;
-}
-
-.clienteCard {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: nowrap;
-  padding: 12px 24px;
-  background-color: var(--sidebar-bg);
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  cursor: pointer;
-  gap: 12px;
-  box-sizing: border-box;
-  word-wrap: break-word;
-  flex-shrink: 0;
   border: 1px solid var(--text-color);
-  min-width: 0;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--text-color) 60%, transparent);
 }
 
-.infoCliente {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--text-color);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex-grow: 1;
-  min-width: 0;
-}
-
-.nomeCliente {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--text-color);
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex-grow: 1;
-  gap: 4px;
-  min-width: 0;
-}
-
-.idCliente {
-  font-size: 1.5rem;
-  font-weight: 900;
-  color: var(--accent-color, var(--text-color));
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-
-.traco {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--text-color);
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-
-.clienteCard p {
-  margin: 4px 0;
-  font-size: 16px;
-  color: var(--text-color);
-}
-
-.clienteCard p strong {
-  color: var(--text-color);
-}
-
-.acoes {
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-}
-
-.botaoEditar,
-.botaoExcluir {
-  background-color: rgba(255, 255, 255, 0.06);
+.botaoNovo {
+  background-color: #22c55e;
+  color: white;
   border: none;
-  padding: 10px 12px;
-  cursor: pointer;
-  font-size: 22px;
   border-radius: 8px;
-  transition: background 0.2s ease, transform 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.botaoEditar i {
-  color: #4a90e2;
+.botaoNovo:hover {
+  background-color: #16a34a;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--sidebar-bg);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tabela th,
+.tabela td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #333;
+  color: var(--text-color);
+}
+
+.tabela th {
+  background-color: var(--sidebar-bg);
+}
+
+.tabela tr:hover {
+  cursor: pointer;
+  background-color: var(--hover-bg);
+}
+
+.botaoEditar {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  margin-right: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
 }
 
 .botaoEditar:hover {
-  background-color: rgba(74, 144, 226, 0.2);
-  transform: scale(1.08);
+  background-color: #2563eb;
 }
 
-.botaoEditar:hover i {
-  color: #70a7f7;
-}
-
-.botaoExcluir i {
-  color: #f44336;
+.botaoExcluir {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
 }
 
 .botaoExcluir:hover {
-  background-color: rgba(244, 67, 54, 0.15);
-  transform: scale(1.08);
-}
-
-.botaoExcluir:hover i {
-  color: #c62828;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .clienteCard:hover {
-    background-color: var(--hover-bg);
-    transform: translateY(-0.5px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  }
+  background-color: #dc2626;
 }
 
 .notFound {
-  margin-top: 20px;
-  font-size: 16px;
-  color: #888;
   text-align: center;
-}
-
-.collapsed {
-  max-width: calc(1200px - 120px);
-}
-
-@media (max-width: 1024px) {
-  .clienteCard {
-    padding: 16px 20px;
-  }
-
-  .clienteCard h3 {
-    font-size: 18px;
-  }
-
-  .clienteCard p {
-    font-size: 14px;
-  }
+  font-size: 1rem;
+  color: #aaa;
+  padding: 10px;
 }
 
 @media (max-width: 600px) {
-  .nomeCliente,
-  .infoCliente {
-    font-size: 1.1rem;
-  }
-  
-  .idCliente,
-  .traco {
-    font-size: 1.2rem;
-  }
-
-  .clienteCard {
-    padding: 10px 16px;
-    gap: 8px;
-  }
-}
-
-@media (max-width: 320px) {
-  .nomeCliente,
-  .infoCliente {
-    font-size: 1rem;
-  }
-
-  .idCliente,
-  .traco {
-    font-size: 1.1rem;
-  }
-
-  .clienteCard {
-    padding: 8px 12px;
-    gap: 6px;
-  }
-}
-
-@media (max-width: 310px) {
-  .clientesBox {
-    min-width: 200px;
+  .tabela th,
+  .tabela td {
     padding: 8px;
-  }
-
-  .clienteCard {
-    padding: 10px 12px;
-    min-width: 200px;
-    min-height: 80px;
-  }
-
-  .clienteCard h3 {
     font-size: 14px;
   }
 
-  .clienteCard p {
-    font-size: 11px;
+  .botaoEditar,
+  .botaoExcluir {
+    padding: 4px 8px;
+    font-size: 0.8rem;
   }
 
-  .searchInput {
-    width: 100%;
-    min-width: 200px;
-    padding: 6px 10px;
-    box-sizing: border-box;
-    font-size: 12px;
-    margin-bottom: 10px;
+  .inputBusca {
+    min-width: 100%;
   }
 }

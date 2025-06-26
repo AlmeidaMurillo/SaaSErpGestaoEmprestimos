@@ -1,168 +1,101 @@
-.funcionariosBox {
-  flex: 1 1 auto;
-  min-height: 0;
-  min-width: 280px;
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: var(--text-color);
+}
+
+.filtros {
   display: flex;
-  flex-direction: column;
   gap: 15px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  background: var(--bg-color);
-  border-radius: 12px;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
-  flex-wrap: nowrap;
-}
-
-.funcionarioCard {
-  background-color: var(--sidebar-bg);
-  border: 1px solid var(--text-color);
-  border-left: 6px solid var(--text-color);
-  border-radius: 12px;
-  padding: 18px 24px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  max-width: 100%;
-  min-width: 280px;
-  min-height: 100px;
-  box-sizing: border-box;
-  word-wrap: break-word;
-  flex-shrink: 0;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .funcionarioCard:hover {
-    background-color: var(--hover-bg);
-    transform: translateY(-0.5px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  }
-
-  .addButton:hover {
-    background-color: var(--active-bg);
-  }
-}
-
-.funcionarioCard:active {
-  background-color: var(--hover-bg);
-  transform: translateY(-0.5px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-}
-
-.addButton:active {
-  background-color: var(--active-bg);
-}
-
-.funcionarioCard h3 {
-  margin-bottom: 8px;
-  font-size: 20px;
-  color: var(--text-color);
-}
-
-.funcionarioCard p {
-  margin: 4px 0;
-  font-size: 15px;
-  color: var(--text-color);
-}
-
-.funcionarioCard p strong {
-  color: var(--text-color);
-}
-
-.searchInput {
-  width: 100%;
-  padding: 12px 16px;
   margin-bottom: 20px;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  background-color: var(--hover-bg);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-  color: var(--text-color);
+  flex-wrap: wrap;
 }
 
-.searchInput:focus {
-  outline: none;
-  background-color: var(--sidebar-bg);
-  box-shadow: 0 0 0 2px var(--text-color);
-}
-
-.notFound {
-  margin-top: 20px;
-  font-size: 16px;
-  color: #888;
-  text-align: center;
-}
-
-.collapsed {
-  max-width: calc(1200px - 120px);
-}
-
-.addButton {
-  padding: 10px 20px;
-  border: none;
-  margin-bottom: 20px;
+.inputBusca {
+  padding: 10px 14px;
+  border: 1px solid transparent;
   border-radius: 8px;
   background-color: var(--hover-bg);
   color: var(--text-color);
-  font-weight: bold;
   font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
+  flex: 1;
+  min-width: 200px;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
-.headerBox {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
+.inputBusca:focus {
+  outline: none;
+  border: 1px solid var(--text-color);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--text-color) 30%, transparent);
 }
 
-.countInfo {
-  font-size: 16px;
+.selectFiltro {
+  padding: 10px;
+  border-radius: 8px;
+  background-color:  var(--hover-bg);
+  border: none;
   color: var(--text-color);
-  font-weight: 500;
 }
 
-@media (max-width: 1024px) {
-  .funcionarioCard {
-    padding: 16px 20px;
-  }
-
-  .funcionarioCard h3 {
-    font-size: 18px;
-  }
-
-  .funcionarioCard p {
-    font-size: 14px;
-  }
+.selectFiltro:focus {
+  outline: none;
+  border: 1px solid var(--text-color);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--text-color) 30%, transparent);
 }
 
-@media (max-width: 310px) {
-  .funcionariosBox {
-    min-width: 200px;
-    padding: 8px;
-  }
+.botaoNovo {
+  background-color: #22c55e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
-  .funcionarioCard {
-    padding: 10px 12px;
-    min-width: 200px;
-    min-height: 80px;
-  }
+.botaoNovo:hover {
+  background-color: #16a34a;
+}
 
-  .funcionarioCard h3 {
-    font-size: 14px;
-  }
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--hover-bg);
+  border-radius: 8px;
+  overflow: hidden;
+}
 
-  .funcionarioCard p {
-    font-size: 11px;
-  }
+.tabela th,
+.tabela td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
 
-  .searchInput {
-    width: 100%;
-    min-width: 200px;
-    padding: 6px 10px;
-    box-sizing: border-box;
-    font-size: 12px;
-    margin-bottom: 10px;
-  }
+.tabela th {
+  background-color: var(--hover-bg);
+}
+
+.tabela tr:hover {
+  background-color: #222;
+}
+
+.editar {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.excluir {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
 }
