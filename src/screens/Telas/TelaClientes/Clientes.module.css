@@ -5,13 +5,6 @@
   box-sizing: border-box;
 }
 
-.title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: var(--text-color);
-}
-
 .filtros {
   display: flex;
   gap: 15px;
@@ -169,7 +162,7 @@
   .container {
     display: flex;
     flex-direction: column;
-    height: 200dvh;
+    height: 100%;
     box-sizing: border-box;
   }
 
@@ -178,7 +171,7 @@
     padding: 6px 10px;
     font-size: 0.75rem;
     display: inline-block;
-    margin-bottom: 4px;
+    margin-top: 10px;
   }
 
   .tabela td:nth-child(3) {
@@ -186,6 +179,36 @@
   }
 
   .inputBusca {
-    min-width: 100px;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background-color: var(--hover-bg);
+    color: var(--text-color);
+    font-size: 1rem;
+    flex: 1;
+    min-width: 200px;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .botaoNovo {
+    background-color: #22c55e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+}
+
+@media (max-width: 400px) {
+  .botaoNovo {
+    background-color: #22c55e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
   }
 }

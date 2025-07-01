@@ -32,8 +32,6 @@ function Clientes({ isCollapsed, toggleSidebar }) {
 
   const renderClientes = () => (
     <div className={styles.container}>
-      <h1 className={styles.title}>Clientes</h1>
-
       <div className={styles.filtros}>
         <input
           type="text"
