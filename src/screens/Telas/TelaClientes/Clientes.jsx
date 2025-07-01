@@ -8,7 +8,7 @@ function Clientes({ isCollapsed, toggleSidebar }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [clientes, setClientes] = useState([
     { id: 1, nome: "João Silva" },
-    { id: 2, nome: "Ana Oliveira" },
+    { id: 2, nome: "Ana Oliveira DA SILVA DIAS DE ALMEIDA" },
     { id: 3, nome: "Pedro Santos" },
   ]);
 

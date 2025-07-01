@@ -55,13 +55,31 @@
 .tabela th,
 .tabela td {
   padding: 12px;
-  text-align: left;
   border-bottom: 1px solid #333;
   color: var(--text-color);
+  vertical-align: middle;
 }
 
 .tabela th {
   background-color: var(--sidebar-bg);
+}
+
+.tabela th:nth-child(1),
+.tabela td:nth-child(1) {
+  text-align: left;
+  width: 15%;
+}
+
+.tabela th:nth-child(2),
+.tabela td:nth-child(2) {
+  text-align: center;
+  width: 55%;
+}
+
+.tabela th:nth-child(3),
+.tabela td:nth-child(3) {
+  text-align: right;
+  width: 30%;
 }
 
 .tabela tr:hover {
