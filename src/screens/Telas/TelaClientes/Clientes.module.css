@@ -152,4 +152,7 @@
   .tabela td:nth-child(3) {
     white-space: nowrap;
   }
+  .inputBusca {
+    min-width: 100px;
+  }
 }
