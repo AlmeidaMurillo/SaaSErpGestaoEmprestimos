@@ -202,6 +202,37 @@
 }
 
 @media (max-width: 400px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .botaoEditar,
+  .botaoExcluir {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    display: inline-block;
+    margin-top: 10px;
+  }
+
+  .tabela td:nth-child(3) {
+    white-space: nowrap;
+  }
+
+  .inputBusca {
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background-color: var(--hover-bg);
+    color: var(--text-color);
+    font-size: 1rem;
+    flex: 1;
+    min-width: 200px;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+  }
+
   .botaoNovo {
     background-color: #22c55e;
     color: white;
