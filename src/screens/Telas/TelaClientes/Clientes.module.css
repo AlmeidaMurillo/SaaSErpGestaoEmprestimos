@@ -140,3 +140,16 @@
     min-width: 100%;
   }
 }
+@media screen and (max-width: 800px) {
+  .botaoEditar,
+  .botaoExcluir {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    display: inline-block;
+    margin-bottom: 4px;
+  }
+
+  .tabela td:nth-child(3) {
+    white-space: nowrap;
+  }
+}
