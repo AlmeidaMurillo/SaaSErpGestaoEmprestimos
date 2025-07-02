@@ -201,7 +201,8 @@
   }
 }
 
-@media (max-width: 400px) {
+
+@media (max-width: 500px) {
   .container {
     display: flex;
     flex-direction: column;
@@ -209,12 +210,40 @@
     box-sizing: border-box;
   }
 
+  .tabelaWrapper {
+    flex: none; 
+    height: 105%;
+    overflow-y: auto;
+    overflow-x: auto;
+    background-color: var(--sidebar-bg);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+
+  .tabela {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--sidebar-bg);
+    overflow: auto;
+  }
+
+  .tabela th {
+    background-color: var(--sidebar-bg);
+    font-size: 0.4rem;
+  }
+
+  .filtros {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+  }
+
   .botaoEditar,
   .botaoExcluir {
     padding: 6px 10px;
     font-size: 0.75rem;
     display: inline-block;
-    margin-top: 10px;
   }
 
   .tabela td:nth-child(3) {
@@ -222,23 +251,29 @@
   }
 
   .inputBusca {
-    padding: 5px 10px;
-    border: 1px solid transparent;
-    border-radius: 8px;
+    margin-top: -12px;
+    height: 15px;
+    padding: 0 5px;
+    font-size: 0.4rem;
+    line-height: 1;
+    border-radius: 4px;
     background-color: var(--hover-bg);
     color: var(--text-color);
-    font-size: 1rem;
+    border: 1px solid transparent;
     flex: 1;
-    min-width: 200px;
-    transition: border 0.2s ease, box-shadow 0.2s ease;
+    min-width: 100px;
   }
 
   .botaoNovo {
     background-color: #22c55e;
     color: white;
+    margin-top: -12px;
     border: none;
-    border-radius: 8px;
-    padding: 5px 10px;
+    border-radius: 4px;
+    height: 15px;
+    padding: 0 8px;
+    font-size: 0.4rem;
+    line-height: 1;
     cursor: pointer;
     transition: background-color 0.3s;
   }
