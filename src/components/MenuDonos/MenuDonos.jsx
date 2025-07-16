@@ -73,14 +73,21 @@ function MenuDonos({ children }) {
     const sidebar = sidebarRef.current;
     if (!sidebar) return;
 
-    const handleZoomCheck = () => {
-      const zoom = window.devicePixelRatio;
-      sidebar.style.overflowY = zoom >= 1.25 ? "auto" : "hidden";
+    const updateOverflow = () => {
+      const needsScroll = sidebar.scrollHeight > sidebar.clientHeight;
+      sidebar.style.overflowY = needsScroll ? "auto" : "hidden";
     };
 
-    handleZoomCheck();
-    window.addEventListener("resize", handleZoomCheck);
-    return () => window.removeEventListener("resize", handleZoomCheck);
+    const resizeObserver = new ResizeObserver(updateOverflow);
+    resizeObserver.observe(sidebar);
+
+    window.addEventListener("resize", updateOverflow);
+    updateOverflow();
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateOverflow);
+    };
   }, []);
 
   useEffect(() => {

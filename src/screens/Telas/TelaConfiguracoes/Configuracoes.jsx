@@ -5,9 +5,16 @@ import styles from "./Configuracoes.module.css";
 
 function Configuracoes({ isCollapsed, toggleSidebar }) {
   const [tipoUsuario, setTipoUsuario] = useState("");
-  const [busca, setBusca] = useState("");
-  const [cargoFiltro, setCargoFiltro] = useState("Todos");
-  const [funcionarios, setFuncionarios] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [configuracoes, setConfiguracoes] = useState([
+    { id: 1, nome: "João Silva" },
+    { id: 2, nome: "Ana Oliveira DA SILVA DIAS DE ALMEIDA " },
+    { id: 3, nome: "Pedro Santos" },
+    ...Array.from({ length: 20 }, (_, i) => ({
+      id: i + 4,
+      nome: "Pedro Santos",
+    })),
+  ]);
 
   useEffect(() => {
     const tipo = localStorage.getItem("tipoUsuario");
@@ -16,87 +23,72 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
     } else {
       setTipoUsuario(tipo);
     }
-
-    // Exemplo de dados fixos (substitua por dados do backend futuramente)
-    setFuncionarios([
-      { id: 1, nome: "João da Silva", cargo: "Gerente", email: "joao@empresa.com", telefone: "(11) 99999-9999" },
-      { id: 2, nome: "Maria Oliveira", cargo: "Atendente", email: "maria@empresa.com", telefone: "(11) 98888-8888" },
-      { id: 3, nome: "Carlos Santos", cargo: "Financeiro", email: "carlos@empresa.com", telefone: "(11) 97777-7777" },
-    ]);
   }, []);
 
-  const renderMenu = () => {
-    const filtrados = funcionarios.filter(f =>
-      (cargoFiltro === "Todos" || f.cargo === cargoFiltro) &&
-      (f.nome.toLowerCase().includes(busca.toLowerCase()) || String(f.id).includes(busca))
-    );
+  const filteredConfiguracoes = configuracoes.filter((configuracao) =>
+    configuracao.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    configuracao.id.toString().includes(searchTerm)
+  );
 
-    const conteudo = (
-      <div className={styles.container}>
-        <h1 className={styles.title}>Funcionários</h1>
+  const renderConfiguracoes = () => (
+    <div className={styles.container}>
+      <div className={styles.filtros}>
+        <input
+          type="text"
+          placeholder="Pesquisar por nome ou ID..."
+          className={styles.inputBusca}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <button className={styles.botaoNovo}>+ Novo Funcionário</button>
+      </div>
 
-        <div className={styles.filtros}>
-          <input
-            type="text"
-            placeholder="Pesquisar por nome ou ID..."
-            value={busca}
-            onChange={(e) => setBusca(e.target.value)}
-            className={styles.inputBusca}
-          />
-
-          <select
-            value={cargoFiltro}
-            onChange={(e) => setCargoFiltro(e.target.value)}
-            className={styles.selectFiltro}
-          >
-            <option>Todos</option>
-            <option>Gerente</option>
-            <option>Atendente</option>
-            <option>Financeiro</option>
-            <option>TI</option>
-          </select>
-
-          <button className={styles.botaoNovo}>+ Novo</button>
-        </div>
-
+      <div className={styles.tabelaWrapper}>
         <table className={styles.tabela}>
           <thead>
             <tr>
               <th>ID</th>
-              <th>Nome</th>
-              <th>Cargo</th>
-              <th>Email</th>
-              <th>Telefone</th>
+              <th>Funcionario</th>
               <th>Ações</th>
             </tr>
           </thead>
           <tbody>
-            {filtrados.map((f) => (
-              <tr key={f.id}>
-                <td>{f.id}</td>
-                <td>{f.nome}</td>
-                <td>{f.cargo}</td>
-                <td>{f.email}</td>
-                <td>{f.telefone}</td>
-                <td>
-                  <button className={styles.editar}>Editar</button>
-                  <button className={styles.excluir}>Excluir</button>
+            {filteredConfiguracoes.length > 0 ? (
+              filteredConfiguracoes.map((configuracao) => (
+                <tr className={styles.tabelaRow} key={`${configuracao.id}-${configuracao.nome}`}>
+                  <td>{configuracao.id}</td>
+                  <td>{configuracao.nome}</td>
+                  <td className={styles.acoes}>
+                    <button className={styles.botaoEditar}>Editar</button>
+                    <button className={styles.botaoExcluir}>Excluir</button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="3" className={styles.notFound}>
+                  Nenhuma configuração encontrada.
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
-    );
+    </div>
+  );
 
-    if (tipoUsuario === "admin") {
-      return <MenuDonos isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>{conteudo}</MenuDonos>;
-    } else if (tipoUsuario === "user") {
-      return <MenuUsers isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>{conteudo}</MenuUsers>;
-    } else {
-      return <p>Carregando...</p>;
-    }
-  };
+  const renderMenu = () =>
+    tipoUsuario === "admin" ? (
+      <MenuDonos isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>
+        {renderConfiguracoes()}
+      </MenuDonos>
+    ) : tipoUsuario === "user" ? (
+      <MenuUsers isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>
+        {renderConfiguracoes()}
+      </MenuUsers>
+    ) : (
+      <p>Carregando...</p>
+    );
 
   return <>{renderMenu()}</>;
 }

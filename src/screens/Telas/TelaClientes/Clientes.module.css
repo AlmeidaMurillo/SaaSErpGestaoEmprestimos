@@ -77,8 +77,18 @@
   word-wrap: break-word;
 }
 
+.tabelaRow{
+  cursor: pointer;
+}
+
+.tabelaRow:hover {
+  background-color: var(--hover-bg);
+}
+
+
 .tabela th {
   background-color: var(--sidebar-bg);
+  
 }
 
 .tabela th:nth-child(1),

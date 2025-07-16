@@ -40,7 +40,7 @@ function Clientes({ isCollapsed, toggleSidebar }) {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <button className={styles.botaoNovo}>+ Novo</button>
+        <button className={styles.botaoNovo}>+ Novo Cliente</button>
       </div>
 
       <div className={styles.tabelaWrapper}>
@@ -55,7 +55,7 @@ function Clientes({ isCollapsed, toggleSidebar }) {
           <tbody>
             {filteredClientes.length > 0 ? (
               filteredClientes.map((cliente) => (
-                <tr key={`${cliente.id}-${cliente.nome}`}>
+                <tr className={styles.tabelaRow} key={`${cliente.id}-${cliente.nome}`}>
                   <td>{cliente.id}</td>
                   <td>{cliente.nome}</td>
                   <td className={styles.acoes}>
