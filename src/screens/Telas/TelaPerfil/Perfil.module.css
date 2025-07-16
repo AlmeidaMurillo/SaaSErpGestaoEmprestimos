@@ -1,0 +1,237 @@
+
+.perfilContainer {
+  width: 100%;
+  height: 100%;
+  padding: 2rem 2.5rem;
+  background: var(--sidebar-bg);
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgb(0 0 0 / 0.1);
+  display: grid;
+  grid-template-columns: 750px 1fr;
+  gap: 3rem;
+}
+
+.leftPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.8rem;
+  background: var(--bg-color);
+  border-radius: 14px;
+  padding: 2rem 1.8rem;
+  box-shadow: inset 0 0 12px rgb(0 0 0 / 0.05);
+}
+
+.fotoPerfil {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 3px solid var(--active-bg);
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+  transition: transform 0.25s ease;
+}
+
+.fotoPerfil:hover {
+  transform: scale(1.05);
+}
+
+.uploadLabel {
+  cursor: pointer;
+  background: var(--active-bg);
+  color: var(--text-color);
+  padding: 0.7rem 1.2rem;
+  border-radius: 10px;
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
+}
+
+.uploadLabel:hover {
+  background: var(--button-hover);
+  border-color: var(--active-bg);
+}
+
+.uploadLabel input {
+  display: none;
+}
+
+.btnGroup {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+.btn {
+  width: 100%;
+  padding: 0.85rem;
+  border-radius: 10px;
+  border: none;
+  background: var(--active-bg);
+  color: var(--text-color);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.btn:hover {
+  background: var(--button-hover);
+}
+
+.rightPanel {
+  background-color: var(--bg-color);
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
+  padding: 2rem 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  box-sizing: border-box;
+  max-height: 800px;
+  overflow-y: auto;
+}
+
+.infoQuadrante {
+  background-color: var(--sidebar-bg);
+  border-radius: 14px;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 0 12px rgb(0 0 0 / 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  border: 2px solid var(--active-bg);
+}
+
+.infoQuadrante h3 {
+  margin: 0 0 0.7rem 0;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--active-bg);
+  border-bottom: 1.5px solid var(--active-bg);
+  padding-bottom: 0.3rem;
+}
+
+.infoCard {
+  background: transparent;
+  padding: 0;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-color);
+}
+
+.infoCard strong {
+  min-width: 140px;
+  color: var(--active-bg);
+}
+
+.statusAtivo {
+  color: #4caf50;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.statusInativo {
+  color: #e53935;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2100;
+}
+
+.modalContent {
+  background: var(--sidebar-bg);
+  color: var(--text-color);
+  padding: 2.5rem 3rem;
+  border-radius: 20px;
+  max-width: 440px;
+  width: 90%;
+  box-shadow: 0 10px 38px rgb(0 0 0 / 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.modalContent h2 {
+  font-weight: 900;
+  font-size: 1.8rem;
+  text-align: center;
+  color: var(--active-bg);
+}
+
+.modalInput {
+  width: 100%;
+  padding: 0.9rem 1.3rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  border: 2px solid var(--active-bg);
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.2rem;
+}
+
+.btnCancel {
+  flex: 1;
+  padding: 1rem;
+  background: #dc3545;
+  border-radius: 12px;
+  border: none;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btnCancel:hover {
+  background: #b02a37;
+}
+
+@media (max-width: 880px) {
+  .perfilContainer {
+    grid-template-columns: 1fr;
+    padding: 2rem 1.5rem;
+  }
+
+  .leftPanel {
+    flex-direction: row;
+    justify-content: center;
+    padding: 1.5rem 1rem 2rem;
+    gap: 1.5rem;
+  }
+
+  .fotoPerfil {
+    width: 130px;
+    height: 130px;
+  }
+
+  .btnGroup {
+    flex-direction: row;
+    gap: 1rem;
+    width: auto;
+  }
+
+  .rightPanel {
+    max-height: none;
+    padding: 1rem 1rem 2rem;
+    grid-template-columns: 1fr;
+  }
+}
