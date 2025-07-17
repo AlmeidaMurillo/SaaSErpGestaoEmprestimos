@@ -9,7 +9,8 @@
   display: flex;
   gap: 15px;
   margin-bottom: 20px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 
 .inputBusca {
@@ -20,7 +21,8 @@
   color: var(--text-color);
   font-size: 1rem;
   flex: 1;
-  min-width: 200px;
+  width: auto;
+  flex-shrink: 1;
   transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -38,6 +40,8 @@
   padding: 10px 16px;
   cursor: pointer;
   transition: background-color 0.3s;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .botaoNovo:hover {
@@ -146,7 +150,6 @@
   padding: 10px;
 }
 
-
 @media (max-width: 600px) {
   .tabela th,
   .tabela td {
@@ -160,8 +163,20 @@
     font-size: 0.8rem;
   }
 
+  .filtros {
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+
   .inputBusca {
-    min-width: 100%;
+    font-size: 0.9rem;
+    padding: 8px;
+    min-width: 0;
+  }
+
+  .botaoNovo {
+    font-size: 0.8rem;
+    padding: 8px 12px;
   }
 }
 
@@ -171,6 +186,11 @@
     flex-direction: column;
     height: 100%;
     box-sizing: border-box;
+  }
+
+  .filtros {
+    flex-wrap: nowrap;
+    gap: 10px;
   }
 
   .botaoEditar,
@@ -193,7 +213,7 @@
     color: var(--text-color);
     font-size: 1rem;
     flex: 1;
-    min-width: 200px;
+    min-width: 0;
     transition: border 0.2s ease, box-shadow 0.2s ease;
   }
 
@@ -205,6 +225,8 @@
     padding: 5px 10px;
     cursor: pointer;
     transition: background-color 0.3s;
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 }
 
@@ -240,9 +262,9 @@
 
   .filtros {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     margin-bottom: 5px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
 
   .botaoEditar,
@@ -267,7 +289,7 @@
     color: var(--text-color);
     border: 1px solid transparent;
     flex: 1;
-    min-width: 100px;
+    min-width: 0;
   }
 
   .botaoNovo {
@@ -282,5 +304,7 @@
     line-height: 1;
     cursor: pointer;
     transition: background-color 0.3s;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 }

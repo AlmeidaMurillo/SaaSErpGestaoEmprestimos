@@ -9,7 +9,8 @@
   display: flex;
   gap: 15px;
   margin-bottom: 20px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 
 .inputBusca {
@@ -20,7 +21,8 @@
   color: var(--text-color);
   font-size: 1rem;
   flex: 1;
-  min-width: 200px;
+  width: auto;
+  flex-shrink: 1;
   transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -38,6 +40,8 @@
   padding: 10px 16px;
   cursor: pointer;
   transition: background-color 0.3s;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .botaoNovo:hover {
@@ -160,7 +164,19 @@
   }
 
   .inputBusca {
-    min-width: 100%;
+    font-size: 0.9rem;
+    padding: 8px;
+    min-width: 0;
+  }
+
+  .botaoNovo {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+  }
+
+  .filtros {
+    flex-wrap: nowrap;
+    gap: 8px;
   }
 }
 
@@ -241,7 +257,7 @@
     display: flex;
     gap: 15px;
     margin-bottom: 5px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
 
   .botaoEditar,
@@ -266,7 +282,7 @@
     color: var(--text-color);
     border: 1px solid transparent;
     flex: 1;
-    min-width: 100px;
+    min-width: 50px;
   }
 
   .botaoNovo {
@@ -281,5 +297,7 @@
     line-height: 1;
     cursor: pointer;
     transition: background-color 0.3s;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 }

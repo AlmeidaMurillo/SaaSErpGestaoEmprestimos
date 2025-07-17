@@ -84,8 +84,7 @@
 
 .rightPanel {
   background-color: var(--bg-color);
-  border-top-left-radius: 14px;
-  border-bottom-left-radius: 14px;
+  border-radius: 14px;
   padding: 2rem 2.5rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
