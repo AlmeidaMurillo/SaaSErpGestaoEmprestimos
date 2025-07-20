@@ -50,11 +50,6 @@ html, body, #root {
   -webkit-tap-highlight-color: transparent;
 }
 
-*:focus-visible {
-  outline: 2px solid #000000;
-  outline-offset: 2px;
-}
-
 @media (hover: hover) and (pointer: fine) {
   ::-webkit-scrollbar {
     width: 3px;

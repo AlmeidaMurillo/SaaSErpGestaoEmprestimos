@@ -2,22 +2,43 @@ import React, { useEffect, useState } from "react";
 import MenuDonos from "../../../components/MenuDonos/MenuDonos";
 import MenuUsers from "../../../components/MenuUsers/MenuUsers";
 import styles from "./Perfil.module.css";
+import {
+  FaCamera,
+  FaKey,
+  FaUserEdit,
+  FaBuilding,
+  FaExchangeAlt,
+  FaSignOutAlt,
+} from "react-icons/fa";
 
 function Perfil({ isCollapsed, toggleSidebar }) {
   const [tipoUsuario, setTipoUsuario] = useState("");
   const [mostrarModalSenha, setMostrarModalSenha] = useState(false);
   const [mostrarModalPlano, setMostrarModalPlano] = useState(false);
+  const [mostrarModalDados, setMostrarModalDados] = useState(false);
+  const [mostrarModalEmpresa, setMostrarModalEmpresa] = useState(false);
+
   const [dadosUsuario, setDadosUsuario] = useState({
     nome: "Murillo Almeida",
     email: "almeidamurillo196@gmail.com",
-    empresa: "Almeida Finanças LTDA",
-    plano: "Mensal - R$99,90",
-    vencimento: "16/08/2025",
     telefone: "(11) 91234-5678",
-    endereco: "Rua Exemplo, 123, São Paulo - SP",
-    status: "Ativo",
-    fotoPerfil: "https://via.placeholder.com/150"
+    cpf: "123.456.789-00",
+    permissao: "Administrador",
+    fotoPerfil: "https://via.placeholder.com/150",
   });
+
+  const [dadosEmpresa, setDadosEmpresa] = useState({
+    nome: "Almeida Finanças LTDA",
+    cnpj: "12.345.678/0001-90",
+    endereco: "Rua Exemplo, 123, São Paulo - SP",
+  });
+
+  const [dadosPlano, setDadosPlano] = useState({
+    nome: "Mensal - R$99,90",
+    vencimento: "16/08/2025",
+  });
+
+  const [statusConta, setStatusConta] = useState("Ativo");
 
   useEffect(() => {
     const tipo = localStorage.getItem("tipoUsuario");
@@ -45,6 +66,7 @@ function Perfil({ isCollapsed, toggleSidebar }) {
         <div className={styles.modalOverlay}>
           <div className={styles.modalContent}>
             <h2>Alterar Senha</h2>
+            <input type="password" placeholder="Senha atual" className={styles.modalInput} />
             <input type="password" placeholder="Nova senha" className={styles.modalInput} />
             <input type="password" placeholder="Confirmar senha" className={styles.modalInput} />
             <div className={styles.modalButtons}>
@@ -54,7 +76,6 @@ function Perfil({ isCollapsed, toggleSidebar }) {
           </div>
         </div>
       )}
-
       {mostrarModalPlano && (
         <div className={styles.modalOverlay}>
           <div className={styles.modalContent}>
@@ -71,6 +92,35 @@ function Perfil({ isCollapsed, toggleSidebar }) {
           </div>
         </div>
       )}
+      {mostrarModalDados && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <h2>Editar Dados</h2>
+            <input type="text" className={styles.modalInput} placeholder="Nome" defaultValue={dadosUsuario.nome} />
+            <input type="email" className={styles.modalInput} placeholder="Email" defaultValue={dadosUsuario.email} />
+            <input type="text" className={styles.modalInput} placeholder="Telefone" defaultValue={dadosUsuario.telefone} />
+            <input type="text" className={styles.modalInput} placeholder="CPF" defaultValue={dadosUsuario.cpf} />
+            <div className={styles.modalButtons}>
+              <button className={styles.btn}>Salvar</button>
+              <button className={styles.btnCancel} onClick={() => setMostrarModalDados(false)}>Cancelar</button>
+            </div>
+          </div>
+        </div>
+      )}
+      {mostrarModalEmpresa && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <h2>Editar Empresa</h2>
+            <input type="text" className={styles.modalInput} placeholder="Nome da Empresa" defaultValue={dadosEmpresa.nome} />
+            <input type="text" className={styles.modalInput} placeholder="CNPJ" defaultValue={dadosEmpresa.cnpj} />
+            <input type="text" className={styles.modalInput} placeholder="Endereço" defaultValue={dadosEmpresa.endereco} />
+            <div className={styles.modalButtons}>
+              <button className={styles.btn}>Salvar</button>
+              <button className={styles.btnCancel} onClick={() => setMostrarModalEmpresa(false)}>Cancelar</button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 
@@ -80,11 +130,24 @@ function Perfil({ isCollapsed, toggleSidebar }) {
         <img src={dadosUsuario.fotoPerfil} alt="Foto de Perfil" className={styles.fotoPerfil} />
         <label className={styles.uploadLabel}>
           <input type="file" accept="image/*" onChange={handleFotoChange} />
-          Alterar Foto de Perfil
+          <FaCamera className={styles.icon} /> Alterar Foto de Perfil
         </label>
         <div className={styles.btnGroup}>
-          <button className={styles.btn} onClick={() => setMostrarModalSenha(true)}>Alterar Senha</button>
-          <button className={styles.btn} onClick={() => setMostrarModalPlano(true)}>Alterar Plano</button>
+          <button className={styles.btn} onClick={() => setMostrarModalSenha(true)}>
+            <FaKey className={styles.icon} /> Alterar Senha
+          </button>
+          <button className={styles.btn} onClick={() => setMostrarModalPlano(true)}>
+            <FaExchangeAlt className={styles.icon} /> Alterar Plano
+          </button>
+          <button className={styles.btn} onClick={() => setMostrarModalDados(true)}>
+            <FaUserEdit className={styles.icon} /> Editar Dados
+          </button>
+          <button className={styles.btn} onClick={() => setMostrarModalEmpresa(true)}>
+            <FaBuilding className={styles.icon} /> Editar Empresa
+          </button>
+          <button className={styles.btnCancel} onClick={() => (window.location.href = "/logout")}>
+            <FaSignOutAlt className={styles.icon} /> Sair
+          </button>
         </div>
       </div>
 
@@ -94,25 +157,32 @@ function Perfil({ isCollapsed, toggleSidebar }) {
           <div className={styles.infoCard}><strong>Nome:</strong> {dadosUsuario.nome}</div>
           <div className={styles.infoCard}><strong>Email:</strong> {dadosUsuario.email}</div>
           <div className={styles.infoCard}><strong>Telefone:</strong> {dadosUsuario.telefone}</div>
+          <div className={styles.infoCard}><strong>CPF:</strong> {dadosUsuario.cpf}</div>
         </section>
 
         <section className={styles.infoQuadrante}>
           <h3>Empresa</h3>
-          <div className={styles.infoCard}><strong>Empresa:</strong> {dadosUsuario.empresa}</div>
-          <div className={styles.infoCard}><strong>Endereço:</strong> {dadosUsuario.endereco}</div>
+          <div className={styles.infoCard}><strong>Empresa:</strong> {dadosEmpresa.nome}</div>
+          <div className={styles.infoCard}><strong>CNPJ:</strong> {dadosEmpresa.cnpj}</div>
+          <div className={styles.infoCard}><strong>Endereço:</strong> {dadosEmpresa.endereco}</div>
         </section>
 
         <section className={styles.infoQuadrante}>
           <h3>Plano</h3>
-          <div className={styles.infoCard}><strong>Plano:</strong> {dadosUsuario.plano}</div>
-          <div className={styles.infoCard}><strong>Vencimento:</strong> {dadosUsuario.vencimento}</div>
+          <div className={styles.infoCard}><strong>Plano:</strong> {dadosPlano.nome}</div>
+          <div className={styles.infoCard}><strong>Vencimento:</strong> {dadosPlano.vencimento}</div>
         </section>
 
         <section className={styles.infoQuadrante}>
           <h3>Status</h3>
-          <div className={`${styles.infoCard} ${dadosUsuario.status === "Ativo" ? styles.statusAtivo : styles.statusInativo}`}>
-            <strong>Status:</strong> {dadosUsuario.status}
+          <div className={`${styles.infoCard} ${statusConta === "Ativo" ? styles.statusAtivo : styles.statusInativo}`}>
+            <strong>Status:</strong> {statusConta}
           </div>
+        </section>
+
+        <section className={styles.infoQuadrante}>
+          <h3>Acesso</h3>
+          <div className={styles.infoCard}><strong>Permissão:</strong> {dadosUsuario.permissao}</div>
         </section>
       </div>
 
@@ -121,9 +191,17 @@ function Perfil({ isCollapsed, toggleSidebar }) {
   );
 
   if (tipoUsuario === "admin") {
-    return <MenuDonos isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>{conteudo}</MenuDonos>;
+    return (
+      <MenuDonos isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>
+        {conteudo}
+      </MenuDonos>
+    );
   } else if (tipoUsuario === "user") {
-    return <MenuUsers isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>{conteudo}</MenuUsers>;
+    return (
+      <MenuUsers isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>
+        {conteudo}
+      </MenuUsers>
+    );
   } else {
     return <p>Carregando...</p>;
   }

@@ -39,13 +39,14 @@
   border-radius: 8px;
   padding: 10px 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.1s;
   white-space: nowrap;
   flex-shrink: 0;
 }
 
-.botaoNovo:hover {
+.botaoNovo:active {
   background-color: #16a34a;
+  transform: scale(0.98);
 }
 
 .tabelaWrapper {
@@ -84,7 +85,7 @@
   cursor: pointer;
 }
 
-.tabelaRow:hover {
+.tabelaRow:active {
   background-color: var(--hover-bg);
 }
 
@@ -123,10 +124,12 @@
   margin-right: 8px;
   cursor: pointer;
   font-size: 0.9rem;
+  transition: background-color 0.3s, transform 0.1s;
 }
 
-.botaoEditar:hover {
+.botaoEditar:active {
   background-color: #2563eb;
+  transform: scale(0.98);
 }
 
 .botaoExcluir {
@@ -137,10 +140,12 @@
   border-radius: 6px;
   cursor: pointer;
   font-size: 0.9rem;
+  transition: background-color 0.3s, transform 0.1s;
 }
 
-.botaoExcluir:hover {
+.botaoExcluir:active {
   background-color: #dc2626;
+  transform: scale(0.98);
 }
 
 .notFound {
@@ -163,6 +168,11 @@
     font-size: 0.8rem;
   }
 
+  .filtros {
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+
   .inputBusca {
     font-size: 0.9rem;
     padding: 8px;
@@ -173,11 +183,6 @@
     font-size: 0.8rem;
     padding: 8px 12px;
   }
-
-  .filtros {
-    flex-wrap: nowrap;
-    gap: 8px;
-  }
 }
 
 @media screen and (max-width: 800px) and (min-resolution: 2dppx) and (hover: hover) and (pointer: fine) {
@@ -186,6 +191,11 @@
     flex-direction: column;
     height: 100%;
     box-sizing: border-box;
+  }
+
+  .filtros {
+    flex-wrap: nowrap;
+    gap: 10px;
   }
 
   .botaoEditar,
@@ -208,7 +218,7 @@
     color: var(--text-color);
     font-size: 1rem;
     flex: 1;
-    min-width: 200px;
+    min-width: 0;
     transition: border 0.2s ease, box-shadow 0.2s ease;
   }
 
@@ -220,6 +230,8 @@
     padding: 5px 10px;
     cursor: pointer;
     transition: background-color 0.3s;
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 }
 
@@ -255,7 +267,7 @@
 
   .filtros {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     margin-bottom: 5px;
     flex-wrap: nowrap;
   }
@@ -282,7 +294,7 @@
     color: var(--text-color);
     border: 1px solid transparent;
     flex: 1;
-    min-width: 50px;
+    min-width: 0;
   }
 
   .botaoNovo {
@@ -299,5 +311,23 @@
     transition: background-color 0.3s;
     white-space: nowrap;
     flex-shrink: 0;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .botaoNovo:hover {
+    background-color: #16a34a;
+  }
+
+  .tabelaRow:hover {
+    background-color: var(--hover-bg);
+  }
+
+  .botaoEditar:hover {
+    background-color: #2563eb;
+  }
+
+  .botaoExcluir:hover {
+    background-color: #dc2626;
   }
 }

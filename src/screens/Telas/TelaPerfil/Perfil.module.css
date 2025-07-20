@@ -31,6 +31,11 @@
   object-fit: cover;
   box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
   transition: transform 0.25s ease;
+  cursor: pointer;
+}
+
+.fotoPerfil:active {
+  transform: scale(0.95);
 }
 
 .fotoPerfil:hover {
@@ -48,6 +53,12 @@
   width: 100%;
   border: 1px solid transparent;
   transition: all 0.25s ease;
+  user-select: none;
+}
+
+.uploadLabel:active {
+  background: var(--button-hover);
+  border-color: var(--active-bg);
 }
 
 .uploadLabel:hover {
@@ -75,11 +86,39 @@
   color: var(--text-color);
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.25s ease;
+  transition: background-color 0.25s ease, transform 0.1s ease;
+  user-select: none;
+}
+
+.btn:active {
+  background: var(--button-hover);
+  transform: scale(0.98);
 }
 
 .btn:hover {
   background: var(--button-hover);
+}
+
+.btnCancel {
+  width: 100%;
+  padding: 0.85rem;
+  border-radius: 10px;
+  border: none;
+  background: #dc3545;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.1s ease;
+  user-select: none;
+}
+
+.btnCancel:active {
+  background: #b02a37;
+  transform: scale(0.98);
+}
+
+.btnCancel:hover {
+  background: #b02a37;
 }
 
 .rightPanel {
@@ -104,6 +143,8 @@
   flex-direction: column;
   gap: 1.3rem;
   border: 2px solid var(--active-bg);
+  user-select: none;
+  cursor: default;
 }
 
 .infoQuadrante h3 {
@@ -129,12 +170,17 @@
 .infoCard strong {
   min-width: 140px;
   color: var(--active-bg);
+  opacity: 0.8;
 }
 
 .statusAtivo {
-  color: #4caf50;
+  background-color: #e6f4ea;
+  border-left: 5px solid #4caf50;
+  padding-left: 1rem;
+  color: #2e7d32;
   font-weight: 700;
   text-transform: uppercase;
+  border-radius: 8px;
 }
 
 .statusInativo {
@@ -165,6 +211,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
+  user-select: none;
 }
 
 .modalContent h2 {
@@ -176,13 +223,22 @@
 
 .modalInput {
   width: 100%;
-  padding: 0.9rem 1.3rem;
+  padding: 0.85rem 1.2rem;
   font-size: 1rem;
   font-weight: 600;
-  border-radius: 10px;
-  border: 2px solid var(--active-bg);
+  border-radius: 8px;
+  border: 1.5px solid #ccc;
   background: var(--bg-color);
   color: var(--text-color);
+  user-select: text;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.modalInput:focus {
+  border-color: var(--text-color);
+  box-shadow: 0 0 8px var(--text-color);
 }
 
 .modalButtons {
@@ -191,20 +247,9 @@
   gap: 1.2rem;
 }
 
-.btnCancel {
-  flex: 1;
-  padding: 1rem;
-  background: #dc3545;
-  border-radius: 12px;
-  border: none;
-  font-weight: 700;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.btnCancel:hover {
-  background: #b02a37;
+.icon {
+  margin-right: 8px;
+  vertical-align: middle;
 }
 
 @media (max-width: 1180px) {
