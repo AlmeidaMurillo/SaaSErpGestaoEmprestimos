@@ -9,6 +9,8 @@ import {
   FaBuilding,
   FaExchangeAlt,
   FaSignOutAlt,
+  FaUser,
+  FaTimes,
 } from "react-icons/fa";
 
 function Perfil({ isCollapsed, toggleSidebar }) {
@@ -17,6 +19,7 @@ function Perfil({ isCollapsed, toggleSidebar }) {
   const [mostrarModalPlano, setMostrarModalPlano] = useState(false);
   const [mostrarModalDados, setMostrarModalDados] = useState(false);
   const [mostrarModalEmpresa, setMostrarModalEmpresa] = useState(false);
+  const [mostrarModalFoto, setMostrarModalFoto] = useState(false);
 
   const [dadosUsuario, setDadosUsuario] = useState({
     nome: "Murillo Almeida",
@@ -24,7 +27,7 @@ function Perfil({ isCollapsed, toggleSidebar }) {
     telefone: "(11) 91234-5678",
     cpf: "123.456.789-00",
     permissao: "Administrador",
-    fotoPerfil: "https://via.placeholder.com/150",
+    fotoPerfil: "",
   });
 
   const [dadosEmpresa, setDadosEmpresa] = useState({
@@ -121,13 +124,33 @@ function Perfil({ isCollapsed, toggleSidebar }) {
           </div>
         </div>
       )}
+      {mostrarModalFoto && (
+        <div className={styles.modalOverlay} onClick={() => setMostrarModalFoto(false)}>
+          <div className={styles.modalContentFoto} onClick={e => e.stopPropagation()}>
+            <button className={styles.closeButton} onClick={() => setMostrarModalFoto(false)}>
+              <FaTimes />
+            </button>
+            {dadosUsuario.fotoPerfil ? (
+              <img src={dadosUsuario.fotoPerfil} alt="Foto Ampliada" className={styles.fotoAmpliada} />
+            ) : (
+              <FaUser className={styles.userIconGrande} />
+            )}
+          </div>
+        </div>
+      )}
     </>
   );
 
   const conteudo = (
     <div className={styles.perfilContainer}>
       <div className={styles.leftPanel}>
-        <img src={dadosUsuario.fotoPerfil} alt="Foto de Perfil" className={styles.fotoPerfil} />
+        <div className={styles.fotoPerfil} onClick={() => setMostrarModalFoto(true)} tabIndex={0} role="button" aria-label="Abrir foto do perfil">
+          {dadosUsuario.fotoPerfil ? (
+            <img src={dadosUsuario.fotoPerfil} alt="Foto de Perfil" />
+          ) : (
+            <FaUser className={styles.userIcon} />
+          )}
+        </div>
         <label className={styles.uploadLabel}>
           <input type="file" accept="image/*" onChange={handleFotoChange} />
           <FaCamera className={styles.icon} /> Alterar Foto de Perfil

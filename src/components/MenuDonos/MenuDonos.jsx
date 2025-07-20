@@ -193,10 +193,7 @@ function MenuDonos({ children }) {
           </div>
 
           <div className={styles.profileCircle}>
-            <img
-              src="https://randomuser.me/api/portraits/men/10.jpg"
-              alt="Perfil"
-            />
+            <FaUser size={20} />
           </div>
         </div>
       </header>
