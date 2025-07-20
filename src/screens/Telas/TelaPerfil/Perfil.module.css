@@ -38,14 +38,6 @@
   transition: transform 0.3s ease;
 }
 
-.fotoPerfil:hover {
-  transform: scale(1.1);
-}
-
-.fotoPerfil:active {
-  transform: scale(1.05);
-}
-
 .fotoPerfil img {
   width: 100%;
   height: 100%;
@@ -74,15 +66,9 @@
   user-select: none;
 }
 
-.uploadLabel:hover {
-  background: var(--button-hover);
-  border-color: var(--active-bg);
-}
-
 .uploadLabel:active {
   background: var(--button-hover);
   border-color: var(--active-bg);
-  transform: scale(0.97);
 }
 
 .uploadLabel input {
@@ -109,10 +95,6 @@
   user-select: none;
 }
 
-.btn:hover {
-  background: var(--button-hover);
-}
-
 .btn:active {
   background: var(--button-hover);
   transform: scale(0.98);
@@ -129,10 +111,6 @@
   cursor: pointer;
   transition: background-color 0.25s ease, transform 0.1s ease;
   user-select: none;
-}
-
-.btnCancel:hover {
-  background: #b02a37;
 }
 
 .btnCancel:active {
@@ -312,13 +290,31 @@
   transition: color 0.2s ease;
 }
 
-.closeButton:hover {
+.closeButton:active {
   color: #dc3545;
 }
 
-.closeButton:active {
-  color: #dc3545;
-  transform: scale(0.95);
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    background: var(--button-hover);
+  }
+
+  .btnCancel:hover {
+    background: #b02a37;
+  }
+
+  .uploadLabel:hover {
+    background: var(--button-hover);
+    border-color: var(--active-bg);
+  }
+
+  .fotoPerfil:hover {
+    transform: scale(1.1);
+  }
+
+  .closeButton:hover {
+    color: #dc3545;
+  }
 }
 
 @media (max-width: 1180px) {
