@@ -331,3 +331,135 @@
     background-color: #dc2626;
   }
 }
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+  pointer-events: auto;
+}
+
+.modalContent {
+  background-color: var(--bg-color);
+  padding: 2.5rem 2rem 2rem 2rem;
+  border-radius: 16px;
+  width: 95%;
+  max-width: 480px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+  color: var(--text-color);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto; 
+}
+
+.modalTitle {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+.formModal label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.25rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-color);
+}
+
+.formModal input,
+.formModal select {
+  margin-top: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1.5px solid var(--hover-bg);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  box-shadow: inset 0 0 6px rgba(255 255 255 / 0.05);
+}
+
+.formModal input::placeholder,
+.formModal select::placeholder {
+  color: var(--hover-bg);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.formModal input:focus,
+.formModal select:focus {
+  outline: none;
+  border-color: var(--text-color);
+  box-shadow: 0 0 8px var(--text-color);
+}
+
+.botoesModal {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-top: 2rem;
+}
+
+.botaoSalvar {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 8px 16px rgba(34, 197, 94, 0.5);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.botaoSalvar:hover {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  box-shadow: 0 10px 20px rgba(22, 163, 74, 0.7);
+}
+
+.botaoCancelar {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 8px 16px rgba(239, 68, 68, 0.5);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.botaoCancelar:hover {
+  background: linear-gradient(135deg, #b91c1c, #991b1b);
+  box-shadow: 0 10px 20px rgba(185, 28, 28, 0.7);
+}
+
+@media (max-width: 480px) {
+  .modalContent {
+    padding: 1.5rem 1.2rem 1.5rem 1.2rem;
+    width: 95%;
+  }
+
+  .botaoSalvar,
+  .botaoCancelar {
+    padding: 10px 18px;
+    font-size: 0.95rem;
+  }
+}

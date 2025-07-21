@@ -140,6 +140,7 @@
 .subtitle {
   font-weight: 700;
   font-size: 1.6rem;
+  margin-top: 0.5rem;
   color: var(--text-color);
   margin-bottom: 1.4rem;
   user-select: none;

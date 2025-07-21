@@ -16,6 +16,16 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
     })),
   ]);
 
+  const [modalAberto, setModalAberto] = useState(false);
+
+  const [novoFuncionario, setNovoFuncionario] = useState({
+    nome: "",
+    email: "",
+    telefone: "",
+    cargo: "",
+    permissao: "comum", 
+  });
+
   useEffect(() => {
     const tipo = localStorage.getItem("tipoUsuario");
     if (!tipo) {
@@ -25,10 +35,48 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
     }
   }, []);
 
-  const filteredConfiguracoes = configuracoes.filter((configuracao) =>
-    configuracao.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    configuracao.id.toString().includes(searchTerm)
+  const filteredConfiguracoes = configuracoes.filter(
+    (configuracao) =>
+      configuracao.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      configuracao.id.toString().includes(searchTerm)
   );
+
+  const abrirModal = () => {
+    setNovoFuncionario({
+      nome: "",
+      email: "",
+      telefone: "",
+      cargo: "",
+      permissao: "comum",
+    });
+    setModalAberto(true);
+  };
+
+  const fecharModal = () => {
+    setModalAberto(false);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNovoFuncionario((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const salvarFuncionario = (e) => {
+    e.preventDefault();
+    if (!novoFuncionario.nome.trim()) {
+      alert("Por favor, insira o nome.");
+      return;
+    }
+    const novoId = configuracoes.length
+      ? Math.max(...configuracoes.map((c) => c.id)) + 1
+      : 1;
+
+    setConfiguracoes((prev) => [
+      ...prev,
+      { id: novoId, nome: novoFuncionario.nome.trim() },
+    ]);
+    setModalAberto(false);
+  };
 
   const renderConfiguracoes = () => (
     <div className={styles.container}>
@@ -40,7 +88,9 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <button className={styles.botaoNovo}>+ Novo Funcionário</button>
+        <button className={styles.botaoNovo} onClick={abrirModal}>
+          + Novo Funcionário
+        </button>
       </div>
 
       <div className={styles.tabelaWrapper}>
@@ -55,7 +105,10 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
           <tbody>
             {filteredConfiguracoes.length > 0 ? (
               filteredConfiguracoes.map((configuracao) => (
-                <tr className={styles.tabelaRow} key={`${configuracao.id}-${configuracao.nome}`}>
+                <tr
+                  className={styles.tabelaRow}
+                  key={`${configuracao.id}-${configuracao.nome}`}
+                >
                   <td>{configuracao.id}</td>
                   <td>{configuracao.nome}</td>
                   <td className={styles.acoes}>
@@ -74,6 +127,83 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
           </tbody>
         </table>
       </div>
+
+      {modalAberto && (
+        <div className={styles.modalOverlay}>
+          <div
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2>Novo Funcionário</h2>
+            <form onSubmit={salvarFuncionario} className={styles.formModal}>
+              <label>
+                Nome completo:
+                <input
+                  type="text"
+                  name="nome"
+                  placeholder="Ex: João da Silva"
+                  value={novoFuncionario.nome}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+              <label>
+                Email:
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Ex: exemplo@gmail.com"
+                  value={novoFuncionario.email}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Telefone:
+                <input
+                  type="tel"
+                  name="telefone"
+                  placeholder="Ex: (11) 91234-5678"
+                  value={novoFuncionario.telefone}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Cargo:
+                <input
+                  type="text"
+                  name="cargo"
+                  placeholder="Ex: Gerente, Vendedor"
+                  value={novoFuncionario.cargo}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Permissão:
+                <select
+                  name="permissao"
+                  value={novoFuncionario.permissao}
+                  onChange={handleChange}
+                >
+                  <option value="comum">Comum</option>
+                  <option value="admin">Administrador</option>
+                </select>
+              </label>
+              <div className={styles.botoesModal}>
+                <button type="submit" className={styles.botaoSalvar}>
+                  Salvar
+                </button>
+                <button
+                  type="button"
+                  onClick={fecharModal}
+                  className={styles.botaoCancelar}
+                >
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 
