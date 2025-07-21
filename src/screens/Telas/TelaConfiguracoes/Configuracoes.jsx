@@ -8,19 +8,15 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
   const [tipoUsuario, setTipoUsuario] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [mostrarSenha, setMostrarSenha] = useState(false);
-  const [configuracoes, setConfiguracoes] = useState([
-    { id: 1, nome: "João Silva" },
-    { id: 2, nome: "Ana Oliveira DA SILVA DIAS DE ALMEIDA " },
-    { id: 3, nome: "Pedro Santos" },
-    ...Array.from({ length: 20 }, (_, i) => ({
-      id: i + 4,
-      nome: "Pedro Santos",
-    })),
-  ]);
-
-  const [modalAberto, setModalAberto] = useState(false);
-
+  const [modalNovoAberto, setModalNovoAberto] = useState(false);
+  const [modalEditarAberto, setModalEditarAberto] = useState(false);
+  const [modalVisualizacaoAberto, setModalVisualizacaoAberto] = useState(false);
+  const [modalSenhaAberto, setModalSenhaAberto] = useState(false);
+  const [senhaNova, setSenhaNova] = useState("");
+  const [senhaConfirmacao, setSenhaConfirmacao] = useState("");
+  const [funcionarioSelecionado, setFuncionarioSelecionado] = useState(null);
   const [novoFuncionario, setNovoFuncionario] = useState({
+    id: null,
     nome: "",
     email: "",
     senha: "",
@@ -28,6 +24,24 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
     cargo: "",
     permissao: "comum",
   });
+  const [configuracoes, setConfiguracoes] = useState([
+    {
+      id: 1,
+      nome: "João Silva",
+      email: "joao@email.com",
+      telefone: "(11) 99999-9999",
+      cargo: "Gerente",
+      permissao: "admin",
+    },
+    {
+      id: 2,
+      nome: "Ana Oliveira DA SILVA DIAS DE ALMEIDA",
+      email: "ana@email.com",
+      telefone: "(11) 98888-8888",
+      cargo: "Vendedora",
+      permissao: "comum",
+    },
+  ]);
 
   useEffect(() => {
     const tipo = localStorage.getItem("tipoUsuario");
@@ -38,14 +52,9 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
     }
   }, []);
 
-  const filteredConfiguracoes = configuracoes.filter(
-    (configuracao) =>
-      configuracao.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      configuracao.id.toString().includes(searchTerm)
-  );
-
-  const abrirModal = () => {
+  const abrirModalNovo = () => {
     setNovoFuncionario({
+      id: null,
       nome: "",
       email: "",
       senha: "",
@@ -53,194 +62,435 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
       cargo: "",
       permissao: "comum",
     });
-    setModalAberto(true);
+    setMostrarSenha(false);
+    setModalNovoAberto(true);
   };
 
-  const fecharModal = () => {
-    setModalAberto(false);
+  const abrirModalEditar = (funcionario) => {
+    setNovoFuncionario(funcionario);
+    setMostrarSenha(false);
+    setModalEditarAberto(true);
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNovoFuncionario((prev) => ({ ...prev, [name]: value }));
+  const fecharModalNovo = () => setModalNovoAberto(false);
+  const fecharModalVisualizacao = () => {
+    setFuncionarioSelecionado(null);
+    setModalVisualizacaoAberto(false);
+  };
+  const abrirModalVisualizacao = (func) => {
+    setFuncionarioSelecionado(func);
+    setModalVisualizacaoAberto(true);
+  };
+  const fecharModalSenha = () => setModalSenhaAberto(false);
+
+  const abrirModalSenha = () => {
+    setSenhaNova("");
+    setMostrarSenha(false);
+    setModalSenhaAberto(true);
   };
 
   const salvarFuncionario = (e) => {
     e.preventDefault();
-    if (!novoFuncionario.nome.trim()) {
-      alert("Por favor, insira o nome.");
-      return;
+    if (!novoFuncionario.nome.trim()) return;
+    if (novoFuncionario.id === null) {
+      const novoId = configuracoes.length
+        ? Math.max(...configuracoes.map((c) => c.id)) + 1
+        : 1;
+      setConfiguracoes((prev) => [...prev, { ...novoFuncionario, id: novoId }]);
+    } else {
+      setConfiguracoes((prev) =>
+        prev.map((f) =>
+          f.id === novoFuncionario.id ? { ...novoFuncionario } : f
+        )
+      );
     }
-    const novoId = configuracoes.length
-      ? Math.max(...configuracoes.map((c) => c.id)) + 1
-      : 1;
-
-    setConfiguracoes((prev) => [
-      ...prev,
-      { id: novoId, nome: novoFuncionario.nome.trim() },
-    ]);
-    setModalAberto(false);
+    setModalNovoAberto(false);
+    setModalEditarAberto(false);
   };
 
-  const renderConfiguracoes = () => (
-    <div className={styles.container}>
-      <div className={styles.filtros}>
-        <input
-          type="text"
-          placeholder="Pesquisar por nome ou ID..."
-          className={styles.inputBusca}
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <button className={styles.botaoNovo} onClick={abrirModal}>
-          + Novo Funcionário
-        </button>
-      </div>
+  const salvarSenha = (e) => {
+    e.preventDefault();
+    if (!senhaNova.trim()) return;
+    alert(`Senha alterada para: ${senhaNova}`);
+    setModalSenhaAberto(false);
+  };
 
-      <div className={styles.tabelaWrapper}>
-        <table className={styles.tabela}>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Funcionario</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredConfiguracoes.length > 0 ? (
-              filteredConfiguracoes.map((configuracao) => (
-                <tr
-                  className={styles.tabelaRow}
-                  key={`${configuracao.id}-${configuracao.nome}`}
-                >
-                  <td>{configuracao.id}</td>
-                  <td>{configuracao.nome}</td>
-                  <td className={styles.acoes}>
-                    <button className={styles.botaoEditar}>Editar</button>
-                    <button className={styles.botaoExcluir}>Excluir</button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="3" className={styles.notFound}>
-                  Nenhuma configuração encontrada.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+  const excluirFuncionario = () => {
+    if (window.confirm(`Tem certeza que deseja excluir o funcionário ${funcionarioSelecionado.nome}?`)) {
+      setConfiguracoes((prev) =>
+        prev.filter((f) => f.id !== funcionarioSelecionado.id)
+      );
+      setModalVisualizacaoAberto(false);
+    }
+  };
 
-      {modalAberto && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-            <h2>Novo Funcionário</h2>
-            <form onSubmit={salvarFuncionario} className={styles.formModal}>
-              <label>
-                Nome completo:
-                <input
-                  type="text"
-                  name="nome"
-                  placeholder="Ex: João da Silva"
-                  value={novoFuncionario.nome}
-                  onChange={handleChange}
-                  required
-                />
-              </label>
-              <label>
-                Email:
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Ex: exemplo@gmail.com"
-                  value={novoFuncionario.email}
-                  onChange={handleChange}
-                />
-              </label>
-              <label className={styles.senhaLabel}>
-                Senha:
-                <div className={styles.inputSenhaWrapper}>
-                  <input
-                    type={mostrarSenha ? "text" : "password"}
-                    name="senha"
-                    placeholder="Digite a senha do funcionário"
-                    value={novoFuncionario.senha}
-                    onChange={handleChange}
-                  />
-                  <button
-                    type="button"
-                    className={styles.toggleSenha}
-                    onClick={() => setMostrarSenha(!mostrarSenha)}
-                  >
-                    {mostrarSenha ? <FaEyeSlash /> : <FaEye />}
-                  </button>
-                </div>
-              </label>
-              <label>
-                Telefone:
-                <input
-                  type="tel"
-                  name="telefone"
-                  placeholder="Ex: (11) 91234-5678"
-                  value={novoFuncionario.telefone}
-                  onChange={handleChange}
-                />
-              </label>
-              <label>
-                Cargo:
-                <input
-                  type="text"
-                  name="cargo"
-                  placeholder="Ex: Gerente, Vendedor"
-                  value={novoFuncionario.cargo}
-                  onChange={handleChange}
-                />
-              </label>
-              <label>
-                Permissão:
-                <select
-                  name="permissao"
-                  value={novoFuncionario.permissao}
-                  onChange={handleChange}
-                >
-                  <option value="comum">Comum</option>
-                  <option value="admin">Administrador</option>
-                </select>
-              </label>
-              <div className={styles.botoesModal}>
-                <button type="submit" className={styles.botaoSalvar}>
-                  Salvar
-                </button>
-                <button
-                  type="button"
-                  onClick={fecharModal}
-                  className={styles.botaoCancelar}
-                >
-                  Cancelar
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-    </div>
+  const handleChangeNovoFuncionario = (e) => {
+    const { name, value } = e.target;
+    setNovoFuncionario((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const filteredConfiguracoes = configuracoes.filter(
+    (func) =>
+      func.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      func.id.toString().includes(searchTerm)
   );
 
-  const renderMenu = () =>
-    tipoUsuario === "admin" ? (
-      <MenuDonos isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>
-        {renderConfiguracoes()}
-      </MenuDonos>
-    ) : tipoUsuario === "user" ? (
-      <MenuUsers isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>
-        {renderConfiguracoes()}
-      </MenuUsers>
-    ) : (
-      <p>Carregando...</p>
-    );
+  return (
+    <>
+      {tipoUsuario === "admin" ? (
+        <MenuDonos isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>
+          <div className={styles.container}>
+            <div className={styles.filtros}>
+              <input
+                type="text"
+                placeholder="Pesquisar por nome ou ID..."
+                className={styles.inputBusca}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <button className={styles.botaoNovo} onClick={abrirModalNovo}>
+                + Novo Funcionário
+              </button>
+            </div>
 
-  return <>{renderMenu()}</>;
+            <div className={styles.tabelaWrapper}>
+              <table className={styles.tabela}>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Funcionário</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredConfiguracoes.length > 0 ? (
+                    filteredConfiguracoes.map((func) => (
+                      <tr
+                        key={func.id}
+                        className={styles.tabelaRow}
+                        onClick={() => abrirModalVisualizacao(func)}
+                      >
+                        <td>{func.id}</td>
+                        <td>{func.nome}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="3" className={styles.notFound}>
+                        Nenhum funcionário encontrado.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+
+            {modalNovoAberto && (
+              <div
+                className={styles.modalOverlay}
+                onClick={fecharModalNovo}
+                role="dialog"
+                aria-modal="true"
+              >
+                <div
+                  className={styles.modalContent}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <h2 className={styles.modalTitle}>Novo Funcionário</h2>
+                  <form onSubmit={salvarFuncionario} className={styles.formModal}>
+                    <label>
+                      Nome completo:
+                      <input
+                        type="text"
+                        name="nome"
+                        placeholder="Ex: João da Silva"
+                        value={novoFuncionario.nome}
+                        onChange={handleChangeNovoFuncionario}
+                        required
+                      />
+                    </label>
+                    <label>
+                      Email:
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Ex: exemplo@gmail.com"
+                        value={novoFuncionario.email}
+                        onChange={handleChangeNovoFuncionario}
+                      />
+                    </label>
+                    <label className={styles.senhaLabel}>
+                      Senha:
+                      <div className={styles.inputSenhaWrapper}>
+                        <input
+                          type={mostrarSenha ? "text" : "password"}
+                          name="senha"
+                          placeholder="Digite a senha do funcionário"
+                          value={novoFuncionario.senha}
+                          onChange={handleChangeNovoFuncionario}
+                        />
+                        <button
+                          type="button"
+                          className={styles.toggleSenha}
+                          onClick={() => setMostrarSenha(!mostrarSenha)}
+                        >
+                          {mostrarSenha ? <FaEyeSlash /> : <FaEye />}
+                        </button>
+                      </div>
+                    </label>
+                    <label>
+                      Telefone:
+                      <input
+                        type="tel"
+                        name="telefone"
+                        placeholder="Ex: (11) 91234-5678"
+                        value={novoFuncionario.telefone}
+                        onChange={handleChangeNovoFuncionario}
+                      />
+                    </label>
+                    <label>
+                      Cargo:
+                      <input
+                        type="text"
+                        name="cargo"
+                        placeholder="Ex: Gerente, Vendedor"
+                        value={novoFuncionario.cargo}
+                        onChange={handleChangeNovoFuncionario}
+                      />
+                    </label>
+                    <label>
+                      Permissão:
+                      <select
+                        name="permissao"
+                        value={novoFuncionario.permissao}
+                        onChange={handleChangeNovoFuncionario}
+                      >
+                        <option value="comum">Comum</option>
+                        <option value="admin">Administrador</option>
+                      </select>
+                    </label>
+                    <div className={styles.botoesModal}>
+                      <button type="submit" className={styles.botaoSalvar}>
+                        Salvar
+                      </button>
+                      <button
+                        type="button"
+                        onClick={fecharModalNovo}
+                        className={styles.botaoCancelar}
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
+
+            {modalEditarAberto && (
+              <div
+                className={styles.modalOverlay}
+                onClick={() => setModalEditarAberto(false)}
+                role="dialog"
+                aria-modal="true"
+              >
+                <div
+                  className={styles.modalContent}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <h2 className={styles.modalTitle}>Editar Funcionário</h2>
+                  <form onSubmit={salvarFuncionario} className={styles.formModal}>
+                    <label>
+                      Nome completo:
+                      <input
+                        type="text"
+                        name="nome"
+                        value={novoFuncionario.nome}
+                        onChange={handleChangeNovoFuncionario}
+                        required
+                      />
+                    </label>
+                    <label>
+                      Email:
+                      <input
+                        type="email"
+                        name="email"
+                        value={novoFuncionario.email}
+                        onChange={handleChangeNovoFuncionario}
+                      />
+                    </label>
+                    <label>
+                      Telefone:
+                      <input
+                        type="tel"
+                        name="telefone"
+                        value={novoFuncionario.telefone}
+                        onChange={handleChangeNovoFuncionario}
+                      />
+                    </label>
+                    <label>
+                      Cargo:
+                      <input
+                        type="text"
+                        name="cargo"
+                        value={novoFuncionario.cargo}
+                        onChange={handleChangeNovoFuncionario}
+                      />
+                    </label>
+                    <label>
+                      Permissão:
+                      <select
+                        name="permissao"
+                        value={novoFuncionario.permissao}
+                        onChange={handleChangeNovoFuncionario}
+                      >
+                        <option value="comum">Comum</option>
+                        <option value="admin">Administrador</option>
+                      </select>
+                    </label>
+                    <div className={styles.botoesModal}>
+                      <button type="submit" className={styles.botaoSalvar}>
+                        Salvar
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setModalEditarAberto(false)}
+                        className={styles.botaoCancelar}
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
+
+            {modalVisualizacaoAberto && funcionarioSelecionado && (
+              <div
+                className={styles.modalOverlay}
+                onClick={fecharModalVisualizacao}
+                role="dialog"
+                aria-modal="true"
+              >
+                <div
+                  className={styles.modalContent}
+                  onClick={(e) => e.stopPropagation()}
+                  style={{ maxWidth: 520, position: "relative" }}
+                >
+                  <button
+                    onClick={fecharModalVisualizacao}
+                    className={styles.closeButton}
+                    aria-label="Fechar modal"
+                  >
+                    ×
+                  </button>
+                  <h2 className={styles.modalTitle}>Detalhes do Funcionário</h2>
+                  <div style={{ marginBottom: 24 }}>
+                    <p><strong>ID:</strong> {funcionarioSelecionado.id}</p>
+                    <p><strong>Nome:</strong> {funcionarioSelecionado.nome}</p>
+                    <p><strong>Email:</strong> {funcionarioSelecionado.email || "-"}</p>
+                    <p><strong>Telefone:</strong> {funcionarioSelecionado.telefone || "-"}</p>
+                    <p><strong>Cargo:</strong> {funcionarioSelecionado.cargo || "-"}</p>
+                    <p><strong>Permissão:</strong> {funcionarioSelecionado.permissao === "admin" ? "Administrador" : "Comum"}</p>
+                  </div>
+                  <div className={styles.botoesModal} style={{ justifyContent: "space-between" }}>
+                    <button
+                      className={styles.botaoEditar}
+                      onClick={() => {
+                        setModalVisualizacaoAberto(false);
+                        abrirModalEditar(funcionarioSelecionado);
+                      }}
+                    >
+                      Editar Dados
+                    </button>
+                    <button className={styles.botaoSalvar} onClick={abrirModalSenha}>
+                      Trocar Senha
+                    </button>
+                    <button className={styles.botaoExcluir} onClick={excluirFuncionario}>
+                      Excluir Funcionário
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {modalSenhaAberto && (
+              <div
+                className={styles.modalOverlay}
+                onClick={fecharModalSenha}
+                role="dialog"
+                aria-modal="true"
+              >
+                <div
+                  className={styles.modalContent}
+                  onClick={(e) => e.stopPropagation()}
+                  style={{ maxWidth: 400 }}
+                >
+                  <h2 className={styles.modalTitle}>Alterar Senha</h2>
+                  <form onSubmit={salvarSenha} className={styles.formModal}>
+                    <label className={styles.senhaLabel}>
+                      Nova Senha:
+                      <div className={styles.inputSenhaWrapper}>
+                        <input
+                          type={mostrarSenha ? "text" : "password"}
+                          value={senhaNova}
+                          onChange={(e) => setSenhaNova(e.target.value)}
+                          placeholder="Digite a nova senha"
+                          required
+                        />
+                        <button
+                          type="button"
+                          className={styles.toggleSenha}
+                          onClick={() => setMostrarSenha(!mostrarSenha)}
+                        >
+                          {mostrarSenha ? <FaEyeSlash /> : <FaEye />}
+                        </button>
+                      </div>
+                    </label>
+                    <label className={styles.senhaLabel}>
+                      Confirmar Senha:
+                      <div className={styles.inputSenhaWrapper}>
+                        <input
+                          type={mostrarSenha ? "text" : "password"}
+                          value={senhaConfirmacao}
+                          onChange={(e) => setSenhaConfirmacao(e.target.value)}
+                          placeholder="Digite novamente a nova senha"
+                          required
+                        />
+                        <button
+                          type="button"
+                          className={styles.toggleSenha}
+                          onClick={() => setMostrarSenha(!mostrarSenha)}
+                        >
+                          {mostrarSenha ? <FaEyeSlash /> : <FaEye />}
+                        </button>
+                      </div>
+                    </label>
+                    <div className={styles.botoesModal}>
+                      <button type="submit" className={styles.botaoSalvar}>
+                        Salvar
+                      </button>
+                      <button
+                        type="button"
+                        onClick={fecharModalSenha}
+                        className={styles.botaoCancelar}
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
+          </div>
+        </MenuDonos>
+      ) : tipoUsuario === "user" ? (
+        <MenuUsers isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>
+          <p>Você não tem permissão para acessar essa página.</p>
+        </MenuUsers>
+      ) : (
+        <p>Carregando...</p>
+      )}
+    </>
+  );
 }
 
 export default Configuracoes;

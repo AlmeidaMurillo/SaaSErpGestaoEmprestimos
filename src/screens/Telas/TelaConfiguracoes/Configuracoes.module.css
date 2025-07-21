@@ -96,56 +96,32 @@
 .tabela th:nth-child(1),
 .tabela td:nth-child(1) {
   text-align: left;
-  width: 15%;
+  width: 0%;
 }
 
 .tabela th:nth-child(2),
 .tabela td:nth-child(2) {
   text-align: center;
-  width: 55%;
-}
-
-.tabela th:nth-child(3),
-.tabela td:nth-child(3) {
-  text-align: right;
   width: 30%;
 }
 
-.acoes {
-  white-space: nowrap;
-}
-
-.botaoEditar {
-  background-color: #3b82f6;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  margin-right: 8px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.3s, transform 0.1s;
-}
-
-.botaoEditar:active {
-  background-color: #2563eb;
-  transform: scale(0.98);
-}
 
 .botaoExcluir {
-  background-color: #ef4444;
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
   color: white;
   border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
+  padding: 12px 22px;
+  border-radius: 14px;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.3s, transform 0.1s;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 8px 16px rgba(239, 68, 68, 0.5);
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
 }
 
 .botaoExcluir:active {
-  background-color: #dc2626;
   transform: scale(0.98);
+  box-shadow: 0 2px 5px rgba(239, 68, 68, 0.5);
 }
 
 .notFound {
@@ -324,11 +300,13 @@
   }
 
   .botaoEditar:hover {
-    background-color: #2563eb;
+    background: linear-gradient(135deg, #194996, #2563eb);
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.7);
   }
 
   .botaoExcluir:hover {
-    background-color: #dc2626;
+    background: linear-gradient(135deg, #b91c1c, #991b1b);
+    box-shadow: 0 10px 20px rgba(185, 28, 28, 0.7);
   }
 
   .botaoSalvar:hover {
@@ -425,6 +403,24 @@
   margin-top: 2rem;
 }
 
+.closeButton {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  background: transparent;
+  border: none;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--text-color); 
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.closeButton:hover {
+  color: #ff0000; 
+}
+
 .botaoSalvar {
   background: linear-gradient(135deg, #22c55e, #16a34a);
   color: white;
@@ -435,7 +431,7 @@
   font-weight: 700;
   font-size: 1rem;
   box-shadow: 0 8px 16px rgba(34, 197, 94, 0.5);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
 }
 
 .botaoSalvar:active {
@@ -453,12 +449,30 @@
   font-weight: 700;
   font-size: 1rem;
   box-shadow: 0 8px 16px rgba(239, 68, 68, 0.5);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
 }
 
 .botaoCancelar:active {
   transform: scale(0.98);
   box-shadow: 0 2px 5px rgba(239, 68, 68, 0.5);
+}
+
+.botaoEditar {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 8px 16px rgba(59, 130, 246, 0.5);
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
+}
+
+.botaoEditar:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 5px rgba(59, 130, 246, 0.5);
 }
 
 @media (max-width: 480px) {
