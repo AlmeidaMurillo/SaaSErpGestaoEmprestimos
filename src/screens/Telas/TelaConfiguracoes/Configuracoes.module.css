@@ -330,6 +330,16 @@
   .botaoExcluir:hover {
     background-color: #dc2626;
   }
+
+  .botaoSalvar:hover {
+    background: linear-gradient(135deg, #16a34a, #15803d);
+    box-shadow: 0 10px 20px rgba(22, 163, 74, 0.7);
+  }
+
+  .botaoCancelar:hover {
+    background: linear-gradient(135deg, #b91c1c, #991b1b);
+    box-shadow: 0 10px 20px rgba(185, 28, 28, 0.7);
+  }
 }
 
 .modalOverlay {
@@ -358,7 +368,7 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   flex-direction: column;
-  pointer-events: auto; 
+  pointer-events: auto;
 }
 
 .modalTitle {
@@ -428,9 +438,9 @@
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-.botaoSalvar:hover {
-  background: linear-gradient(135deg, #16a34a, #15803d);
-  box-shadow: 0 10px 20px rgba(22, 163, 74, 0.7);
+.botaoSalvar:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 5px rgba(34, 197, 94, 0.5);
 }
 
 .botaoCancelar {
@@ -446,9 +456,9 @@
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-.botaoCancelar:hover {
-  background: linear-gradient(135deg, #b91c1c, #991b1b);
-  box-shadow: 0 10px 20px rgba(185, 28, 28, 0.7);
+.botaoCancelar:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 5px rgba(239, 68, 68, 0.5);
 }
 
 @media (max-width: 480px) {
@@ -462,4 +472,24 @@
     padding: 10px 18px;
     font-size: 0.95rem;
   }
+}
+
+.inputSenhaWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.inputSenhaWrapper input {
+  flex: 1;
+}
+
+.toggleSenha {
+  background: none;
+  border: none;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #555;
+  display: flex;
+  align-items: center;
 }

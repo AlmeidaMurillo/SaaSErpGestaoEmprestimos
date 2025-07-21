@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import MenuDonos from "../../../components/MenuDonos/MenuDonos";
 import MenuUsers from "../../../components/MenuUsers/MenuUsers";
 import styles from "./Configuracoes.module.css";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Configuracoes({ isCollapsed, toggleSidebar }) {
   const [tipoUsuario, setTipoUsuario] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [mostrarSenha, setMostrarSenha] = useState(false);
   const [configuracoes, setConfiguracoes] = useState([
     { id: 1, nome: "João Silva" },
     { id: 2, nome: "Ana Oliveira DA SILVA DIAS DE ALMEIDA " },
@@ -21,9 +23,10 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
   const [novoFuncionario, setNovoFuncionario] = useState({
     nome: "",
     email: "",
+    senha: "",
     telefone: "",
     cargo: "",
-    permissao: "comum", 
+    permissao: "comum",
   });
 
   useEffect(() => {
@@ -45,6 +48,7 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
     setNovoFuncionario({
       nome: "",
       email: "",
+      senha: "",
       telefone: "",
       cargo: "",
       permissao: "comum",
@@ -130,10 +134,7 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
 
       {modalAberto && (
         <div className={styles.modalOverlay}>
-          <div
-            className={styles.modalContent}
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
             <h2>Novo Funcionário</h2>
             <form onSubmit={salvarFuncionario} className={styles.formModal}>
               <label>
@@ -156,6 +157,25 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
                   value={novoFuncionario.email}
                   onChange={handleChange}
                 />
+              </label>
+              <label className={styles.senhaLabel}>
+                Senha:
+                <div className={styles.inputSenhaWrapper}>
+                  <input
+                    type={mostrarSenha ? "text" : "password"}
+                    name="senha"
+                    placeholder="Digite a senha do funcionário"
+                    value={novoFuncionario.senha}
+                    onChange={handleChange}
+                  />
+                  <button
+                    type="button"
+                    className={styles.toggleSenha}
+                    onClick={() => setMostrarSenha(!mostrarSenha)}
+                  >
+                    {mostrarSenha ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
               </label>
               <label>
                 Telefone:
