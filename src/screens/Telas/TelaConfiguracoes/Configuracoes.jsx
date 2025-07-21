@@ -392,7 +392,7 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
                   >
                     ×
                   </button>
-                  <h2 className={styles.modalTitle}>Detalhes do Funcionário</h2>
+                  <h2 className={styles.modalTitlevisualização}>Detalhes do Funcionário</h2>
                   <div className={styles.infoContainer}>
                     <div className={styles.infoItem}>
                       <span className={styles.label}>ID:</span>
