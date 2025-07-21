@@ -507,3 +507,42 @@
   display: flex;
   align-items: center;
 }
+
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: var(--sidebar-bg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin-bottom: 24px;
+  transition: background-color 0.3s ease;
+}
+
+.infoItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-color);
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--hover-bg);
+}
+
+.infoItem:last-child {
+  border-bottom: none;
+}
+
+.label {
+  color: var(--text-color);
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.value {
+  color: var(--text-color);
+  font-weight: 500;
+}

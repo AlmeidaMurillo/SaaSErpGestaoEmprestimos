@@ -116,7 +116,11 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
   };
 
   const excluirFuncionario = () => {
-    if (window.confirm(`Tem certeza que deseja excluir o funcionário ${funcionarioSelecionado.nome}?`)) {
+    if (
+      window.confirm(
+        `Tem certeza que deseja excluir o funcionário ${funcionarioSelecionado.nome}?`
+      )
+    ) {
       setConfiguracoes((prev) =>
         prev.filter((f) => f.id !== funcionarioSelecionado.id)
       );
@@ -196,7 +200,10 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
                   onClick={(e) => e.stopPropagation()}
                 >
                   <h2 className={styles.modalTitle}>Novo Funcionário</h2>
-                  <form onSubmit={salvarFuncionario} className={styles.formModal}>
+                  <form
+                    onSubmit={salvarFuncionario}
+                    className={styles.formModal}
+                  >
                     <label>
                       Nome completo:
                       <input
@@ -297,7 +304,10 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
                   onClick={(e) => e.stopPropagation()}
                 >
                   <h2 className={styles.modalTitle}>Editar Funcionário</h2>
-                  <form onSubmit={salvarFuncionario} className={styles.formModal}>
+                  <form
+                    onSubmit={salvarFuncionario}
+                    className={styles.formModal}
+                  >
                     <label>
                       Nome completo:
                       <input
@@ -383,15 +393,50 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
                     ×
                   </button>
                   <h2 className={styles.modalTitle}>Detalhes do Funcionário</h2>
-                  <div style={{ marginBottom: 24 }}>
-                    <p><strong>ID:</strong> {funcionarioSelecionado.id}</p>
-                    <p><strong>Nome:</strong> {funcionarioSelecionado.nome}</p>
-                    <p><strong>Email:</strong> {funcionarioSelecionado.email || "-"}</p>
-                    <p><strong>Telefone:</strong> {funcionarioSelecionado.telefone || "-"}</p>
-                    <p><strong>Cargo:</strong> {funcionarioSelecionado.cargo || "-"}</p>
-                    <p><strong>Permissão:</strong> {funcionarioSelecionado.permissao === "admin" ? "Administrador" : "Comum"}</p>
+                  <div className={styles.infoContainer}>
+                    <div className={styles.infoItem}>
+                      <span className={styles.label}>ID:</span>
+                      <span className={styles.value}>
+                        {funcionarioSelecionado.id}
+                      </span>
+                    </div>
+                    <div className={styles.infoItem}>
+                      <span className={styles.label}>Nome:</span>
+                      <span className={styles.value}>
+                        {funcionarioSelecionado.nome}
+                      </span>
+                    </div>
+                    <div className={styles.infoItem}>
+                      <span className={styles.label}>Email:</span>
+                      <span className={styles.value}>
+                        {funcionarioSelecionado.email || "-"}
+                      </span>
+                    </div>
+                    <div className={styles.infoItem}>
+                      <span className={styles.label}>Telefone:</span>
+                      <span className={styles.value}>
+                        {funcionarioSelecionado.telefone || "-"}
+                      </span>
+                    </div>
+                    <div className={styles.infoItem}>
+                      <span className={styles.label}>Cargo:</span>
+                      <span className={styles.value}>
+                        {funcionarioSelecionado.cargo || "-"}
+                      </span>
+                    </div>
+                    <div className={styles.infoItem}>
+                      <span className={styles.label}>Permissão:</span>
+                      <span className={styles.value}>
+                        {funcionarioSelecionado.permissao === "admin"
+                          ? "Administrador"
+                          : "Comum"}
+                      </span>
+                    </div>
                   </div>
-                  <div className={styles.botoesModal} style={{ justifyContent: "space-between" }}>
+                  <div
+                    className={styles.botoesModal}
+                    style={{ justifyContent: "space-between" }}
+                  >
                     <button
                       className={styles.botaoEditar}
                       onClick={() => {
@@ -401,10 +446,16 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
                     >
                       Editar Dados
                     </button>
-                    <button className={styles.botaoSalvar} onClick={abrirModalSenha}>
+                    <button
+                      className={styles.botaoSalvar}
+                      onClick={abrirModalSenha}
+                    >
                       Trocar Senha
                     </button>
-                    <button className={styles.botaoExcluir} onClick={excluirFuncionario}>
+                    <button
+                      className={styles.botaoExcluir}
+                      onClick={excluirFuncionario}
+                    >
                       Excluir Funcionário
                     </button>
                   </div>
