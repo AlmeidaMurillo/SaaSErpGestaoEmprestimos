@@ -106,13 +106,6 @@
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
 }
 
-.submitButton:hover:not(:disabled),
-.submitButton:focus-visible {
-  background: var(--button-hover);
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
-  outline: none;
-}
-
 .submitButton:disabled {
   cursor: not-allowed;
   background: var(--hover-bg);
@@ -181,13 +174,6 @@
   outline: none;
 }
 
-.ticketCard:hover,
-.ticketCard:focus-within {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-  outline: none;
-}
-
 .ticketHeader {
   display: flex;
   justify-content: space-between;
@@ -233,6 +219,139 @@
   line-height: 1.35;
 }
 
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modalContent {
+  background-color: var(--sidebar-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  color: var(--text-color);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.modalInfoContainer {
+  flex-shrink: 0;
+  margin-bottom: 1rem;
+}
+
+.modalInfo {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+.modalMensagensWrapper {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  border-top: 1px solid var(--hover-bg);
+  border-bottom: 1px solid var(--hover-bg);
+  margin-bottom: 1rem;
+}
+
+.modalMensagem,
+.modalResposta {
+  background-color: var(--hover-bg);
+  padding: 1rem;
+  border-radius: 10px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+  white-space: pre-line;
+}
+
+.divider {
+  margin: 1.2rem 0;
+  border: none;
+  border-top: 1px solid var(--hover-bg);
+}
+
+.modalTextarea {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background-color: var(--hover-bg);
+  color: var(--text-color);
+  font-size: 0.95rem;
+  border: 1px solid transparent;
+  outline: none;
+  resize: vertical;
+  margin-bottom: 1.5rem;
+  min-height: 80px;
+  max-height: 120px;
+}
+
+.modalTextarea:focus {
+  border: 2px solid var(--text-color);
+}
+
+.modalActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.modalSendButton {
+  background-color: var(--active-bg);
+  color: var(--text-color);
+  padding: 10px 22px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.3s ease, transform 0.1s ease;
+}
+
+.modalSendButton:active {
+  background-color: var(--button-hover);
+  transform: scale(0.98);
+}
+
+.modalCloseButton {
+  background-color: var(--hover-bg);
+  color: var(--text-color);
+  padding: 10px 22px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid var(--text-color);
+  transition: all 0.2s ease;
+}
+
+.modalCloseButton:active {
+  background-color: var(--button-hover);
+  transform: scale(0.98);
+}
+
 @media (max-width: 720px) {
   .container {
     margin: 1rem auto 2rem auto;
@@ -255,5 +374,20 @@
     transform: translateY(-4px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
     outline: none;
+  }
+
+  .submitButton:hover:not(:disabled),
+  .submitButton:focus-visible {
+    background: var(--button-hover);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+    outline: none;
+  }
+
+  .modalSendButton:hover {
+    background-color: var(--button-hover);
+  }
+
+  .modalCloseButton:hover {
+    background-color: var(--button-hover);
   }
 }
