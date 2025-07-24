@@ -74,7 +74,7 @@
 
 .tabela th,
 .tabela td {
-  padding: 12px;
+  padding: 18px;
   border-bottom: 1px solid #333;
   color: var(--text-color);
   vertical-align: middle;
