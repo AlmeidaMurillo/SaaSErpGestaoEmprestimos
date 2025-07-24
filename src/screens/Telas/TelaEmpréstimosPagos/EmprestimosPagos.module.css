@@ -77,56 +77,13 @@
 .tabela th:nth-child(1),
 .tabela td:nth-child(1) {
   text-align: left;
-  width: 15%;
+  width: 0%;
 }
 
 .tabela th:nth-child(2),
 .tabela td:nth-child(2) {
   text-align: center;
-  width: 55%;
-}
-
-.tabela th:nth-child(3),
-.tabela td:nth-child(3) {
-  text-align: right;
   width: 30%;
-}
-
-.acoes {
-  white-space: nowrap;
-}
-
-.botaoEditar {
-  background-color: #3b82f6;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  margin-right: 8px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.3s, transform 0.1s;
-}
-
-.botaoEditar:active {
-  background-color: #2563eb;
-  transform: scale(0.98);
-}
-
-.botaoExcluir {
-  background-color: #ef4444;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.3s, transform 0.1s;
-}
-
-.botaoExcluir:active {
-  background-color: #dc2626;
-  transform: scale(0.98);
 }
 
 .notFound {
@@ -143,12 +100,6 @@
     font-size: 14px;
   }
 
-  .botaoEditar,
-  .botaoExcluir {
-    padding: 4px 8px;
-    font-size: 0.8rem;
-  }
-
   .inputBusca {
     min-width: 100%;
   }
@@ -160,14 +111,6 @@
     flex-direction: column;
     height: 100%;
     box-sizing: border-box;
-  }
-
-  .botaoEditar,
-  .botaoExcluir {
-    padding: 6px 10px;
-    font-size: 0.75rem;
-    display: inline-block;
-    margin-top: 10px;
   }
 
   .tabela td:nth-child(3) {
@@ -224,13 +167,6 @@
     flex-wrap: wrap;
   }
 
-  .botaoEditar,
-  .botaoExcluir {
-    padding: 6px 10px;
-    font-size: 0.75rem;
-    display: inline-block;
-  }
-
   .tabela td:nth-child(3) {
     white-space: nowrap;
   }
@@ -254,12 +190,190 @@
   .tabelaRow:hover {
     background-color: var(--hover-bg);
   }
-
-  .botaoEditar:hover {
-    background-color: #2563eb;
+  .modalTabela tbody tr:hover {
+    background-color: var(--hover-bg);
+    cursor: pointer;
   }
+}
 
-  .botaoExcluir:hover {
-    background-color: #dc2626;
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+}
+
+.modalCard {
+  background-color: var(--sidebar-bg);
+  color: var(--text-color);
+  padding: 30px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modalTitle {
+  font-size: 1.7rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--text-color);
+}
+
+.modalInfo {
+  margin-bottom: 16px;
+  font-size: 1rem;
+  padding: 0 4px;
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.clientId {
+  color: #e53935;
+  font-weight: 700;
+}
+
+.clientName {
+  color: #1565c0;
+  font-weight: 700;
+}
+
+.loanCount {
+  color: #00796b;
+  font-weight: 700;
+}
+
+.modalSearchWrapperDouble {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  width: 100%;
+}
+
+.modalSearchInputId {
+  flex: 3;
+  background-color: var(--hover-bg);
+  color: var(--text-color);
+  padding: 9px 14px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 2px solid #aaa;
+  transition: border-color 0.3s ease;
+}
+
+.modalSearchInputDate {
+  flex: 1;
+  background-color: var(--hover-bg);
+  color: var(--text-color);
+  padding: 9px 10px;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  border: 2px solid #aaa;
+  transition: border-color 0.3s ease;
+}
+
+.modalSearchInputId:focus,
+.modalSearchInputDate:focus {
+  border-color: 3px solid var(--text-color);
+  outline: none;
+}
+
+.scrollTable {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid var(--hover-bg);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: var(--sidebar-bg);
+  max-height: 380px;
+}
+
+.modalTabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  color: var(--text-color);
+  table-layout: fixed;
+}
+
+.modalTabela th,
+.modalTabela td {
+  padding: 12px;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.modalTabela thead {
+  background-color: var(--sidebar-bg);
+  color: var(--text-color);
+  font-weight: 700;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.modalTabela tbody tr:active {
+  background-color: var(--hover-bg);
+  cursor: pointer;
+}
+
+.modalActions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btnLimpar,
+.btnFechar {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btnLimpar {
+  background-color: #ef5350;
+  color: white;
+}
+
+.btnFechar {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btnLimpar:hover {
+  background-color: #d32f2f;
+}
+
+.btnFechar:hover {
+  background-color: #388e3c;
 }

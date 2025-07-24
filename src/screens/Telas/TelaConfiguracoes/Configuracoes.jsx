@@ -180,7 +180,7 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
                   ) : (
                     <tr>
                       <td colSpan="3" className={styles.notFound}>
-                        Nenhum funcionário encontrado.
+                        Nenhum funcionario encontrado com este nome ou id.
                       </td>
                     </tr>
                   )}
@@ -191,7 +191,6 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
             {modalNovoAberto && (
               <div
                 className={styles.modalOverlay}
-                onClick={fecharModalNovo}
                 role="dialog"
                 aria-modal="true"
               >
@@ -295,9 +294,9 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
             {modalEditarAberto && (
               <div
                 className={styles.modalOverlay}
-                onClick={() => setModalEditarAberto(false)}
                 role="dialog"
                 aria-modal="true"
+                style={{ zIndex: 10000 }}
               >
                 <div
                   className={styles.modalContent}
@@ -376,9 +375,9 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
             {modalVisualizacaoAberto && funcionarioSelecionado && (
               <div
                 className={styles.modalOverlay}
-                onClick={fecharModalVisualizacao}
                 role="dialog"
                 aria-modal="true"
+                style={{ zIndex: 9999 }}
               >
                 <div
                   className={styles.modalContent}
@@ -392,7 +391,9 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
                   >
                     ×
                   </button>
-                  <h2 className={styles.modalTitlevisualização}>Detalhes do Funcionário</h2>
+                  <h2 className={styles.modalTitlevisualização}>
+                    Detalhes do Funcionário
+                  </h2>
                   <div className={styles.infoContainer}>
                     <div className={styles.infoItem}>
                       <span className={styles.label}>ID:</span>
@@ -440,7 +441,6 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
                     <button
                       className={styles.botaoEditar}
                       onClick={() => {
-                        setModalVisualizacaoAberto(false);
                         abrirModalEditar(funcionarioSelecionado);
                       }}
                     >
@@ -466,7 +466,6 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
             {modalSenhaAberto && (
               <div
                 className={styles.modalOverlay}
-                onClick={fecharModalSenha}
                 role="dialog"
                 aria-modal="true"
               >
