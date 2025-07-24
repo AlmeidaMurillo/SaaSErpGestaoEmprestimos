@@ -49,7 +49,6 @@ function Clientes({ isCollapsed, toggleSidebar }) {
             <tr>
               <th>ID</th>
               <th>Nome</th>
-              <th>Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -58,10 +57,6 @@ function Clientes({ isCollapsed, toggleSidebar }) {
                 <tr className={styles.tabelaRow} key={`${cliente.id}-${cliente.nome}`}>
                   <td>{cliente.id}</td>
                   <td>{cliente.nome}</td>
-                  <td className={styles.acoes}>
-                    <button className={styles.botaoEditar}>Editar</button>
-                    <button className={styles.botaoExcluir}>Excluir</button>
-                  </td>
                 </tr>
               ))
             ) : (
