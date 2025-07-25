@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import MenuDonos from "../../../components/MenuDonos/MenuDonos";
 import MenuUsers from "../../../components/MenuUsers/MenuUsers";
 import styles from "./Emprestimos.module.css";
+import { useNavigate } from "react-router-dom";
 
 function Emprestimos({ isCollapsed, toggleSidebar }) {
   const [tipoUsuario, setTipoUsuario] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [emprestimos, setEmprestimos] = useState([]);
+  const navigate = useNavigate();
 
   const [selectedClient, setSelectedClient] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -82,7 +84,9 @@ function Emprestimos({ isCollapsed, toggleSidebar }) {
             </p>
             <p>
               <strong>Nome:</strong>{" "}
-              <span className={styles.clientName}>{selectedClient.cliente}</span>
+              <span className={styles.clientName}>
+                {selectedClient.cliente}
+              </span>
             </p>
             <p>
               <strong>Total de Empréstimos:</strong>{" "}
@@ -147,51 +151,54 @@ function Emprestimos({ isCollapsed, toggleSidebar }) {
   };
 
   const renderEmprestimos = () => (
-    <div className={styles.container}>
-      <div className={styles.filtros}>
-        <input
-          type="text"
-          placeholder="Pesquisar por cliente ou ID..."
-          className={styles.inputBusca}
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <button className={styles.botaoNovo}>+ Novo Empréstimo</button>
-      </div>
-
-      <div className={styles.tabelaWrapper}>
-        <table className={styles.tabela}>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Cliente</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredEmprestimos.length > 0 ? (
-              filteredEmprestimos.map((e) => (
-                <tr
-                  className={styles.tabelaRow}
-                  key={`${e.id}-${e.cliente}`}
-                  onClick={() => openModal(e)}
-                >
-                  <td>{e.id}</td>
-                  <td>{e.cliente}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="2" className={styles.notFound}>
-                  Nenhum empréstimo encontrado.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-      {renderModal()}
+  <div className={styles.container}>
+    <div className={styles.filtros}>
+      <input
+        type="text"
+        placeholder="Pesquisar por cliente ou ID..."
+        className={styles.inputBusca}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      <button className={styles.botaoNovo}>+ Novo Empréstimo</button>
     </div>
-  );
+    <p className={styles.avisocliente}>
+      👆 Clique no nome do cliente para ver os empréstimos detalhados.
+    </p>
+
+    <div className={styles.tabelaWrapper}>
+      <table className={styles.tabela}>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredEmprestimos.length > 0 ? (
+            filteredEmprestimos.map((e) => (
+              <tr
+                className={styles.tabelaRow}
+                key={`${e.id}-${e.cliente}`}
+                onClick={() => navigate(`/listaemprestimos`)}
+              >
+                <td>{e.id}</td>
+                <td className={styles.clienteClicavel}>👁️ {e.cliente}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="2" className={styles.notFound}>
+                Nenhum empréstimo encontrado.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+    {renderModal()}
+  </div>
+);
 
   const renderMenu = () =>
     tipoUsuario === "admin" ? (

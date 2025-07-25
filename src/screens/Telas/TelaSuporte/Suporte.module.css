@@ -1,3 +1,7 @@
+/* ==========================================================================
+   ESTRUTURA PRINCIPAL E CONTAINERS
+   ========================================================================== */
+
 .container {
   max-width: 100%;
   width: 100%;
@@ -8,15 +12,6 @@
   min-height: 80vh;
   background-color: var(--bg-color);
   color: var(--text-color);
-}
-
-.title {
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 800;
-  text-align: center;
-  color: var(--text-color);
-  letter-spacing: 1.2px;
-  user-select: none;
 }
 
 .supportSection,
@@ -32,6 +27,40 @@
 .supportSection {
   border-radius: 16px;
 }
+
+.historySection {
+  max-height: 480px;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+  overflow-y: auto;
+}
+
+/* ==========================================================================
+   TÍTULOS E TEXTOS
+   ========================================================================== */
+
+.title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  text-align: center;
+  color: var(--text-color);
+  letter-spacing: 1.2px;
+  user-select: none;
+}
+
+.subtitle {
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1.4rem;
+  color: var(--text-color);
+  text-align: center;
+  user-select: none;
+}
+
+/* ==========================================================================
+   FORMULÁRIO DE SUPORTE
+   ========================================================================== */
 
 .form {
   display: flex;
@@ -84,6 +113,10 @@
   user-select: none;
 }
 
+/* ==========================================================================
+   BOTÃO DE ENVIO
+   ========================================================================== */
+
 .submitButton {
   align-self: flex-end;
   padding: 14px 28px;
@@ -114,6 +147,10 @@
   box-shadow: none;
 }
 
+/* ==========================================================================
+   MENSAGENS DE FEEDBACK
+   ========================================================================== */
+
 .feedbackSuccess {
   color: #198754;
   font-weight: 700;
@@ -130,22 +167,9 @@
   user-select: none;
 }
 
-.historySection {
-  max-height: 480px;
-  border-top-left-radius: 16px;
-  border-bottom-left-radius: 16px;
-  overflow-y: auto;
-}
-
-.subtitle {
-  font-weight: 700;
-  font-size: 1.6rem;
-  margin-top: 0.5rem;
-  color: var(--text-color);
-  margin-bottom: 1.4rem;
-  user-select: none;
-  text-align: center;
-}
+/* ==========================================================================
+   LISTAGEM DE TICKETS
+   ========================================================================== */
 
 .ticketList {
   list-style: none;
@@ -172,7 +196,6 @@
 .ticketCard:active {
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.10);
-  outline: none;
 }
 
 .ticketHeader {
@@ -220,6 +243,10 @@
   line-height: 1.35;
 }
 
+/* ==========================================================================
+   MODAL DE MENSAGENS
+   ========================================================================== */
+
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -230,7 +257,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  z-index: 9999;
 }
 
 .modalContent {
@@ -281,16 +308,9 @@
   background-color: var(--hover-bg);
   padding: 1rem;
   border-radius: 10px;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin: 0.5rem 0;
   font-style: italic;
   white-space: pre-line;
-}
-
-.divider {
-  margin: 1.2rem 0;
-  border: none;
-  border-top: 1px solid var(--hover-bg);
 }
 
 .modalTextarea {
@@ -319,16 +339,20 @@
   flex-shrink: 0;
 }
 
-.modalSendButton {
-  background-color: var(--active-bg);
-  color: var(--text-color);
+.modalSendButton,
+.modalCloseButton {
   padding: 10px 22px;
-  font-weight: 600;
   font-size: 0.95rem;
   border-radius: 8px;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modalSendButton {
+  background-color: var(--active-bg);
+  color: var(--text-color);
+  font-weight: 600;
   border: none;
-  transition: background 0.3s ease, transform 0.1s ease;
 }
 
 .modalSendButton:active {
@@ -339,19 +363,18 @@
 .modalCloseButton {
   background-color: var(--hover-bg);
   color: var(--text-color);
-  padding: 10px 22px;
   font-weight: 500;
-  font-size: 0.95rem;
-  border-radius: 8px;
-  cursor: pointer;
   border: 1px solid var(--text-color);
-  transition: all 0.2s ease;
 }
 
 .modalCloseButton:active {
   background-color: var(--button-hover);
   transform: scale(0.98);
 }
+
+/* ==========================================================================
+   RESPONSIVIDADE - TELAS PEQUENAS
+   ========================================================================== */
 
 @media (max-width: 720px) {
   .container {
@@ -369,25 +392,35 @@
   }
 }
 
+/* ==========================================================================
+   RESPONSIVIDADE - TELAS BAIXAS (altura)
+   ========================================================================== */
+
+@media (max-height: 730px) {
+  .modalContent {
+    padding: 1.5rem;
+    max-height: 75vh;
+  }
+}
+
+/* ==========================================================================
+   INTERAÇÕES DE HOVER (DESKTOP COM MOUSE)
+   ========================================================================== */
+
 @media (hover: hover) and (pointer: fine) {
   .ticketCard:hover,
   .ticketCard:focus-within {
     transform: translateY(-4px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-    outline: none;
   }
 
   .submitButton:hover:not(:disabled),
   .submitButton:focus-visible {
     background: var(--button-hover);
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
-    outline: none;
   }
 
-  .modalSendButton:hover {
-    background-color: var(--button-hover);
-  }
-
+  .modalSendButton:hover,
   .modalCloseButton:hover {
     background-color: var(--button-hover);
   }

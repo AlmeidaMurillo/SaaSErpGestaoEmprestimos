@@ -1,3 +1,6 @@
+/* =======================
+   Container principal e filtros
+   ======================= */
 .container {
   display: flex;
   flex-direction: column;
@@ -8,11 +11,14 @@
 .filtros {
   display: flex;
   gap: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   flex-wrap: nowrap;
   align-items: center;
 }
 
+/* =======================
+   Input de busca
+   ======================= */
 .inputBusca {
   padding: 10px 14px;
   border: 1px solid transparent;
@@ -32,6 +38,9 @@
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--text-color) 60%, transparent);
 }
 
+/* =======================
+   Botão "Novo"
+   ======================= */
 .botaoNovo {
   background-color: #22c55e;
   color: white;
@@ -49,6 +58,9 @@
   transform: scale(0.98);
 }
 
+/* =======================
+   Wrapper e tabela principal
+   ======================= */
 .tabelaWrapper {
   flex: 1;
   overflow-y: auto;
@@ -93,6 +105,7 @@
   background-color: var(--sidebar-bg);
 }
 
+/* Alinhamento específico colunas 1 e 2 */
 .tabela th:nth-child(1),
 .tabela td:nth-child(1) {
   text-align: left;
@@ -105,6 +118,9 @@
   width: 30%;
 }
 
+/* =======================
+   Mensagem de "não encontrado"
+   ======================= */
 .notFound {
   text-align: center;
   font-size: 1rem;
@@ -112,7 +128,37 @@
   padding: 10px;
 }
 
+/* =======================
+   Avisos sobre clique 
+
+   FALTA FAZER ISSO EM CLIENTES, EMPRESTIMOSPAGOS E CONFIGURACOES
+   ======================= */
+
+.clienteClicavel {
+  cursor: pointer;
+  transition: color 0.2s ease;
+  text-align: center;
+}
+
+.clienteClicavel:active {
+  color: var(--sidebar-bg);
+  text-decoration: underline;
+}
+
+.avisocliente {
+  color: #aaa;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  margin-left: 12px;
+}
+
+/* =======================
+   Responsividades
+   ======================= */
+
+/* Até 600px - ajustes fonte e espaçamento */
 @media (max-width: 600px) {
+
   .tabela th,
   .tabela td {
     padding: 18px;
@@ -136,6 +182,7 @@
   }
 }
 
+/* Até 800px e telas com alta resolução e suporte a hover */
 @media screen and (max-width: 800px) and (min-resolution: 2dppx) and (hover: hover) and (pointer: fine) {
   .container {
     display: flex;
@@ -178,6 +225,7 @@
   }
 }
 
+/* Até 500px, alta resolução, hover e pointer fino */
 @media screen and (max-width: 500px) and (min-resolution: 2.5dppx) and (hover: hover) and (pointer: fine) {
   .container {
     display: flex;
@@ -250,98 +298,249 @@
   }
 }
 
-@media screen and (max-width: 1024px) {
-  .modalCard {
-    width: 95%;
-    padding: 20px;
-    border-radius: 16px;
-  }
+/* zoom 250% pra navegador desktop*/
 
-  .modalTitle {
-    font-size: 1.5rem;
-    margin-bottom: 16px;
-  }
+@media (min-resolution: 2.5dppx) and (hover: hover) and (pointer: fine) {
 
-  .modalInfo {
-    flex-direction: column;
+  /* ────────────────────────────── */
+  /*     BARRA DE FILTROS           */
+  /* ────────────────────────────── */
+
+  .filtros {
+    margin-top: -10px;
+    display: flex;
+    gap: 5px;
+    margin-bottom: 5px;
+    flex-wrap: nowrap;
     align-items: center;
-    font-size: 0.95rem;
-    gap: 12px;
   }
 
-  .modalSearchWrapperDouble {
-    flex-direction: column;
-    gap: 8px;
+  .inputBusca {
+    padding: 5px 12px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background-color: var(--hover-bg);
+    color: var(--text-color);
+    font-size: 0.7rem;
+    flex: 1;
+    width: auto;
+    flex-shrink: 1;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .modalSearchInputId,
-  .modalSearchInputDate {
-    width: 100%;
-    font-size: 0.9rem;
+  .inputBusca:focus {
+    outline: none;
+    border: 1px solid var(--text-color);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--text-color) 60%, transparent);
   }
 
-  .scrollTable {
-    max-height: 300px;
-  }
-
-  .modalTabela th{
-    padding: 14px;
-    font-size: 0.9rem;
-  }
-
-  .modalTabela td {
-    padding: 18px;
-    font-size: 0.9rem;
-  }
-
-  .btnLimpar,
-  .btnFechar {
-    padding: 8px 16px;
-    font-size: 0.9rem;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .modalCard {
-    padding: 16px;
-    max-height: 90vh;
-    border-radius: 12px;
-  }
-
-  .modalTitle {
-    font-size: 1.3rem;
-    margin-bottom: 12px;
-  }
-
-  .modalInfo {
-    font-size: 0.85rem;
-    gap: 8px;
-  }
-
-  .modalSearchInputId,
-  .modalSearchInputDate {
-    padding: 7px 10px;
-    font-size: 0.85rem;
-  }
-
-  .modalTabela th{
-    padding: 14px;
-    font-size: 0.9rem;
-  }
-
-  .modalTabela td {
-    padding: 18px;
-    font-size: 0.9rem;
-  }
-
-  .btnLimpar,
-  .btnFechar {
-    padding: 6px 12px;
-    font-size: 0.85rem;
+  .botaoNovo {
+    background-color: #22c55e;
+    color: white;
+    border: none;
     border-radius: 8px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .botaoNovo:active {
+    background-color: #16a34a;
+    transform: scale(0.98);
+  }
+
+  /* ────────────────────────────── */
+  /*           TABELA              */
+  /* ────────────────────────────── */
+
+  .tabelaWrapper {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: auto;
+    background-color: var(--sidebar-bg);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+
+  .tabela {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--sidebar-bg);
+    overflow: auto;
+  }
+
+  .tabela thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: var(--sidebar-bg);
+  }
+
+  .tabela th {
+    padding: 5px 12px;
+    border-bottom: 1px solid #333;
+    color: var(--text-color);
+    vertical-align: middle;
+    word-wrap: break-word;
+    font-size: 0.7rem;
+  }
+
+  .tabela td {
+    padding: 5px 12px;
+    border-bottom: 1px solid #333;
+    color: var(--text-color);
+    vertical-align: middle;
+    word-wrap: break-word;
+    font-size: 0.7rem;
+  }
+
+  .avisocliente {
+    color: #aaa;
+    font-size: 0.5rem;
+    margin-bottom: 8px;
+    margin-left: 12px;
   }
 }
 
+/* zoom 400% para navegador desktop */
+@media (min-resolution: 4dppx) and (hover: hover) and (pointer: fine) {
+
+  /* ────────────────────────────── */
+  /*     ESCONDER FILTROS / INPUT / BOTÃO */
+  /* ────────────────────────────── */
+
+  .filtros,
+  .inputBusca,
+  .botaoNovo {
+    display: none !important;
+  }
+
+  /* ────────────────────────────── */
+  /*           TABELA              */
+  /* ────────────────────────────── */
+
+  .tabelaWrapper {
+    margin-top: -5px;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: auto;
+    background-color: var(--sidebar-bg);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+
+  .tabela {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--sidebar-bg);
+    overflow: auto;
+  }
+
+  .tabela thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: var(--sidebar-bg);
+  }
+
+  .tabela th {
+    padding: 3px 8px;
+    border-bottom: 1px solid #333;
+    color: var(--text-color);
+    vertical-align: middle;
+    word-wrap: break-word;
+    font-size: 0.7rem;
+  }
+
+  .tabela td {
+    padding: 3px 8px;
+    border-bottom: 1px solid #333;
+    color: var(--text-color);
+    vertical-align: middle;
+    word-wrap: break-word;
+    font-size: 0.7rem;
+  }
+
+  .avisocliente {
+    margin-top: -10px;
+    color: #aaa;
+    font-size: 0.4rem;
+    margin-left: 12px;
+  }
+}
+
+/* zoom 500% para navegador desktop */
+@media (min-resolution: 5dppx) and (hover: hover) and (pointer: fine) {
+
+  /* ────────────────────────────── */
+  /*     ESCONDER FILTROS / INPUT / BOTÃO */
+  /* ────────────────────────────── */
+
+  .filtros,
+  .inputBusca,
+  .botaoNovo {
+    display: none !important;
+  }
+
+  /* ────────────────────────────── */
+  /*           TABELA              */
+  /* ────────────────────────────── */
+
+  .tabelaWrapper {
+    margin-top: -5px;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: auto;
+    background-color: var(--sidebar-bg);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+
+  .tabela {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--sidebar-bg);
+    overflow: auto;
+  }
+
+  .tabela thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: var(--sidebar-bg);
+  }
+
+  .tabela th {
+    padding: 2px 6px;
+    border-bottom: 1px solid #333;
+    color: var(--text-color);
+    vertical-align: middle;
+    word-wrap: break-word;
+    font-size: 0.7rem;
+  }
+
+  .tabela td {
+    padding: 2px 6px;
+    border-bottom: 1px solid #333;
+    color: var(--text-color);
+    vertical-align: middle;
+    word-wrap: break-word;
+    font-size: 0.7rem;
+  }
+
+  .avisocliente {
+    margin-top: -15px;
+    color: #aaa;
+    font-size: 0.3rem;
+    margin-left: 12px;
+  }
+}
+
+/* =======================
+   Hover effects (apenas dispositivos que suportam)
+   ======================= */
 @media (hover: hover) and (pointer: fine) {
   .botaoNovo:hover {
     background-color: #16a34a;
@@ -350,207 +549,9 @@
   .tabelaRow:hover {
     background-color: var(--hover-bg);
   }
-  .modalTabela tbody tr:hover {
-    background-color: var(--hover-bg);
-    cursor: pointer;
+
+  .clienteClicavel:hover {
+    color: var(--sidebar-bg);
+    text-decoration: underline;
   }
-
-  .btnLimpar:hover {
-    background-color: #d32f2f;
-  }
-
-  .btnFechar:hover {
-    background-color: #388e3c;
-  }
-}
-
-
-
-.modalOverlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  backdrop-filter: blur(4px);
-}
-
-.modalCard {
-  background-color: var(--sidebar-bg);
-  color: var(--text-color);
-  padding: 30px;
-  border-radius: 20px;
-  width: 100%;
-  max-width: 600px;
-  max-height: 85vh;
-  margin: 0 16px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  animation: fadeInUp 0.3s ease;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.97);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.modalTitle {
-  font-size: 1.7rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 20px;
-  color: var(--text-color);
-}
-
-.modalInfo {
-  margin-bottom: 12px;
-  font-size: 1rem;
-  padding: 0 4px;
-  display: flex;
-  gap: 38px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.clientId {
-  color: #e53935;
-  font-weight: 700;
-}
-
-.clientName {
-  color: #1565c0;
-  font-weight: 700;
-}
-
-.loanCount {
-  color: #00796b;
-  font-weight: 700;
-}
-
-.modalSearchWrapperDouble {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-  width: 100%;
-}
-
-.modalSearchInputId {
-  flex: 3;
-  background-color: var(--hover-bg);
-  color: var(--text-color);
-  padding: 9px 10px;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 2px solid #aaa;
-  transition: border-color 0.3s ease;
-}
-
-.modalSearchInputDate {
-  flex: 1;
-  background-color: var(--hover-bg);
-  color: var(--text-color);
-  padding: 9px 8px;
-  font-size: 0.95rem;
-  border-radius: 8px;
-  border: 2px solid #aaa;
-  transition: border-color 0.3s ease;
-}
-
-.modalSearchInputId:focus,
-.modalSearchInputDate:focus {
-  border-color: 3px solid var(--text-color);
-  outline: none;
-}
-
-.scrollTable {
-  flex: 1;
-  overflow-y: auto;
-  border: 1px solid var(--hover-bg);
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  background-color: var(--sidebar-bg);
-  max-height: 380px;
-}
-
-.modalTabela {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 1rem;
-  color: var(--text-color);
-  table-layout: fixed;
-}
-
-.modalTabela th {
-  padding: 12px;
-  border-bottom: 1px solid #ccc;
-  text-align: center;
-  word-wrap: break-word;
-}
-
-.modalTabela td {
-  padding: 18px;
-  border-bottom: 1px solid #ccc;
-  text-align: center;
-  word-wrap: break-word;
-}
-
-.modalTabela thead {
-  background-color: var(--sidebar-bg);
-  color: var(--text-color);
-  font-weight: 700;
-  position: sticky;
-  top: 0;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-}
-
-.modalTabela tbody tr:active {
-  background-color: var(--hover-bg);
-  cursor: pointer;
-}
-
-.modalActions {
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.btnLimpar,
-.btnFechar {
-  padding: 10px 22px;
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.btnLimpar {
-  background-color: #ef5350;
-  color: white;
-}
-
-.btnFechar {
-  background-color: #4caf50;
-  color: white;
-}
-
-.btnLimpar:active {
-  background-color: #d32f2f;
-}
-
-.btnFechar:active {
-  background-color: #388e3c;
 }

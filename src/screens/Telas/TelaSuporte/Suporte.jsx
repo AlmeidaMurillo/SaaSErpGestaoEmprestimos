@@ -311,7 +311,7 @@ function Suporte({ isCollapsed, toggleSidebar }) {
     <>
       {renderMenu()}
       {mostrarModal && chamadoSelecionado && (
-        <div className={styles.modalOverlay} onClick={fecharModal}>
+        <div className={styles.modalOverlay}>
           <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
             <header className={styles.modalHeader}>
               <h3>Chamado #{chamadoSelecionado.id}</h3>

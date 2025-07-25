@@ -8,6 +8,9 @@ const Login = lazy(() => import("./Telas/TelaLogin/Login"));
 const Dashboard = lazy(() => import("./Telas/TelaDashboard/Dashboard"));
 const Clientes = lazy(() => import("./Telas/TelaClientes/Clientes"));
 const Emprestimos = lazy(() => import("./Telas/TelaEmpréstimos/Emprestimos"));
+const ListaEmprestimos = lazy(() =>
+  import("./Telas/TelaListaEmprestimos/ListaEmprestimos")
+);
 const ParcelasEmprestimos = lazy(() => import("./Telas/TelaParcelas/Parcelas"));
 const PagarHoje = lazy(() =>
   import("./Telas/TelaPagamentosParaHoje/PagarHoje")
@@ -126,6 +129,15 @@ function App() {
             path="/parcelas"
             element={
               <ParcelasEmprestimos
+                isCollapsed={isCollapsed}
+                toggleSidebar={toggleSidebar}
+              />
+            }
+          />
+          <Route
+            path="/listaemprestimos"
+            element={
+              <ListaEmprestimos
                 isCollapsed={isCollapsed}
                 toggleSidebar={toggleSidebar}
               />

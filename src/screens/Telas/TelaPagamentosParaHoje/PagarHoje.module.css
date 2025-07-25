@@ -1,3 +1,7 @@
+/* ==========================================================================
+   CONTAINER PRINCIPAL DAS PARCELAS
+   ========================================================================== */
+
 .parcelasBox {
   flex: 1 1 auto;
   min-height: 0;
@@ -12,6 +16,11 @@
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
   flex-wrap: nowrap;
 }
+
+
+/* ==========================================================================
+   CARTÃO DE PARCELA INDIVIDUAL
+   ========================================================================== */
 
 .parcelaCard {
   background-color: var(--sidebar-bg);
@@ -46,6 +55,11 @@
   color: var(--text-color);
 }
 
+
+/* ==========================================================================
+   BOTÃO DE STATUS (ex: Pagar, Confirmar)
+   ========================================================================== */
+
 .botaoStatus {
   margin-top: 10px;
   padding: 10px 16px;
@@ -59,6 +73,11 @@
   transition: background 0.3s ease;
 }
 
+
+/* ==========================================================================
+   INDICAÇÃO DE STATUS (Pago / Pendente)
+   ========================================================================== */
+
 .statusPago {
   color: #2e7d32;
   font-weight: 600;
@@ -69,6 +88,11 @@
   font-weight: 600;
 }
 
+
+/* ==========================================================================
+   MENSAGEM DE “NENHUM RESULTADO ENCONTRADO”
+   ========================================================================== */
+
 .notFound {
   margin-top: 20px;
   font-size: 16px;
@@ -76,9 +100,19 @@
   text-align: center;
 }
 
+
+/* ==========================================================================
+   ESTILO DE CONTAINER COLAPSADO (p/ layout reduzido)
+   ========================================================================== */
+
 .collapsed {
   max-width: calc(1200px - 120px);
 }
+
+
+/* ==========================================================================
+   HOVER (em dispositivos com mouse)
+   ========================================================================== */
 
 @media (hover: hover) and (pointer: fine) {
   .parcelaCard:hover {
@@ -92,6 +126,11 @@
   }
 }
 
+
+/* ==========================================================================
+   ACTIVE (ao clicar/tocar)
+   ========================================================================== */
+
 .parcelaCard:active {
   background-color: var(--hover-bg);
   transform: translateY(-0.5px);
@@ -101,6 +140,12 @@
 .botaoStatus:active {
   background-color: var(--button-hover);
 }
+
+
+/* ==========================================================================
+   RESPONSIVIDADE: TELAS MÉDIAS (<= 1024px)
+   Reduz padding e tamanhos de texto para tablets
+   ========================================================================== */
 
 @media (max-width: 1024px) {
   .parcelaCard {
@@ -115,6 +160,12 @@
     font-size: 14px;
   }
 }
+
+
+/* ==========================================================================
+   RESPONSIVIDADE: TELAS PEQUENAS (<= 310px)
+   Ajustes para celulares estreitos
+   ========================================================================== */
 
 @media (max-width: 310px) {
   .parcelasBox {

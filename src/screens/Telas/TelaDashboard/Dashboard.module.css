@@ -1,3 +1,6 @@
+/* =======================
+   Grid principal e caixas
+   ======================= */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -22,28 +25,6 @@
   border: 1px solid #e0e0e0;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .caixa:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 20px rgba(0, 123, 255, 0.15);
-    background: linear-gradient(145deg, #f9f9f9, #ececec);
-  }
-
-  .botao:hover {
-    background: #444;
-  }
-}
-
-.caixa:active {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 20px rgba(0, 123, 255, 0.15);
-  background: linear-gradient(145deg, #f9f9f9, #ececec);
-}
-
-.botao:active {
-  background: #444;
-}
-
 .caixa h3 {
   font-size: 16px;
   color: #444;
@@ -58,6 +39,7 @@
   margin: 0;
 }
 
+/* Inputs e botões */
 .input {
   padding: 10px;
   font-size: 14px;
@@ -88,6 +70,7 @@
   margin-top: auto;
 }
 
+/* Título centralizado */
 .title {
   font-size: 28px;
   font-weight: bold;
@@ -96,6 +79,34 @@
   text-align: center;
 }
 
+/* =======================
+   Hover e active (dispositivos que suportam)
+   ======================= */
+@media (hover: hover) and (pointer: fine) {
+  .caixa:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 20px rgba(0, 123, 255, 0.15);
+    background: linear-gradient(145deg, #f9f9f9, #ececec);
+  }
+
+  .botao:hover {
+    background: #444;
+  }
+}
+
+.caixa:active {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px rgba(0, 123, 255, 0.15);
+  background: linear-gradient(145deg, #f9f9f9, #ececec);
+}
+
+.botao:active {
+  background: #444;
+}
+
+/* =======================
+   Responsividade para telas menores
+   ======================= */
 @media (max-width: 768px) {
   .grid {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));

@@ -86,7 +86,7 @@ function EmprestimosPagos({ isCollapsed, toggleSidebar }) {
               </span>
             </p>
             <p>
-              <strong>Total de Empréstimos Pagos:</strong>{" "}
+              <strong className={styles.modalTitleTotalemprestimosPagos}>Total de Empréstimos Pagos:</strong>{" "}
               <span className={styles.loanCount}>
                 50
               </span>

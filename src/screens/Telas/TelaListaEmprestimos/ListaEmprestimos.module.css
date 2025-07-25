@@ -1,0 +1,215 @@
+/* =======================
+   Container principal
+   ======================= */
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+/* =======================
+   Área de filtros e botões
+   ======================= */
+.filtros {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* =======================
+   Campo de busca
+   ======================= */
+.inputBusca {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background-color: var(--hover-bg);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+  min-width: 200px;
+}
+.inputBusca:focus {
+  outline: none;
+  border: 1px solid var(--text-color);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+/* =======================
+   Botão Novo
+   ======================= */
+.botaoNovo {
+  background-color: #22c55e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s, transform 0.1s;
+  white-space: nowrap;
+}
+.botaoNovo:hover {
+  background-color: #16a34a;
+}
+.botaoNovo:active {
+  transform: scale(0.98);
+}
+
+/* =======================
+   Wrapper da tabela (scroll horizontal)
+   ======================= */
+.tabelaWrapper {
+  flex: 1;
+  overflow-x: auto;
+  background-color: var(--sidebar-bg);
+  border-radius: 8px;
+}
+
+/* =======================
+   Tabela principal
+   ======================= */
+.tabela {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+  background-color: var(--sidebar-bg);
+}
+
+.tabela thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: var(--sidebar-bg);
+}
+
+.tabela th,
+.tabela td {
+  padding: 16px;
+  border-bottom: 1px solid #333;
+  color: var(--text-color);
+  text-align: center;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.tabela th:nth-child(1),
+.tabela td:nth-child(1) {
+  text-align: left;
+}
+
+.tabelaRow {
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+.tabelaRow:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* =======================
+   Mensagem de “não encontrado”
+   ======================= */
+.notFound {
+  text-align: center;
+  font-size: 1rem;
+  color: #aaa;
+  padding: 20px;
+}
+
+/* =======================
+   Responsividade
+   ======================= */
+
+/* Até 1024px - tabela ocupa 100% da largura */
+@media screen and (max-width: 1024px) {
+  .tabela {
+    min-width: 100%;
+  }
+}
+
+/* Até 768px - reduz padding e fontes para inputs, botões e tabela */
+@media screen and (max-width: 768px) {
+  .inputBusca {
+    font-size: 0.9rem;
+    padding: 8px 10px;
+  }
+
+  .botaoNovo {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .tabela th,
+  .tabela td {
+    padding: 14px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Até 480px - filtros em coluna, botões e inputs 100% largura */
+@media screen and (max-width: 480px) {
+  .filtros {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .inputBusca {
+    width: 100%;
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  .botaoNovo {
+    width: 100%;
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  .tabela th,
+  .tabela td {
+    padding: 12px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Até 360px - reduz fontes e padding ainda mais */
+@media screen and (max-width: 360px) {
+  .tabela th,
+  .tabela td {
+    font-size: 0.75rem;
+    padding: 10px;
+  }
+
+  .inputBusca,
+  .botaoNovo {
+    font-size: 0.75rem;
+    padding: 6px;
+  }
+}
+
+/* Até 320px - ajustes finos para telas muito pequenas */
+@media screen and (max-width: 320px) {
+  .container {
+    padding: 10px;
+  }
+
+  .tabela th,
+  .tabela td {
+    font-size: 0.7rem;
+    padding: 8px;
+  }
+
+  .inputBusca,
+  .botaoNovo {
+    font-size: 0.7rem;
+    padding: 6px 8px;
+  }
+}

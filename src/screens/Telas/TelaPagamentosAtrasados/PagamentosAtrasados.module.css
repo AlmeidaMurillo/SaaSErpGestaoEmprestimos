@@ -1,3 +1,6 @@
+/* ==========================================================================
+   Container principal das parcelas
+   ========================================================================== */
 .parcelasBox {
   flex: 1 1 auto;
   min-height: 0;
@@ -13,6 +16,9 @@
   flex-wrap: nowrap;
 }
 
+/* ==========================================================================
+   Cartão individual da parcela
+   ========================================================================== */
 .parcelaCard {
   background-color: var(--sidebar-bg);
   border: 1px solid var(--text-color);
@@ -36,10 +42,6 @@
   color: var(--text-color);
 }
 
-.parcelaCard p strong {
-  color: var(--text-color);
-}
-
 .botaoStatus {
   margin-top: 10px;
   padding: 10px 16px;
@@ -58,24 +60,15 @@
   font-weight: 700;
 }
 
-.notFound {
-  margin-top: 20px;
-  font-size: 16px;
-  color: #888;
-  text-align: center;
-}
-
-.collapsed {
-  max-width: calc(1200px - 120px);
-}
-
+/* ==========================================================================
+   Estados interativos para hover e active
+   ========================================================================== */
 @media (hover: hover) and (pointer: fine) {
   .parcelaCard:hover {
     background-color: var(--hover-bg);
     transform: translateY(-0.5px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   }
-
   .botaoStatus:hover {
     background-color: var(--button-hover);
   }
@@ -91,28 +84,31 @@
   background-color: var(--button-hover);
 }
 
+/* ==========================================================================
+   RESPONSIVIDADE
+   ========================================================================== */
+
+/* Ajusta tamanho do card para telas menores que 1024px (tablets, laptops menores) */
 @media (max-width: 1024px) {
   .parcelaCard {
     padding: 16px 20px;
   }
-
   .parcelaCard p {
     font-size: 14px;
   }
 }
 
+/* Para telas muito pequenas, como celulares bem estreitos (310px de largura) */
 @media (max-width: 310px) {
   .parcelasBox {
-    min-width: 200px;
-    padding: 8px;
+    min-width: 200px;   
+    padding: 8px;       
   }
-
   .parcelaCard {
     padding: 10px 12px;
-    min-width: 200px;
-    min-height: 80px;
+    min-width: 200px;   
+    min-height: 80px;   
   }
-
   .parcelaCard p {
     font-size: 11px;
   }

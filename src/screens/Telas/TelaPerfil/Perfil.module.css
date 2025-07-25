@@ -1,3 +1,7 @@
+/* ==========================================================================
+   ESTRUTURA PRINCIPAL E CONTAINERS
+   ========================================================================== */
+
 .perfilContainer {
   width: 100%;
   min-height: 100%;
@@ -22,6 +26,10 @@
   padding: 2rem 1.8rem;
   box-shadow: inset 0 0 12px rgb(0 0 0 / 0.05);
 }
+
+/* ==========================================================================
+   FOTO DE PERFIL E BOTÕES DE AÇÃO
+   ========================================================================== */
 
 .fotoPerfil {
   width: 160px;
@@ -118,6 +126,10 @@
   transform: scale(0.98);
 }
 
+/* ==========================================================================
+   PAINEL DIREITO E CARDS DE INFORMAÇÕES
+   ========================================================================== */
+
 .rightPanel {
   background-color: var(--bg-color);
   border-radius: 14px;
@@ -142,6 +154,7 @@
   border: 2px solid var(--active-bg);
   user-select: none;
   cursor: default;
+  overflow: hidden;
 }
 
 .infoQuadrante h3 {
@@ -185,6 +198,10 @@
   font-weight: 700;
   text-transform: uppercase;
 }
+
+/* ==========================================================================
+   MODAL (CONFIRMAÇÕES / INPUTS / VISUALIZAÇÃO DE FOTO)
+   ========================================================================== */
 
 .modalOverlay {
   position: fixed;
@@ -294,6 +311,10 @@
   color: #dc3545;
 }
 
+/* ==========================================================================
+   HOVERS E INTERAÇÕES COM PONTEIRO
+   ========================================================================== */
+
 @media (hover: hover) and (pointer: fine) {
   .btn:hover {
     background: var(--button-hover);
@@ -317,18 +338,23 @@
   }
 }
 
+/* ==========================================================================
+   RESPONSIVIDADE
+   ========================================================================== */
+
+/* Tablets grandes (até 1180px): painel direito com 1 coluna */
 @media (max-width: 1180px) {
   .rightPanel {
     grid-template-columns: 1fr;
   }
 }
 
+/* Tablets médios (até 880px): empilha colunas e ajusta espaçamentos */
 @media (max-width: 880px) {
   .perfilContainer {
     grid-template-columns: 1fr;
     padding: 2rem 1.5rem;
   }
-
   .leftPanel {
     flex-direction: row;
     justify-content: center;
@@ -336,72 +362,65 @@
     padding: 1.5rem 1rem 2rem;
     gap: 1.5rem;
   }
-
   .fotoPerfil {
     width: 130px;
     height: 130px;
   }
-
   .btnGroup {
     flex-direction: row;
     gap: 1rem;
-    width: auto;
     flex-wrap: wrap;
     justify-content: center;
   }
-
   .rightPanel {
     padding: 1rem 1rem 2rem;
     grid-template-columns: 1fr;
   }
 }
 
+/* Celulares pequenos (até 500px) */
 @media (max-width: 500px) {
   .modalContent {
     padding: 1.5rem;
   }
-
   .infoCard {
     flex-direction: column;
     gap: 0.4rem;
   }
 }
 
+/* Diversas situações (zoom grande, altura pequena, dispositivos estreitos) */
 @media (max-width: 700px), (max-height: 500px), (max-width: 1000px) and (max-zoom: 150%) {
   .perfilContainer {
     grid-template-columns: 1fr;
   }
-
   .leftPanel {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     padding: 1rem;
   }
-
   .btnGroup {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
   }
-
   .rightPanel {
     grid-template-columns: 1fr;
     padding: 1rem;
   }
-
   .infoCard {
     flex-direction: column;
     gap: 0.5rem;
   }
 }
 
+/* Celulares muito pequenos: força tudo a empilhar e ocupar 100% */
 @media (max-width: 480px) {
   .rightPanel {
     grid-template-columns: 1fr !important;
     padding: 1rem !important;
   }
-
   .infoQuadrante {
     width: 100% !important;
     max-width: 100% !important;
@@ -410,7 +429,6 @@
     word-break: break-word !important;
     margin-bottom: 1.5rem;
   }
-
   .infoCard {
     flex-wrap: wrap !important;
   }
