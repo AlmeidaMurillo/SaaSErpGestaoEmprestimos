@@ -14,7 +14,7 @@
 .filtros {
   display: flex;
   gap: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   flex-wrap: nowrap;
   align-items: center;
 }
@@ -204,6 +204,30 @@
   padding: 10px;
 }
 
+/* =======================
+   Avisos sobre clique 
+
+   FALTA FAZER ISSO EM CLIENTES, EMPRESTIMOSPAGOS E CONFIGURACOES
+   ======================= */
+
+.clienteClicavel {
+  cursor: pointer;
+  transition: color 0.2s ease;
+  text-align: center;
+}
+
+.clienteClicavel:active {
+  color: var(--sidebar-bg);
+  text-decoration: underline;
+}
+
+.avisocliente {
+  color: #aaa;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  margin-left: 12px;
+}
+
 /* ==============================
    Modal (sobreposição, conteúdo e botões)
    ============================== */
@@ -389,6 +413,7 @@
 
 /* Telas até 600px */
 @media (max-width: 600px) {
+
   .tabela th,
   .tabela td {
     padding: 18px;
@@ -616,6 +641,176 @@
   }
 }
 
+/* zoom 250% pra navegador desktop*/
+
+@media (min-resolution: 2.5dppx) and (hover: hover) and (pointer: fine) {
+
+  /* ────────────────────────────── */
+  /*     BARRA DE FILTROS           */
+  /* ────────────────────────────── */
+
+  .filtros {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 5px;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  .inputBusca {
+    padding: 5px 12px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background-color: var(--hover-bg);
+    color: var(--text-color);
+    flex: 1;
+    font-size: 0.4rem;
+    width: auto;
+    flex-shrink: 1;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .inputBusca:focus {
+    outline: none;
+    border: 1px solid var(--text-color);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--text-color) 60%, transparent);
+  }
+
+  .botaoNovo {
+    background-color: #22c55e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-size: 0.4rem;
+    transition: background-color 0.3s, transform 0.1s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .botaoNovo:active {
+    background-color: #16a34a;
+    transform: scale(0.98);
+  }
+
+  /* ────────────────────────────── */
+  /*           TABELA              */
+  /* ────────────────────────────── */
+
+  .tabelaWrapper {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: auto;
+    background-color: var(--sidebar-bg);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+
+  .tabela {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--sidebar-bg);
+    overflow: auto;
+  }
+
+  .tabela thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: var(--sidebar-bg);
+  }
+
+  .tabela th {
+    padding: 5px 12px;
+    border-bottom: 1px solid #333;
+    color: var(--text-color);
+    vertical-align: middle;
+    word-wrap: break-word;
+    font-size: 0.7rem;
+  }
+
+  .tabela td {
+    padding: 5px 12px;
+    border-bottom: 1px solid #333;
+    color: var(--text-color);
+    vertical-align: middle;
+    word-wrap: break-word;
+    font-size: 0.7rem;
+  }
+
+  .avisocliente {
+    color: #aaa;
+    font-size: 0.5rem;
+    margin-bottom: 8px;
+    margin-left: 12px;
+  }
+}
+
+/* zoom 400% para navegador desktop */
+@media (min-resolution: 4dppx) and (hover: hover) and (pointer: fine) {
+
+  .container {
+    height: 100dvh;
+  }
+
+  .filtros {
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+
+  /* ────────────────────────────── */
+  /*           TABELA              */
+  /* ────────────────────────────── */
+
+  .tabelaWrapper {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: auto;
+    background-color: var(--sidebar-bg);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+
+  .tabela {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--sidebar-bg);
+    overflow: auto;
+  }
+
+  .tabela thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: var(--sidebar-bg);
+  }
+
+  .tabela th {
+    padding: 3px 8px;
+    border-bottom: 1px solid #333;
+    color: var(--text-color);
+    vertical-align: middle;
+    word-wrap: break-word;
+    font-size: 0.7rem;
+  }
+
+  .tabela td {
+    padding: 3px 8px;
+    border-bottom: 1px solid #333;
+    color: var(--text-color);
+    vertical-align: middle;
+    word-wrap: break-word;
+    font-size: 0.7rem;
+  }
+
+  .avisocliente {
+    color: #aaa;
+    font-size: 0.4rem;
+    margin-left: 12px;
+  }
+}
+
 /* ==============================
    Hover states para dispositivos com suporte a hover e ponteiro fino
    ============================== */
@@ -646,5 +841,10 @@
   .botaoCancelar:hover {
     background: linear-gradient(135deg, #b91c1c, #991b1b);
     box-shadow: 0 10px 20px rgba(185, 28, 28, 0.7);
+  }
+
+  .clienteClicavel:hover {
+    color: var(--sidebar-bg);
+    text-decoration: underline;
   }
 }

@@ -46,7 +46,7 @@
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 10px 16px;
+  padding: 10px 14px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.1s;
   white-space: nowrap;
@@ -178,7 +178,7 @@
 
   .botaoNovo {
     font-size: 0.8rem;
-    padding: 8px 12px;
+    padding: 8px;
   }
 }
 
@@ -288,7 +288,7 @@
     border: none;
     border-radius: 4px;
     height: 15px;
-    padding: 0 8px;
+    padding: 0 5px;
     font-size: 0.4rem;
     line-height: 1;
     cursor: pointer;
@@ -307,7 +307,6 @@
   /* ────────────────────────────── */
 
   .filtros {
-    margin-top: -10px;
     display: flex;
     gap: 5px;
     margin-bottom: 5px;
@@ -321,7 +320,7 @@
     border-radius: 5px;
     background-color: var(--hover-bg);
     color: var(--text-color);
-    font-size: 0.7rem;
+    font-size: 0.4rem;
     flex: 1;
     width: auto;
     flex-shrink: 1;
@@ -338,8 +337,9 @@
     background-color: #22c55e;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     padding: 5px 12px;
+    font-size: 0.4rem;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.1s;
     white-space: nowrap;
@@ -407,14 +407,13 @@
 /* zoom 400% para navegador desktop */
 @media (min-resolution: 4dppx) and (hover: hover) and (pointer: fine) {
 
-  /* ────────────────────────────── */
-  /*     ESCONDER FILTROS / INPUT / BOTÃO */
-  /* ────────────────────────────── */
+  .container {
+    height: 100dvh;
+  }
 
-  .filtros,
-  .inputBusca,
-  .botaoNovo {
-    display: none !important;
+  .filtros {
+    flex-wrap: nowrap;
+    gap: 10px;
   }
 
   /* ────────────────────────────── */
@@ -422,7 +421,6 @@
   /* ────────────────────────────── */
 
   .tabelaWrapper {
-    margin-top: -5px;
     flex: 1;
     overflow-y: auto;
     overflow-x: auto;
@@ -464,76 +462,8 @@
   }
 
   .avisocliente {
-    margin-top: -10px;
     color: #aaa;
     font-size: 0.4rem;
-    margin-left: 12px;
-  }
-}
-
-/* zoom 500% para navegador desktop */
-@media (min-resolution: 5dppx) and (hover: hover) and (pointer: fine) {
-
-  /* ────────────────────────────── */
-  /*     ESCONDER FILTROS / INPUT / BOTÃO */
-  /* ────────────────────────────── */
-
-  .filtros,
-  .inputBusca,
-  .botaoNovo {
-    display: none !important;
-  }
-
-  /* ────────────────────────────── */
-  /*           TABELA              */
-  /* ────────────────────────────── */
-
-  .tabelaWrapper {
-    margin-top: -5px;
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: auto;
-    background-color: var(--sidebar-bg);
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-  }
-
-  .tabela {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: var(--sidebar-bg);
-    overflow: auto;
-  }
-
-  .tabela thead {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    background-color: var(--sidebar-bg);
-  }
-
-  .tabela th {
-    padding: 2px 6px;
-    border-bottom: 1px solid #333;
-    color: var(--text-color);
-    vertical-align: middle;
-    word-wrap: break-word;
-    font-size: 0.7rem;
-  }
-
-  .tabela td {
-    padding: 2px 6px;
-    border-bottom: 1px solid #333;
-    color: var(--text-color);
-    vertical-align: middle;
-    word-wrap: break-word;
-    font-size: 0.7rem;
-  }
-
-  .avisocliente {
-    margin-top: -15px;
-    color: #aaa;
-    font-size: 0.3rem;
     margin-left: 12px;
   }
 }

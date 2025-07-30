@@ -1,5 +1,5 @@
 /* =======================
-   Container principal
+   Container principal e filtros
    ======================= */
 .container {
   display: flex;
@@ -8,18 +8,16 @@
   box-sizing: border-box;
 }
 
-/* =======================
-   Área de filtros
-   ======================= */
 .filtros {
   display: flex;
   gap: 15px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
+  margin-bottom: 10px;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 
 /* =======================
-   Campo de busca
+   Input de busca
    ======================= */
 .inputBusca {
   padding: 10px 14px;
@@ -29,9 +27,11 @@
   color: var(--text-color);
   font-size: 1rem;
   flex: 1;
-  min-width: 200px;
+  width: auto;
+  flex-shrink: 1;
   transition: border 0.2s ease, box-shadow 0.2s ease;
 }
+
 .inputBusca:focus {
   outline: none;
   border: 1px solid var(--text-color);
@@ -39,7 +39,7 @@
 }
 
 /* =======================
-   Wrapper da tabela - scroll vertical e horizontal com cantos arredondados
+   Wrapper e tabela principal
    ======================= */
 .tabelaWrapper {
   flex: 1;
@@ -50,9 +50,6 @@
   border-bottom-left-radius: 8px;
 }
 
-/* =======================
-   Tabela principal
-   ======================= */
 .tabela {
   width: 100%;
   border-collapse: collapse;
@@ -79,6 +76,7 @@
 .tabelaRow {
   cursor: pointer;
 }
+
 .tabelaRow:active {
   background-color: var(--hover-bg);
 }
@@ -87,12 +85,13 @@
   background-color: var(--sidebar-bg);
 }
 
-/* Alinhamento e largura nas colunas específicas */
+/* Alinhamento específico colunas 1 e 2 */
 .tabela th:nth-child(1),
 .tabela td:nth-child(1) {
   text-align: left;
   width: 0%;
 }
+
 .tabela th:nth-child(2),
 .tabela td:nth-child(2) {
   text-align: center;
@@ -100,7 +99,7 @@
 }
 
 /* =======================
-   Mensagem “não encontrado”
+   Mensagem de "não encontrado"
    ======================= */
 .notFound {
   text-align: center;
@@ -110,318 +109,87 @@
 }
 
 /* =======================
-   Modal Overlay - fundo escuro com blur
+   Avisos sobre clique 
+
+   FALTA FAZER ISSO EM CLIENTES, EMPRESTIMOSPAGOS E CONFIGURACOES
    ======================= */
-.modalOverlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  backdrop-filter: blur(4px);
-}
 
-/* =======================
-   Card modal - fundo, bordas arredondadas, sombra e animação
-   ======================= */
-.modalCard {
-  background-color: var(--sidebar-bg);
-  color: var(--text-color);
-  padding: 30px;
-  border-radius: 20px;
-  width: 100%;
-  max-width: 600px;
-  max-height: 85vh;
-  margin: 0 16px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  animation: fadeInUp 0.3s ease;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* =======================
-   Títulos e infos do modal
-   ======================= */
-.modalTitle {
-  font-size: 1.7rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 20px;
-  color: var(--text-color);
-}
-
-.modalInfo {
-  margin-bottom: 12px;
-  font-size: 1rem;
-  padding: 0 4px;
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.clientId {
-  color: #e53935;
-  font-weight: 700;
-}
-.clientName {
-  color: #1565c0;
-  font-weight: 700;
-}
-.loanCount {
-  color: #00796b;
-  font-weight: 700;
-}
-
-/* =======================
-   Inputs de busca dentro do modal
-   ======================= */
-.modalSearchWrapperDouble {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-  width: 100%;
-}
-
-.modalSearchInputId {
-  flex: 3;
-  background-color: var(--hover-bg);
-  color: var(--text-color);
-  padding: 9px 10px;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 2px solid #aaa;
-  transition: border-color 0.3s ease;
-}
-
-.modalSearchInputDate {
-  flex: 1;
-  background-color: var(--hover-bg);
-  color: var(--text-color);
-  padding: 9px 8px;
-  font-size: 0.95rem;
-  border-radius: 8px;
-  border: 2px solid #aaa;
-  transition: border-color 0.3s ease;
-}
-
-.modalSearchInputId:focus,
-.modalSearchInputDate:focus {
-  border-color: 3px solid var(--text-color);
-  outline: none;
-}
-
-/* =======================
-   Tabela dentro do modal
-   ======================= */
-.scrollTable {
-  flex: 1;
-  overflow-y: auto;
-  border: 1px solid var(--hover-bg);
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  background-color: var(--sidebar-bg);
-  max-height: 380px;
-}
-
-.modalTabela {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 1rem;
-  color: var(--text-color);
-  table-layout: fixed;
-}
-
-.modalTabela th {
-  padding: 12px;
-  border-bottom: 1px solid #ccc;
-  text-align: center;
-  word-wrap: break-word;
-}
-
-.modalTabela td {
-  padding: 18px;
-  border-bottom: 1px solid #ccc;
-  text-align: center;
-  word-wrap: break-word;
-}
-
-.modalTabela thead {
-  background-color: var(--sidebar-bg);
-  color: var(--text-color);
-  font-weight: 700;
-  position: sticky;
-  top: 0;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-}
-
-.modalTabela tbody tr:active {
-  background-color: var(--hover-bg);
+.clienteClicavel {
   cursor: pointer;
+  transition: color 0.2s ease;
+  text-align: center;
 }
 
-/* =======================
-   Área de botões do modal
-   ======================= */
-.modalActions {
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
+.clienteClicavel:active {
+  color: var(--sidebar-bg);
+  text-decoration: underline;
 }
 
-.btnLimpar,
-.btnFechar {
-  padding: 10px 22px;
-  border: none;
-  border-radius: 10px;
+.avisocliente {
+  color: #aaa;
   font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.btnLimpar {
-  background-color: #ef5350;
-  color: white;
-}
-.btnFechar {
-  background-color: #4caf50;
-  color: white;
-}
-.btnLimpar:active {
-  background-color: #d32f2f;
-}
-.btnFechar:active {
-  background-color: #388e3c;
+  margin-bottom: 8px;
+  margin-left: 12px;
 }
 
 /* =======================
    Responsividades
    ======================= */
 
-/* Até 1024px - ajuste modal e tabela */
-@media screen and (max-width: 1024px) {
-  .modalCard {
-    width: 95%;
-    padding: 20px;
-    border-radius: 16px;
-  }
-
-  .modalTitle {
-    font-size: 1.5rem;
-    margin-bottom: 16px;
-  }
-
-  .modalInfo {
-    flex-direction: column;
-    align-items: center;
-    font-size: 0.95rem;
-    gap: 12px;
-  }
-
-  .modalSearchWrapperDouble {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .modalSearchInputId,
-  .modalSearchInputDate {
-    width: 100%;
-    font-size: 0.9rem;
-  }
-
-  .scrollTable {
-    max-height: 300px;
-  }
-
-  .modalTabela th {
-    padding: 14px;
-    font-size: 0.9rem;
-  }
-
-  .modalTabela td {
-    padding: 18px;
-    font-size: 0.9rem;
-  }
-
-  .btnLimpar,
-  .btnFechar {
-    padding: 8px 16px;
-    font-size: 0.9rem;
-  }
-}
-
-/* Até 600px - ajustes para modais e inputs */
-@media screen and (max-width: 600px) {
-  .modalCard {
-    padding: 16px;
-    max-height: 90vh;
-    border-radius: 12px;
-  }
-
-  .modalTitle {
-    font-size: 1.3rem;
-    margin-bottom: 12px;
-  }
-
-  .modalInfo {
-    font-size: 0.85rem;
-    gap: 8px;
-  }
-
-  .modalSearchInputId,
-  .modalSearchInputDate {
-    padding: 7px 10px;
-    font-size: 0.85rem;
-  }
-
-  .modalTabela th {
-    padding: 14px;
-    font-size: 0.9rem;
-  }
-
-  .modalTabela td {
-    padding: 18px;
-    font-size: 0.9rem;
-  }
-
-  .btnLimpar,
-  .btnFechar {
-    padding: 6px 12px;
-    font-size: 0.85rem;
-    border-radius: 8px;
-  }
-}
-
-/* Até 600px - tabela e inputBusca */
+/* Até 600px - ajustes fonte e espaçamento */
 @media (max-width: 600px) {
+
   .tabela th,
   .tabela td {
     padding: 18px;
     font-size: 14px;
   }
 
+  .filtros {
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+
   .inputBusca {
-    min-width: 100%;
+    font-size: 0.9rem;
+    padding: 8px;
+    min-width: 0;
+  }
+
+}
+
+/* Até 800px e telas com alta resolução e suporte a hover */
+@media screen and (max-width: 800px) and (min-resolution: 2dppx) and (hover: hover) and (pointer: fine) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .filtros {
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+
+  .tabela td:nth-child(3) {
+    white-space: nowrap;
+  }
+
+  .inputBusca {
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background-color: var(--hover-bg);
+    color: var(--text-color);
+    font-size: 1rem;
+    flex: 1;
+    min-width: 0;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
   }
 }
 
-/* Até 500px (alta resolução, hover e pointer fino) - ajustes wrapper tabela e input */
+/* Até 500px, alta resolução, hover e pointer fino */
 @media screen and (max-width: 500px) and (min-resolution: 2.5dppx) and (hover: hover) and (pointer: fine) {
   .container {
     display: flex;
@@ -454,9 +222,9 @@
 
   .filtros {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     margin-bottom: 5px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
 
   .tabela td:nth-child(3) {
@@ -474,76 +242,173 @@
     color: var(--text-color);
     border: 1px solid transparent;
     flex: 1;
-    min-width: 100px;
+    min-width: 0;
   }
 }
 
-/* Até 800px (alta resolução, hover e pointer fino) - ajustes inputBusca e td 3 */
-@media screen and (max-width: 800px) and (min-resolution: 2dppx) and (hover: hover) and (pointer: fine) {
-  .container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    box-sizing: border-box;
-  }
+/* zoom 250% pra navegador desktop*/
 
-  .tabela td:nth-child(3) {
-    white-space: nowrap;
+@media (min-resolution: 2.5dppx) and (hover: hover) and (pointer: fine) {
+
+  /* ────────────────────────────── */
+  /*     BARRA DE FILTROS           */
+  /* ────────────────────────────── */
+
+  .filtros {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 5px;
+    flex-wrap: nowrap;
+    align-items: center;
   }
 
   .inputBusca {
-    padding: 5px 10px;
+    padding: 5px 12px;
     border: 1px solid transparent;
-    border-radius: 8px;
+    border-radius: 5px;
     background-color: var(--hover-bg);
     color: var(--text-color);
-    font-size: 1rem;
+    font-size: 0.4rem;
     flex: 1;
-    min-width: 200px;
+    width: auto;
+    flex-shrink: 1;
     transition: border 0.2s ease, box-shadow 0.2s ease;
   }
-}
 
-/* Até 340px - ajuste fonte título modal específico */
-@media (max-width: 340px) {
-  .modalTitleTotalemprestimosPagos {
-    font-size: 0.9rem;
-  }
-}
-
-/* Até 667px - ajuste fontes e margens para modalInfo e título */
-@media(max-height: 667px) {
-  .modalInfo {
-    margin-bottom: 12px;
-    font-size: 1rem;
-    gap: 1px;
+  .inputBusca:focus {
+    outline: none;
+    border: 1px solid var(--text-color);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--text-color) 60%, transparent);
   }
 
-  .modalTitle {
-    font-size: 1.7rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 8px;
+  /* ────────────────────────────── */
+  /*           TABELA              */
+  /* ────────────────────────────── */
+
+  .tabelaWrapper {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: auto;
+    background-color: var(--sidebar-bg);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+
+  .tabela {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--sidebar-bg);
+    overflow: auto;
+  }
+
+  .tabela thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: var(--sidebar-bg);
+  }
+
+  .tabela th {
+    padding: 5px 12px;
+    border-bottom: 1px solid #333;
     color: var(--text-color);
+    vertical-align: middle;
+    word-wrap: break-word;
+    font-size: 0.7rem;
+  }
+
+  .tabela td {
+    padding: 5px 12px;
+    border-bottom: 1px solid #333;
+    color: var(--text-color);
+    vertical-align: middle;
+    word-wrap: break-word;
+    font-size: 0.7rem;
+  }
+
+  .avisocliente {
+    color: #aaa;
+    font-size: 0.5rem;
+    margin-bottom: 8px;
+    margin-left: 12px;
   }
 }
 
-/* Hover para dispositivos que suportam */
+/* zoom 400% para navegador desktop */
+@media (min-resolution: 4dppx) and (hover: hover) and (pointer: fine) {
+
+  .container {
+    height: 100dvh;
+  }
+
+  .filtros {
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+
+  /* ────────────────────────────── */
+  /*           TABELA              */
+  /* ────────────────────────────── */
+
+  .tabelaWrapper {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: auto;
+    background-color: var(--sidebar-bg);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+
+  .tabela {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--sidebar-bg);
+    overflow: auto;
+  }
+
+  .tabela thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: var(--sidebar-bg);
+  }
+
+  .tabela th {
+    padding: 3px 8px;
+    border-bottom: 1px solid #333;
+    color: var(--text-color);
+    vertical-align: middle;
+    word-wrap: break-word;
+    font-size: 0.7rem;
+  }
+
+  .tabela td {
+    padding: 3px 8px;
+    border-bottom: 1px solid #333;
+    color: var(--text-color);
+    vertical-align: middle;
+    word-wrap: break-word;
+    font-size: 0.7rem;
+  }
+
+  .avisocliente {
+    color: #aaa;
+    font-size: 0.4rem;
+    margin-left: 12px;
+  }
+}
+
+/* =======================
+   Hover effects (apenas dispositivos que suportam)
+   ======================= */
 @media (hover: hover) and (pointer: fine) {
+
   .tabelaRow:hover {
     background-color: var(--hover-bg);
   }
 
-  .modalTabela tbody tr:hover {
-    background-color: var(--hover-bg);
-    cursor: pointer;
-  }
-
-  .btnLimpar:hover {
-    background-color: #d32f2f;
-  }
-
-  .btnFechar:hover {
-    background-color: #388e3c;
+  .clienteClicavel:hover {
+    color: var(--sidebar-bg);
+    text-decoration: underline;
   }
 }

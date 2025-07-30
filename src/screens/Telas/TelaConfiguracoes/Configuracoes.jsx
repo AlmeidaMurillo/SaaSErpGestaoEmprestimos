@@ -156,7 +156,9 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
                 + Novo Funcionário
               </button>
             </div>
-
+            <p className={styles.avisocliente}>
+              👆 Clique No Card Do Funcionário Para Ver Mais Informações Do Funcionário.
+            </p>
             <div className={styles.tabelaWrapper}>
               <table className={styles.tabela}>
                 <thead>
@@ -174,7 +176,7 @@ function Configuracoes({ isCollapsed, toggleSidebar }) {
                         onClick={() => abrirModalVisualizacao(func)}
                       >
                         <td>{func.id}</td>
-                        <td>{func.nome}</td>
+                        <td className={styles.clienteClicavel}>👁️ {func.nome}</td>
                       </tr>
                     ))
                   ) : (

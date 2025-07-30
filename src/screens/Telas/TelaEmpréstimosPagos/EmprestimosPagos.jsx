@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import MenuDonos from "../../../components/MenuDonos/MenuDonos";
 import MenuUsers from "../../../components/MenuUsers/MenuUsers";
 import styles from "./EmprestimosPagos.module.css";
+import { useNavigate } from "react-router-dom";
 
 function EmprestimosPagos({ isCollapsed, toggleSidebar }) {
   const [tipoUsuario, setTipoUsuario] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [emprestimosPagos, setEmprestimosPagos] = useState([]);
+  const [emprestimos, setEmprestimos] = useState([]);
+  const navigate = useNavigate();
 
   const [selectedClient, setSelectedClient] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,10 +31,10 @@ function EmprestimosPagos({ isCollapsed, toggleSidebar }) {
         data: `2025-07-${((i % 30) + 1).toString().padStart(2, "0")}`,
       });
     }
-    setEmprestimosPagos(fakeData);
+    setEmprestimos(fakeData);
   }, []);
 
-  const filteredPagos = emprestimosPagos.filter(
+  const filteredEmprestimos = emprestimos.filter(
     (e) =>
       e.cliente.toLowerCase().includes(searchTerm.toLowerCase()) ||
       e.id.toString().includes(searchTerm)
@@ -57,14 +59,15 @@ function EmprestimosPagos({ isCollapsed, toggleSidebar }) {
   };
 
   const clientLoans = selectedClient
-    ? emprestimosPagos.filter((e) => e.cliente === selectedClient.cliente)
+    ? emprestimos.filter((e) => e.cliente === selectedClient.cliente)
     : [];
 
-  const filteredClientLoans = clientLoans.filter(
-    (e) =>
-      e.id.toString().includes(modalSearchTerm) &&
-      e.data.includes(modalSearchData)
-  );
+  const filteredClientLoans = clientLoans.filter((e) => {
+    const idMatch =
+      !modalSearchTerm || e.id.toString().includes(modalSearchTerm);
+    const dataMatch = !modalSearchData || e.data.includes(modalSearchData);
+    return idMatch && dataMatch;
+  });
 
   const renderModal = () => {
     if (!isModalOpen || !selectedClient) return null;
@@ -72,7 +75,7 @@ function EmprestimosPagos({ isCollapsed, toggleSidebar }) {
     return (
       <div className={styles.modalOverlay}>
         <div className={styles.modalCard}>
-          <h2 className={styles.modalTitle}>Empréstimos Pagos</h2>
+          <h2 className={styles.modalTitle}>Empréstimos</h2>
 
           <div className={styles.modalInfo}>
             <p>
@@ -86,10 +89,8 @@ function EmprestimosPagos({ isCollapsed, toggleSidebar }) {
               </span>
             </p>
             <p>
-              <strong className={styles.modalTitleTotalemprestimosPagos}>Total de Empréstimos Pagos:</strong>{" "}
-              <span className={styles.loanCount}>
-                50
-              </span>
+              <strong>Total de Empréstimos:</strong>{" "}
+              <span className={styles.loanCount}>{clientLoans.length}</span>
             </p>
           </div>
 
@@ -149,67 +150,69 @@ function EmprestimosPagos({ isCollapsed, toggleSidebar }) {
     );
   };
 
-  const renderPagos = () => (
-    <div className={styles.container}>
-      <div className={styles.filtros}>
-        <input
-          type="text"
-          placeholder="Pesquisar por nome ou ID..."
-          className={styles.inputBusca}
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
-
-      <div className={styles.tabelaWrapper}>
-        <table className={styles.tabela}>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Cliente</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredPagos.length > 0 ? (
-              filteredPagos.map((e) => (
-                <tr
-                  className={styles.tabelaRow}
-                  key={`${e.id}-${e.cliente}`}
-                  onClick={() => openModal(e)}
-                >
-                  <td>{e.id}</td>
-                  <td>{e.cliente}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="2" className={styles.notFound}>
-                  Nenhum cliente encontrado com este nome ou id.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-
-      {renderModal()}
+  const renderEmprestimos = () => (
+  <div className={styles.container}>
+    <div className={styles.filtros}>
+      <input
+        type="text"
+        placeholder="Pesquisar por cliente ou ID..."
+        className={styles.inputBusca}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
     </div>
-  );
+    <p className={styles.avisocliente}>
+      👆 Clique No Card Do Cliente Desejado Para Ver Os Empréstimos Pagos Mais Detalhados.
+    </p>
 
-  const renderMenu =
+    <div className={styles.tabelaWrapper}>
+      <table className={styles.tabela}>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredEmprestimos.length > 0 ? (
+            filteredEmprestimos.map((e) => (
+              <tr
+                className={styles.tabelaRow}
+                key={`${e.id}-${e.cliente}`}
+                onClick={() => navigate(`/listaemprestimos`)}
+              >
+                <td>{e.id}</td>
+                <td className={styles.clienteClicavel}>👁️ {e.cliente}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="2" className={styles.notFound}>
+                Nenhum empréstimo encontrado.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+    {renderModal()}
+  </div>
+);
+
+  const renderMenu = () =>
     tipoUsuario === "admin" ? (
       <MenuDonos isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>
-        {renderPagos()}
+        {renderEmprestimos()}
       </MenuDonos>
     ) : tipoUsuario === "user" ? (
       <MenuUsers isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>
-        {renderPagos()}
+        {renderEmprestimos()}
       </MenuUsers>
     ) : (
       <p>Carregando...</p>
     );
 
-  return <>{renderMenu}</>;
+  return <>{renderMenu()}</>;
 }
 
 export default EmprestimosPagos;

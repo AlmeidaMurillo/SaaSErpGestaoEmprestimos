@@ -163,7 +163,7 @@ function Emprestimos({ isCollapsed, toggleSidebar }) {
       <button className={styles.botaoNovo}>+ Novo Empréstimo</button>
     </div>
     <p className={styles.avisocliente}>
-      👆 Clique no nome do cliente para ver os empréstimos detalhados.
+      👆 Clique No Card Do Cliente Desejado Para Ver Os Empréstimos Pendentes Mais Detalhados.
     </p>
 
     <div className={styles.tabelaWrapper}>

@@ -25,9 +25,10 @@ function Clientes({ isCollapsed, toggleSidebar }) {
     }
   }, []);
 
-  const filteredClientes = clientes.filter((cliente) =>
-    cliente.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    cliente.id.toString().includes(searchTerm)
+  const filteredClientes = clientes.filter(
+    (cliente) =>
+      cliente.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      cliente.id.toString().includes(searchTerm)
   );
 
   const renderClientes = () => (
@@ -42,7 +43,9 @@ function Clientes({ isCollapsed, toggleSidebar }) {
         />
         <button className={styles.botaoNovo}>+ Novo Cliente</button>
       </div>
-
+      <p className={styles.avisocliente}>
+        👆 Clique No Card Do Cliente Para Ver Mais Informações Do Cliente.
+      </p>
       <div className={styles.tabelaWrapper}>
         <table className={styles.tabela}>
           <thead>
@@ -54,9 +57,12 @@ function Clientes({ isCollapsed, toggleSidebar }) {
           <tbody>
             {filteredClientes.length > 0 ? (
               filteredClientes.map((cliente) => (
-                <tr className={styles.tabelaRow} key={`${cliente.id}-${cliente.nome}`}>
+                <tr
+                  className={styles.tabelaRow}
+                  key={`${cliente.id}-${cliente.nome}`}
+                >
                   <td>{cliente.id}</td>
-                  <td>{cliente.nome}</td>
+                  <td className={styles.clienteClicavel}>👁️ {cliente.nome}</td>
                 </tr>
               ))
             ) : (
